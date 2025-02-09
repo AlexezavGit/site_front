@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertReferralSchema } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
+import { ZodError } from "zod";
 
 export function registerRoutes(app: Express): Server {
   // Referral endpoints
@@ -12,7 +13,7 @@ export function registerRoutes(app: Express): Server {
       const referral = await storage.createReferral(parsed);
       res.json(referral);
     } catch (error) {
-      if (error instanceof Error) {
+      if (error instanceof ZodError) {
         res.status(400).json({ 
           message: fromZodError(error).message 
         });
