@@ -4,6 +4,7 @@ import {
   UserPlus, Stethoscope, ClipboardCheck, 
   PlayCircle, Percent, CheckCircle,
   ArrowRight, 
+  Brain, Activity, LineChart
 } from "lucide-react";
 
 const clientJourneySteps = [
@@ -53,46 +54,34 @@ export default function Methodology() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className="text-4xl font-bold mb-8">Перебіг подій залежно від тригерів</h1>
-
-        <div className="grid md:grid-cols-2 gap-12 mb-12">
-          <div>
-            <img
-              src="https://images.unsplash.com/photo-1612538498456-e861df91d4d0"
-              alt="Чоловік ветеран на консультації"
-              className="rounded-lg shadow-lg"
-            />
-          </div>
-          <div>
-            <h2 className="text-2xl font-semibold mb-4">Процес реабілітації</h2>
-            <p className="text-lg text-muted-foreground mb-6">
-              Покроковий шлях відновлення з чіткими тригерами та діями на кожному етапі,
-              що забезпечує прозорість та ефективність процесу.
-            </p>
-          </div>
-        </div>
+        <h1 className="text-4xl font-bold mb-8 text-center">Перебіг подій залежно від тригерів</h1>
 
         {/* Client Journey Flow Chart */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6">Етапи процесу</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8">
             {clientJourneySteps.map((step, index) => (
               <div key={index} className="relative">
                 <Card className="group transition-all duration-300 hover:shadow-lg">
                   <CardContent className="pt-6">
-                    <step.icon className="h-12 w-12 text-primary mb-4" />
-                    <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.description}</p>
+                    <div className="flex flex-col md:flex-row items-center gap-4">
+                      <div className="flex-shrink-0">
+                        <step.icon className="h-12 w-12 text-primary" />
+                      </div>
+                      <div className="text-center md:text-left">
+                        <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
+                        <p className="text-muted-foreground text-base md:text-lg">{step.description}</p>
+                      </div>
+                    </div>
 
                     {/* Hover Details */}
                     <div className="absolute inset-0 bg-background/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
-                      <p className="text-sm">{step.details}</p>
+                      <p className="text-base md:text-lg">{step.details}</p>
                     </div>
                   </CardContent>
                 </Card>
                 {index < clientJourneySteps.length - 1 && (
-                  <div className="hidden md:block absolute -right-4 top-1/2 transform -translate-y-1/2">
-                    <ArrowRight className="text-primary w-8 h-8" />
+                  <div className="flex justify-center my-4">
+                    <ArrowRight className="text-primary w-8 h-8 transform rotate-90 md:rotate-0" />
                   </div>
                 )}
               </div>
@@ -101,72 +90,58 @@ export default function Methodology() {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 mb-12">
-          <Card className="relative overflow-hidden group">
+          <Card>
             <CardContent className="pt-6">
-              <Brain className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Evidence-Based Methods</h3>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>Cognitive Behavioral Therapy</li>
-                <li>EMDR Trauma Treatment</li>
-                <li>Somatic Experience</li>
-                <li>Group Support Sessions</li>
-              </ul>
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <p className="text-sm">
-                  All methods are WHO-approved and adapted for conflict zones
-                </p>
+              <div className="text-center">
+                <Brain className="h-12 w-12 text-primary mb-4 mx-auto" />
+                <h3 className="text-xl font-semibold mb-3">Оцінка</h3>
+                <ul className="space-y-2 text-muted-foreground text-left">
+                  <li>Анкета PTSD</li>
+                  <li>Клінічне інтерв'ю</li>
+                  <li>Оцінка травми</li>
+                  <li>Сімейна підтримка</li>
+                </ul>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="relative overflow-hidden group">
+          <Card>
             <CardContent className="pt-6">
-              <Activity className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Treatment Process</h3>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>Initial Assessment</li>
-                <li>Customized Treatment Plan</li>
-                <li>Regular Progress Review</li>
-                <li>Family Integration</li>
-              </ul>
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <p className="text-sm">
-                  Personalized approach with continuous monitoring
-                </p>
+              <div className="text-center">
+                <Activity className="h-12 w-12 text-primary mb-4 mx-auto" />
+                <h3 className="text-xl font-semibold mb-3">Терапія</h3>
+                <ul className="space-y-2 text-muted-foreground text-left">
+                  <li>КПТ терапія</li>
+                  <li>EMDR терапія</li>
+                  <li>Групова підтримка</li>
+                  <li>Сімейне консультування</li>
+                </ul>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="relative overflow-hidden group">
+          <Card>
             <CardContent className="pt-6">
-              <LineChart className="h-12 w-12 text-primary mb-4" />
-              <h3 className="text-xl font-semibold mb-3">Outcome Tracking</h3>
-              <ul className="space-y-2 text-muted-foreground">
-                <li>Symptom Monitoring</li>
-                <li>Quality of Life Measures</li>
-                <li>Functional Improvement</li>
-                <li>Family Feedback</li>
-              </ul>
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                <p className="text-sm">
-                  Regular assessment of treatment effectiveness
-                </p>
+              <div className="text-center">
+                <LineChart className="h-12 w-12 text-primary mb-4 mx-auto" />
+                <h3 className="text-xl font-semibold mb-3">Моніторинг</h3>
+                <ul className="space-y-2 text-muted-foreground text-left">
+                  <li>Відстеження прогресу</li>
+                  <li>Моніторинг симптомів</li>
+                  <li>Вимірювання результатів</li>
+                  <li>Довгострокове спостереження</li>
+                </ul>
               </div>
             </CardContent>
           </Card>
         </div>
+
         <div className="prose prose-lg max-w-none">
-          <h2>Забезпечення якості</h2>
-          <p>
+          <h2 className="text-center">Забезпечення якості</h2>
+          <p className="text-center text-lg">
             Всі методи терапії затверджені Всесвітньою організацією охорони здоров'я
-            та адаптовані для роботи в умовах військового конфлікту:
+            та адаптовані для роботи в умовах військового конфлікту
           </p>
-          <ul>
-            <li>Регулярна супервізія та професійний розвиток</li>
-            <li>Оновлення методик на основі доказової медицини</li>
-            <li>Культурно-компетентний підхід</li>
-            <li>Принципи травма-інформованої допомоги</li>
-          </ul>
         </div>
       </motion.div>
     </div>
