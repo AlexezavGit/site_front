@@ -54,7 +54,7 @@ export default function Methodology() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className="text-4xl font-bold mb-8 text-center">Перебіг подій залежно від тригерів</h1>
+        <h1 className="text-5xl font-bold mb-8 text-center">Перебіг подій залежно від тригерів</h1>
 
         {/* Client Journey Flow Chart */}
         <div className="mb-12">
@@ -65,23 +65,23 @@ export default function Methodology() {
                   <CardContent className="pt-6">
                     <div className="flex flex-col md:flex-row items-center gap-4">
                       <div className="flex-shrink-0">
-                        <step.icon className="h-12 w-12 text-primary" />
+                        <step.icon className="h-16 w-16 text-primary" />
                       </div>
                       <div className="text-center md:text-left">
-                        <h3 className="text-xl font-semibold mb-2">{step.title}</h3>
-                        <p className="text-muted-foreground text-base md:text-lg">{step.description}</p>
+                        <h3 className="text-2xl font-semibold mb-2">{step.title}</h3>
+                        <p className="text-muted-foreground text-lg md:text-xl">{step.description}</p>
                       </div>
                     </div>
 
                     {/* Hover Details */}
                     <div className="absolute inset-0 bg-background/95 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-6">
-                      <p className="text-base md:text-lg">{step.details}</p>
+                      <p className="text-lg md:text-xl">{step.details}</p>
                     </div>
                   </CardContent>
                 </Card>
                 {index < clientJourneySteps.length - 1 && (
                   <div className="flex justify-center my-4">
-                    <ArrowRight className="text-primary w-8 h-8 transform rotate-90 md:rotate-0" />
+                    <ArrowRight className="text-primary w-10 h-10 transform rotate-90 md:rotate-0" />
                   </div>
                 )}
               </div>
@@ -93,9 +93,9 @@ export default function Methodology() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <Brain className="h-12 w-12 text-primary mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold mb-3">Оцінка</h3>
-                <ul className="space-y-2 text-muted-foreground text-left">
+                <Brain className="h-16 w-16 text-primary mb-4 mx-auto" />
+                <h3 className="text-2xl font-semibold mb-3">Оцінка</h3>
+                <ul className="space-y-3 text-muted-foreground text-left text-lg">
                   <li>Анкета PTSD</li>
                   <li>Клінічне інтерв'ю</li>
                   <li>Оцінка травми</li>
@@ -108,9 +108,9 @@ export default function Methodology() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <Activity className="h-12 w-12 text-primary mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold mb-3">Терапія</h3>
-                <ul className="space-y-2 text-muted-foreground text-left">
+                <Activity className="h-16 w-16 text-primary mb-4 mx-auto" />
+                <h3 className="text-2xl font-semibold mb-3">Терапія</h3>
+                <ul className="space-y-3 text-muted-foreground text-left text-lg">
                   <li>КПТ терапія</li>
                   <li>EMDR терапія</li>
                   <li>Групова підтримка</li>
@@ -123,9 +123,9 @@ export default function Methodology() {
           <Card>
             <CardContent className="pt-6">
               <div className="text-center">
-                <LineChart className="h-12 w-12 text-primary mb-4 mx-auto" />
-                <h3 className="text-xl font-semibold mb-3">Моніторинг</h3>
-                <ul className="space-y-2 text-muted-foreground text-left">
+                <LineChart className="h-16 w-16 text-primary mb-4 mx-auto" />
+                <h3 className="text-2xl font-semibold mb-3">Моніторинг</h3>
+                <ul className="space-y-3 text-muted-foreground text-left text-lg">
                   <li>Відстеження прогресу</li>
                   <li>Моніторинг симптомів</li>
                   <li>Вимірювання результатів</li>
@@ -137,8 +137,8 @@ export default function Methodology() {
         </div>
 
         <div className="prose prose-lg max-w-none">
-          <h2 className="text-center">Забезпечення якості</h2>
-          <p className="text-center text-lg">
+          <h2 className="text-center text-3xl">Забезпечення якості</h2>
+          <p className="text-center text-xl">
             Всі методи терапії затверджені Всесвітньою організацією охорони здоров'я
             та адаптовані для роботи в умовах військового конфлікту
           </p>
