@@ -8,12 +8,11 @@ import Footer from "@/components/layout/Footer";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
-import Sustainable from "@/pages/Sustainable";
-import Sources from "@/pages/Sources";
-import Capacity from "@/pages/Capacity";
+import Impact from "@/pages/Impact";
+import Methodology from "@/pages/Methodology";
+import ForDonors from "@/pages/ForDonors";
+import Stories from "@/pages/Stories";
 import Referral from "@/pages/Referral";
-import CSR from "@/pages/CSR";
-import Data from "@/pages/Data";
 
 function Router() {
   return (
@@ -23,12 +22,11 @@ function Router() {
         <Switch>
           <Route path="/" component={Home} />
           <Route path="/about" component={About} />
-          <Route path="/sustainable" component={Sustainable} />
-          <Route path="/sources" component={Sources} />
-          <Route path="/capacity" component={Capacity} />
+          <Route path="/impact" component={Impact} />
+          <Route path="/methodology" component={Methodology} />
+          <Route path="/for-donors" component={ForDonors} />
+          <Route path="/stories" component={Stories} />
           <Route path="/referral" component={Referral} />
-          <Route path="/csr" component={CSR} />
-          <Route path="/data" component={Data} />
           <Route component={NotFound} />
         </Switch>
       </main>
