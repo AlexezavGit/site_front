@@ -1,35 +1,47 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
-  Brain, Activity, LineChart, 
-  ClipboardCheck, UserCheck, Timer,
-  GitMerge, Route
+  UserPlus, Stethoscope, ClipboardCheck, 
+  PlayCircle, Percent, CheckCircle,
+  ArrowRight, 
 } from "lucide-react";
 
 const clientJourneySteps = [
   {
-    icon: UserCheck,
-    title: "Initial Contact",
-    description: "First meeting and needs assessment",
-    details: "Comprehensive evaluation of veteran's needs and current situation"
+    icon: UserPlus,
+    title: "Реєстрація реципієнта",
+    description: "Направлення цифрового ордера на Попередню діагностику",
+    details: "Початок шляху реабілітації"
+  },
+  {
+    icon: Stethoscope,
+    title: "Результат діагностики",
+    description: "Направлення цифрового ордера Сеанс до фахівця",
+    details: "Професійна оцінка стану та потреб"
   },
   {
     icon: ClipboardCheck,
-    title: "Diagnosis",
-    description: "Professional assessment using WHO-approved tools",
-    details: "Using standardized PTSD and trauma assessment protocols"
+    title: "Затвердження діагнозу",
+    description: "Направлення цифрового Ордера на курс рехабу",
+    details: "Формування індивідуального плану реабілітації"
   },
   {
-    icon: GitMerge,
-    title: "Treatment Selection",
-    description: "Customized therapy plan",
-    details: "CBT, EMDR, or somatic therapy based on individual needs"
+    icon: PlayCircle,
+    title: "Перший сеанс курсу реабілітації",
+    description: "Направлення цифрового Ордера Р2Р збір ресурсів",
+    details: "Початок активної фази реабілітації"
   },
   {
-    icon: Timer,
-    title: "Progress Monitoring",
-    description: "Regular assessment and adjustment",
-    details: "Tracking improvement using validated measurement tools"
+    icon: Percent,
+    title: "Проходження 25% курсу рехабу",
+    description: "Направлення цифрового Ордера фінансування з гуманітарних бюджетів",
+    details: "Оцінка прогресу та активація додаткової підтримки"
+  },
+  {
+    icon: CheckCircle,
+    title: "Завершення курсу реабілітації",
+    description: "Направлення звіту донору та всім учасникам",
+    details: "Відзначення успішного завершення програми та можливість привітати учасника"
   }
 ];
 
@@ -41,29 +53,29 @@ export default function Methodology() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h1 className="text-4xl font-bold mb-8">Evidence-Based Interventions for War Trauma</h1>
+        <h1 className="text-4xl font-bold mb-8">Перебіг подій залежно від тригерів</h1>
 
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           <div>
             <img
               src="https://images.unsplash.com/photo-1612538498456-e861df91d4d0"
-              alt="Male veteran receiving professional counseling"
+              alt="Чоловік ветеран на консультації"
               className="rounded-lg shadow-lg"
             />
           </div>
           <div>
-            <h2 className="text-2xl font-semibold mb-4">Our Approach</h2>
+            <h2 className="text-2xl font-semibold mb-4">Процес реабілітації</h2>
             <p className="text-lg text-muted-foreground mb-6">
-              Our methodology is grounded in evidence-based practices, specifically
-              tailored for veterans affected by war trauma.
+              Покроковий шлях відновлення з чіткими тригерами та діями на кожному етапі,
+              що забезпечує прозорість та ефективність процесу.
             </p>
           </div>
         </div>
 
         {/* Client Journey Flow Chart */}
         <div className="mb-12">
-          <h2 className="text-2xl font-semibold mb-6">Client Journey</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <h2 className="text-2xl font-semibold mb-6">Етапи процесу</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {clientJourneySteps.map((step, index) => (
               <div key={index} className="relative">
                 <Card className="group transition-all duration-300 hover:shadow-lg">
@@ -79,7 +91,9 @@ export default function Methodology() {
                   </CardContent>
                 </Card>
                 {index < clientJourneySteps.length - 1 && (
-                  <Route className="hidden md:block absolute -right-6 top-1/2 transform -translate-y-1/2 rotate-90 text-muted-foreground" />
+                  <div className="hidden md:block absolute -right-4 top-1/2 transform -translate-y-1/2">
+                    <ArrowRight className="text-primary w-8 h-8" />
+                  </div>
                 )}
               </div>
             ))}
@@ -142,16 +156,16 @@ export default function Methodology() {
           </Card>
         </div>
         <div className="prose prose-lg max-w-none">
-          <h2>Quality Assurance</h2>
+          <h2>Забезпечення якості</h2>
           <p>
-            All our therapeutic methods are approved by the World Health Organization
-            and specifically adapted for conflict zones. Our approach emphasizes:
+            Всі методи терапії затверджені Всесвітньою організацією охорони здоров'я
+            та адаптовані для роботи в умовах військового конфлікту:
           </p>
           <ul>
-            <li>Regular supervision and professional development</li>
-            <li>Evidence-based practice updates</li>
-            <li>Cultural competency training</li>
-            <li>Trauma-informed care principles</li>
+            <li>Регулярна супервізія та професійний розвиток</li>
+            <li>Оновлення методик на основі доказової медицини</li>
+            <li>Культурно-компетентний підхід</li>
+            <li>Принципи травма-інформованої допомоги</li>
           </ul>
         </div>
       </motion.div>
