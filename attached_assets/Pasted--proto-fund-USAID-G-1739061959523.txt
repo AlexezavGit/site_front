@@ -1,0 +1,46 @@
+Цель: Переработать контент и структуру сайта proto.fund для соответствия критериям доноров (USAID, GFF, UN agencies) и лучшим практикам психического здоровья в условиях войны.
+
+Задачи:
+
+Структура:
+
+Добавить страницы «Evidence-Based Approach» (методы, сертификаты специалистов), «Impact» (KPI, отчеты), «Partners» (логины доноров, CSR-партнеры).
+
+В разделе «Sustainable» сделать акцент не только на экологичности, но и на финансовой/кадровой устойчивости (например, «10 летняя модель ротации специалистов»).
+
+Лексика:
+
+Заменить «помощь» на «long-term mental health support systems», «гуманитарный ответ» → «trauma-sensitive humanitarian response».
+
+Использовать фразы: «scalable solutions», «cross-sector partnerships», «community-led recovery», «survivor-centered care».
+
+Визуал:
+
+Добавить инфографику с цепочкой воздействия: «Донор → обучение психолога → 100 часов терапии → снижение PTSD на 40%».
+
+Включить видео-обращения экспертов с субтитрами на английском.
+
+SEO и доноры:
+
+Ключевые слова: «mental health in conflict zones», «war trauma recovery», «sustainable SDG3 programs», «private sector engagement in humanitarian aid».
+
+Раздел «For Donors» с шаблонами проектных предложений, логической рамкой (logframe), бюджетом.
+
+Инклюзивность:
+
+Языковые версии: английский/украинский (минимум).
+
+Доступность для людей с инвалидностью: alt-тексты, шрифты для дислексиков.
+
+Пример переработанного текста (для раздела Sustainable):
+«Our programs align with the WHO’s Building Back Better framework, ensuring that 70% of interventions are led by locally trained specialists. Through partnerships with private practitioners, we create a sustainable mental health ecosystem, reducing long-term dependency on external funding. Annual impact audits by [Название международной организации] guarantee transparency.»
+
+Критерии успеха:
+
+Увеличение конверсии доноров (заявки на партнерство +30%).
+
+Упоминание proto.fund в отчетах международных организаций (как пример best practice).
+
+Рост охвата аудитории через SEO (топ-10 запросов по «mental health programs Ukraine»).
+
+Примечание: Для реализации рекомендую провести аудит сайта с участием копирайтера, знакомого с грантовой лексикой, и психолога-консультанта из зон конфликтов (например, сотрудничество с Global Psychological Hub).
