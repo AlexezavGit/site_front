@@ -1,0 +1,246 @@
+FEEL Again — Документ 4: Канонічний датасет
+Єдине джерело правди для всіх цифр програми / Single Source of Truth for All Programme Numbers
+v1.0 | Березень 2026 | Двомовний робочий документ
+
+Навіщо цей документ
+Пакет FEEL Again містить 5 документів. Кожна цифра, яка з'являється в будь-якому з них, повинна мати одне джерело: цей документ. Жоден інший документ не містить "власних" цифр — він посилається сюди.
+
+Це усуває головну проблему: розбіжності між файлами (mhGAP 96K vs 117K, treatment gap 74% vs інші варіанти, commission 2.5-3.5% vs 7-3%). Кожна цифра тут має: значення, джерело, дату верифікації, статус (canonical / contested / assumption).
+
+Purpose of This Document
+The FEEL Again package contains 5 documents. Every number appearing in any of them must have one source: this document. No other document holds "its own" numbers — it references here.
+
+This eliminates the main problem: discrepancies across files (mhGAP 96K vs 117K, treatment gap 74% vs other variants, commission 2.5-3.5% vs 7-3%). Each number here has: value, source, verification date, status (canonical / contested / assumption).
+
+3.9M
+Клінічна потреба / Clinical Need
+Lancet 2023
+1.3
+Психологів на 100K / per 100K
+WHO Atlas 2020, EU avg 2.7
+74%
+Treatment Gap (IDPs)
+UNHCR/IOM 2023
+~0%
+Синхронізація з ЕСОЗ
+eHealth Ukraine data
+1. Канонічний датасет: популяція та потреби / Canonical Dataset: Population & Needs
+Показник / Indicator	Значення / Value	Джерело / Source	Статус
+Населення України / Population	~36.5M (2024 est.)	IMF World Economic Outlook, State Statistics Service	CANONICAL
+Прогноз до 2030 / Projection to 2030	~34M	IMF, UNDP demographic projections	CANONICAL
+Клінічна потреба MHPSS / Clinical MHPSS Need	3.9M осіб	Lancet Commission on Global Mental Health, 2023	CANONICAL
+Кількість ВПО / IDPs	~5.1M внутрішніх	UNHCR Ukraine Situation, 2024	CANONICAL
+Treatment Gap (IDPs)	74%	IOM/UNHCR Mental Health Needs Assessment, 2023	CANONICAL
+Психологів на 100K / Psychologists per 100K	1.3 (EU avg 2.7)	WHO Mental Health Atlas 2020	CANONICAL
+Бенефіціари ЕСОЗ / eHealth Beneficiaries	36.5M підписаних декларацій	eHealth Ukraine (НСЗУ)	CANONICAL
+Стандарт інтероперабельності / Interoperability Standard	HL7 FHIR R4	eHealth Ukraine Technical Documentation	CANONICAL
+Синхронізація гуманітарних даних з ЕСОЗ	~0%	Ecosystem Audit v2.1, WHO coordination data	CANONICAL
+Необхідний обсяг сесій / Sessions Needed	62.4M годин	Розрахунок: 3.9M × 16 сесій (WHO avg 12-20)	РОЗРАХУНОК
+Потенційний обсяг ринку / Market Size	$2.5-4.5B	Розрахунок: 3.9M × 12-20 sessions × $70/hr	ПРИПУЩЕННЯ — верхня межа
+GDP benchmark ($8B)	~$8B / рік втрат	5% GDP (OECD methodology), Ukraine GDP ~$160B (2021)	CANONICAL
+Формула потреб: Clinical Need = 3.9M × 16 sessions × 1 hr = 62.4M hours
+Формула ринку: Market = 3.9M × avg(12,20) sessions × $70/hr = $2.5-4.5B (theoretical max)
+Формула GDP втрат: GDP Loss = ~$160B × 5% = ~$8B/year (LSE/Centre for Mental Health methodology)
+УВАГА / CAUTION: $2.5-4.5B — це теоретичний максимум ринку, не бюджет програми і не реальний попит. Використовувати для контексту масштабу проблеми, не для financial projections. Реалістичний addressable market значно менший.
+2. Killer Table: Навчання vs Практика / Training vs Practice
+Ця таблиця демонструє фундаментальну проблему сектору: масове навчання не конвертується у практику. 117,652 сертифікатів mhGAP видано — 42 людини практикують під супервізією. Це не провал навчання — це відсутність інфраструктури, яка з'єднує навчену людину з пацієнтом, оплатою та звітністю.
+
+This table demonstrates the sector's fundamental problem: mass training does not convert to practice. 117,652 mhGAP certificates issued — 42 people practice under supervision. This is not a training failure — it is the absence of infrastructure connecting a trained person with a patient, payment, and reporting.
+
+Програма / Programme	Навчено / Trained	Практикує / Practicing	Конверсія / Conversion	Джерело / Source
+mhGAP online certificates	117,652	Невідомо / Unknown	NOT MEASURED	WHO Ukraine mhGAP Dashboard
+mhGAP supervised practice	700	42	6%	PMC 2020
+UNICEF MHPSS trained	38,000+	Невідомо / Unknown	NOT MEASURED	UNICEF Ukraine Reports
+ТИ ЯК? listeners	400,000	Невідомо / Unknown	NOT MEASURED	ТИ ЯК? Programme Data
+WHO consultations	80,000+	Невідомо / Unknown	NOT MEASURED	WHO Ukraine
+HeRAMS verified staff	8,201	8,201	100%	HeRAMS Registry
+Канонічне значення mhGAP: 117,652 (не 96K як в деяких файлах). Джерело: WHO mhGAP Dashboard, підтверджено в Data Discrepancies register (Session Extraction, Part 7).
+ТИ ЯК?: 400K listeners = awareness, NOT treatment. Це програма обізнаності, не клінічна допомога. FEEL Again = інфраструктурний партнер для ТИ ЯК?, що може конвертувати awareness в referral pathway. Комплементарність, не конкуренція.
+3. Фінансові потоки / Financial Flows
+Джерело / Source	Обсяг / Volume	Прозорість / Transparency	Інтеграція з eHealth	Джерело даних
+Державний бюджет МОЗ / State Budget MOH	~$50M	Середня / Medium	Часткова / Partial	MOH Budget Data
+Health Cluster OCHA	$77M	Низька / Low	Ні / No	OCHA FTS
+UNICEF MHPSS	~$5M	Середня / Medium	Ні / No	UNICEF Reports
+USAID (Chemonics)	$5M	Висока / High	Ні / No	USAID Ukraine
+РАЗОМ / TOTAL	~$137M	Фрагментована	~2.5% інтеграція	
+Алокація ресурсів (поточна): 89% державного бюджету MH → стаціонар (диспансери)
+Потреба: 71% пацієнтів потребують амбулаторну допомогу
+Цільова алокація: 40% приватна практика + 25% клінічні центри + 20% community + 15% стаціонар
+Парадокс стін / The Walls Paradox: "We are funding walls while patients are left outside." 89% бюджету йде на будівлі, 71% пацієнтів потребують амбулаторну допомогу. Це не проблема фінансування — це проблема маршрутизації. FEEL Again = router.
+4. Фінансова модель FEEL Again / FEEL Again Financial Model
+Параметр / Parameter	Значення / Value	Статус
+Комісія платформи / Platform Commission	7% → 3% (дегресивна / degressive)	CANONICAL
+Мінімальний оборот для сталості blockchain	$3M/місяць	CANONICAL
+Трицінова архітектура / Three-Price Architecture	€70/hr (pull) | €30-60/hr (market) | €50/hr (operational)	CANONICAL
+Train for Care: повна вартість когорти / Full cohort cost	€75,605 за 20 осіб (€3,780/особу)	CANONICAL
+Train for Care ROI	2.22x	CANONICAL
+WHO coordination customization	$350K	CANONICAL
+Повний портфель (UNIFIED_PROGRAM_MATRIX)	$1,945K	CANONICAL
+$5M already invested by consortium	$5M	CANONICAL
+Вартість для держави / Cost to State	$0.00	CANONICAL
+Tom Fletcher MOU	$2B (29 Dec 2025, OCHA)	CANONICAL
+EBRD Veterans Charter	38 банків, 111 суб-кредитів, €12.2M	CANONICAL
+УВАГА: GDrive Positioning Statements містить застарілу цифру 2.5-3.5%. Канонічне значення = 7→3% degressive. Блокчейну потрібно $3M місячного обороту для виходу на сталість.
+Reverse Waterfall (порядок фінансування):
+Рівень 1: Community (P2P, micro-donations) → Рівень 2: Business CSR → Рівень 3: Local fund / municipality → Рівень 4: Global donor (last resort)
+Принцип: Donor fills gap, not the whole budget. Local ownership first.
+5. Шість системних розривів / Six Systemic Gaps
+Кожен GAP сформульований як "Парадокс → Рішення". Формулювання базуються на Lovable.app content з верифікацією через Ecosystem Audit v2.1 та Session Extraction.
+
+Each GAP is framed as "Paradox → Solution". Formulations are based on Lovable.app content, verified through Ecosystem Audit v2.1 and Session Extraction.
+
+GAP 1: Workforce / Кадровий розрив
+Парадокс: 117,652 сертифікатів mhGAP видано. 42 людини практикують під супервізією. Масове навчання без інфраструктури практики = генерація паперу, а не спеціалістів.
+
+Рішення: FEEL Again створює Digital Corridor — спрощене ліцензування + вихід з тіні + підключення до CRM, оплати та звітності. Не ще один тренінг, а рейки для тих, хто вже навчений.
+
+Paradox: 117,652 mhGAP certificates issued. 42 people practice under supervision. Mass training without practice infrastructure = paper generation, not specialist creation.
+
+Solution: FEEL Again creates a Digital Corridor — simplified licensing + shadow exit + connection to CRM, payments, and reporting. Not another training, but rails for those already trained.
+
+Sources: WHO mhGAP Dashboard, PMC 2020, Ecosystem Audit v2.1 §2
+
+GAP 2: Economic / Економічний розрив
+Парадокс: 89% державного бюджету MH витрачається на стаціонар. 71% пацієнтів потребують амбулаторну допомогу. Гроші йдуть за інфраструктурою, а не за пацієнтом.
+
+Рішення: Payment for Result через Smart Clearing — Escrow + 3-етапний milestone release (T1 20%, T2 30%, T3 50%). Triple Verification Oracle. Гроші йдуть за результатом, не за прогнозом.
+
+Paradox: 89% of state MH budget spent on inpatient care. 71% of patients need outpatient. Money follows infrastructure, not the patient.
+
+Solution: Payment for Result via Smart Clearing — Escrow + 3-stage milestone release (T1 20%, T2 30%, T3 50%). Triple Verification Oracle. Money follows outcomes, not forecasts.
+
+Sources: MOH Budget Analysis, Ecosystem Audit v2.1 §4, Session Extraction Part 2
+
+GAP 3: Prevalence & Access / Поширеність та доступ
+Парадокс: 3.9M потребують допомоги. 1 терапевт × 25 пацієнтів/тиждень = 4,000 фахівців обслуговують 100,000/рік = 1% потреби. Навчання масштабується легко, ефективність — ні.
+
+Рішення: Зміна ratio через цифрову інфраструктуру + VR multiplier (1:25 → 1:200+). Clinical Proof-of-Stake: 10 верифікованих кейсів перед доступом до фінансування. Якість, а не кількість.
+
+Paradox: 3.9M need help. 1 therapist × 25 patients/week = 4,000 specialists serve 100,000/year = 1% of need. Training scales easily, effectiveness does not.
+
+Solution: Change the ratio via digital infrastructure + VR multiplier (1:25 → 1:200+). Clinical Proof-of-Stake: 10 verified cases before accessing funding. Quality, not quantity.
+
+Sources: Lancet 2023, Session Extraction Part 2 (math proof), USC ICT / Skip Rizzo
+
+GAP 4: Shadow Economy / Тіньова економіка
+Парадокс: ~8,000 приватних фахівців працюють 6-9 годин/день. Кваліфіковані, мотивовані — але без сертифікації, без видимості для держави, без інституційного фінансування. Відсутність приватної практики в статистиці не дозволяє робити вигляд, що її не існує.
+
+Рішення: Digital Corridor — спрощений вхід через ФОП Група 3, підключення до eHealth API через Helsi, автоматизована звітність. Примусове ліцензування штовхне їх глибше в тінь. Інфраструктура витягує.
+
+Paradox: ~8,000 private specialists work 6-9 hours/day. Qualified, motivated — but no certification, no state visibility, no institutional funding. Absence of private practice in statistics does not allow pretending it does not exist.
+
+Solution: Digital Corridor — simplified entry via FOP Group 3, eHealth API connection through Helsi, automated reporting. Forced licensing pushes deeper into shadow. Infrastructure pulls out.
+
+Sources: Ecosystem Audit v2.1 §2, Session Extraction Part 2 (Shadow Sector Detail)
+
+GAP 5: Integration / Інтеграційний розрив
+Парадокс: $137M щороку витрачається через фрагментовані канали. ~0% синхронізації з ЕСОЗ. Кожна організація звітує по-різному. 450+ організацій координуються через Excel та чат-групи. "Неможливо адмініструвати $10B напів-мануально."
+
+Рішення: FEEL Again як Gateway (гуманітарна → ЕСОЗ) + Service Bus (координація 450+ org). API-інтеграція: eHealth, Helsi, DHIS2, OCHA FTS, IATI. Єдиний формат даних через HL7 FHIR R4.
+
+Paradox: $137M annually spent through fragmented channels. ~0% synchronization with ESOZ. Each organization reports differently. 450+ organizations coordinated via Excel and chat groups. "Cannot administer $10B semi-manually."
+
+Solution: FEEL Again as Gateway (humanitarian → ESOZ) + Service Bus (coordinating 450+ orgs). API integration: eHealth, Helsi, DHIS2, OCHA FTS, IATI. Unified data format via HL7 FHIR R4.
+
+Sources: OCHA FTS, eHealth Ukraine, TRD (API specifications), WHO coordination data
+
+GAP 6: Accountability / Підзвітність
+Парадокс: Inputs фінансуються. Outputs звітуються. Outcomes невидимі. Grand Bargain 2026: поточна локалізація 2-8%, ціль 25%. Донори фінансують прогнози, а не результати.
+
+Рішення: End-to-end traceability: Source → Service → Outcome. Blockchain-verified audit trail. Auto-monitoring Grand Bargain та IATI стандартів. Radical Transparency Dashboard: від tracking sessions delivered до restored people та GDP contribution.
+
+Paradox: Inputs are funded. Outputs are reported. Outcomes are invisible. Grand Bargain 2026: current localization 2-8%, target 25%. Donors fund forecasts, not results.
+
+Solution: End-to-end traceability: Source → Service → Outcome. Blockchain-verified audit trail. Auto-monitoring Grand Bargain and IATI standards. Radical Transparency Dashboard: from tracking sessions delivered to restored people and GDP contribution.
+
+Sources: Grand Bargain 3.0, IASC, WHO pptx slide 5 (4 verified precedents: WFP, UNHCR, Oxfam, Dutch Alliance)
+
+ВИСНОВОК: Missing Middle / CONCLUSION: The Missing Middle
+Шість GAPs зверху — це не окремі проблеми. Це симптоми однієї структурної відсутності: середнього рівня між Primary Care (сімейні лікарі = overwhelmed) та Psychiatric Care (стаціонар = last resort).
+
+Missing Middle = рівень приватних практиків, перекваліфікованих спеціалістів, гуманітарних респондерів та API-інтегрованих клінік, який НЕ ІСНУЄ як формальна система.
+
+FEEL Again = Trusted Digital Layer для цього Missing Middle. Не платформа (не marketplace, не startup, не healthcare provider). Інфраструктура — фінансові рейки, по яких рухається сектор. Як Visa/Mastercard для MHPSS: не володіє грошима, не надає послуги, але без неї нічого не працює.
+
+The six GAPs above are not separate problems. They are symptoms of one structural absence: a middle tier between Primary Care (family doctors = overwhelmed) and Psychiatric Care (hospitals = last resort).
+
+The Missing Middle = the tier of private practitioners, retrained specialists, humanitarian responders, and API-integrated clinics that DOES NOT EXIST as a formal system.
+
+FEEL Again = the Trusted Digital Layer for this Missing Middle. Not a platform (not a marketplace, not a startup, not a healthcare provider). Infrastructure — financial rails on which the sector moves. Like Visa/Mastercard for MHPSS: doesn't own the money, doesn't provide services, but nothing works without it.
+
+6. Шість розірваних ланок ланцюга постачання / Six Broken Supply Chain Links
+#	Ланка / Link	Поточний стан / Current State	Рішення FEEL / FEEL Solution
+1	Фінансування / Financing	Фрагментоване: USAID, EU, UN, private — кожен окремо	Blended Finance + Reverse Waterfall + Smart Clearing
+2	Координація / Coordination	Мануальна: Health Cluster, ТИ ЯК? — Excel, чати, 2x/тиждень	Service Bus для 450+ org, real-time dashboard
+3	Верифікація / Verification	Відсутня: немає єдиного стандарту якості	Clinical Proof-of-Stake: 10 verified cases = access
+4	Надання послуг / Service Delivery	Фрагментоване: держава, НУО, приватники — окремо	Unified provider registry + API integration
+5	Моніторинг результатів / Outcome Monitoring	Відсутній: немає уніфікованих даних	PHQ-9/GAD-7/PCL-5 tracking, blockchain-verified outcomes
+6	Звітність / Reporting	Фрагментована: кожен звітує по-різному	Auto-generated: WHO mhGAP, IASC 4Ws, OCHA FTS, IATI
+7. Pipeline фахівців: 8 потоків / Practitioner Pipeline: 8 Streams
+УВАГА: Lovable.app містить 6 потоків із ЗАВИЩЕНИМИ конверсіями. Канонічний список = 8 потоків. Конверсії нижче — КОНСЕРВАТИВНІ оцінки, які потребують валідації через пілот.
+Це не рекрутинг — це формування (formation). Кожен потік має свій вхідний бар'єр, конверсію та шлях до формальної практики через FEEL інфраструктуру.
+
+This is not recruitment — it is formation. Each stream has its own entry barrier, conversion rate, and pathway to formal practice through FEEL infrastructure.
+
+#	Потік / Stream	Опис / Description	Оцінка pool / Est. Pool	Конверсія (консерв.) / Conv. (conservative)
+1	Shadow Sector	~8,000 діючих приватних практиків без формалізації. Працюють 6-9 год/день.	~8,000	15-25%
+2	UPRA (Психологічна Асоціація)	Зареєстровані члени з різним рівнем клінічної активності.	~2,500	20-30%
+3	Veterans-psychologists	Ветерани з психологічною освітою. Унікальний досвід peer support.	~500-1,000	10-15%
+4	University pipeline	Випускники психологічних факультетів. КНУ ім. Шевченка = якір.	~3,000/рік	5-10%
+5	Diaspora repatriation	Психологи-емігранти з досвідом роботи за кордоном.	~1,000-2,000	5-10%
+6	Diaspora supervision	Дистанційна супервізія від diaspora-спеціалістів для українських практиків.	~500	30-40%
+7	Humanitarian transition	USAID/UN-навчені фахівці, які втрачають доступ після виходу донорів.	~2,000-3,000	15-20%
+8	Psychiatry conversion	Психіатри з диспансерів, які переходять до community-based practice.	~2,700	5-10%
+ПРИПУЩЕННЯ: Конверсії базуються на експертних оцінках, не на валідованих даних. Потрібен пілот для калібрування. Lovable показував 30-50% — це нереалістично оптимістично для більшості потоків.
+Консервативна оцінка Year 1: ~1,500-2,500 формалізованих фахівців (з pool ~20,000)
+Консервативна оцінка Year 3: ~5,000-8,000 (з урахуванням випускників та returnees)
+Порівняння: HeRAMS зараз верифікує 8,201 → FEEL цілить на подвоєння формалізованого ринку за 3 роки
+8. Реєстр розбіжностей / Data Discrepancies Register
+Ці розбіжності виявлені між файлами пакету. Канонічне значення зафіксоване тут. Всі інші документи мають використовувати ТІЛЬКИ canonical values.
+
+mhGAP certificates: Dashboard 96K | PITCH 96K | Data Challenge 117,652 | Visualizer 117K
+CANONICAL: 117,652 — WHO mhGAP Dashboard, confirmed Session Extraction Part 7
+Intensive treatment need: Was 3.3M
+CANONICAL: 3.9M — Lancet Commission 2023
+Transaction fee / Commission: PITCH 5-7% | GDrive Positioning 2.5-3.5% | Blockchain SOW 2.5-3.5%
+CANONICAL: 7% → 3% degressive — Confirmed by Alex, Session Extraction Part 7. Blockchain needs $3M/month turnover.
+Humanitarian funding: Data Challenge $67M | Visualizer ~$100M
+CANONICAL: $77M Health Cluster (OCHA) + $10M bilateral (USAID+UNICEF) = ~$137M total all sources
+Verified providers: PITCH 15,000+
+CANONICAL: 8,201 HeRAMS verified state + ~8,000 shadow estimate = ~16,000 total (unverified)
+ПРИПУЩЕННЯ: Shadow estimate needs validation through pilot registration
+Pipeline streams: Lovable: 6 streams with inflated conversion rates (30-50%)
+CANONICAL: 8 streams with conservative conversion (5-40% depending on stream)
+Platform budget: WHO coordination = $350K | Full portfolio (UNIFIED_PROGRAM_MATRIX) = $1,945K | Platform build (GDrive Budget) = $950K-$1.54M
+CANONICAL: Use specific figure for specific context. Never conflate scopes.
+9. Бенчмарки / External Benchmarks
+Стандарт / Standard	Оцінка / Score	Що відсутнє / What's Missing
+McKinsey SCQA	8/10	Good structure overall
+USAID/DFID Grant Standards	6/10	M&E Framework, Unit Economics, Logframe
+SaaS Landing Best Practices	6/10	Social Proof, Why Now urgency
+Sequoia Pitch Deck	5/10	Competitive landscape explicit comparison
+Source: Session Extraction Part 10
+
+10. Верифіковані прецеденти / Verified Precedents
+Прецедент / Precedent	Сектор / Sector	Що доводить / What It Proves	Джерело / Source
+WFP Building Blocks	Humanitarian / Blockchain	Blockchain-based aid delivery at scale (Jordan, Bangladesh)	WFP Innovation
+UNHCR Stellar Aid Ukraine	Humanitarian / Fintech	Crypto-based direct cash transfers to displaced Ukrainians	UNHCR, Stellar
+Oxfam UnBlocked Cash	Humanitarian / Blockchain	Decentralized aid distribution, Vanuatu pilot	Oxfam
+Dutch Relief Alliance	Humanitarian / Coordination	Joint humanitarian response coordination model	Netherlands MFA
+UK IAPT Programme	National MH / Scale	National stepped-care model scaled to millions	NHS England
+Як використовувати цей документ / How to Use This Document
+1. Кожна цифра в Документах 1-3 та 5 ПОВИННА посилатися на відповідний рядок тут (наприклад: "3.9M клінічна потреба — Док.4, §1, Lancet 2023").
+
+2. Якщо цифра відсутня тут — її НЕ МОЖНА використовувати в інших документах, поки вона не буде додана сюди з джерелом та статусом.
+
+3. Статуси: CANONICAL (перевірено, використовувати as-is), РОЗРАХУНОК (формула прозора, перевірити inputs), ПРИПУЩЕННЯ (потребує валідації через пілот).
+
+4. Оновлення цього документу потребує зміни version number та дати.
+
+1. Every number in Documents 1-3 and 5 MUST reference the corresponding row here (e.g.: "3.9M clinical need — Doc.4, §1, Lancet 2023").
+
+2. If a number is absent here — it CANNOT be used in other documents until it is added here with source and status.
+
+3. Statuses: CANONICAL (verified, use as-is), CALCULATED (formula transparent, check inputs), ASSUMPTION (needs pilot validation).
+
+4. Updating this document requires changing the version number and date.
