@@ -5,7 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import {
   ArrowRight, GraduationCap, Award, Users, Clock,
-  CheckCircle2, BookOpen, TrendingUp, Shield
+  CheckCircle2, BookOpen, TrendingUp, Shield, Zap,
+  Globe, Heart, Building2, Lightbulb, Target
 } from "lucide-react";
 
 const trainForCare = {
@@ -232,6 +233,304 @@ export default function Training() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Methodological Tools */}
+      <section className="py-16">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-3 text-center">Методологічні інструменти</h2>
+          <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
+            FEEL Again використовує міжнародно визнані методи роботи з травмою та ПТСР.
+          </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="h-full border-2 border-blue-200">
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Zap className="h-7 w-7 text-blue-600" />
+                    <h3 className="text-xl font-bold">EMDR</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Eye Movement Desensitization and Reprocessing
+                  </p>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 shrink-0" />
+                      <span><strong>Золотий стандарт</strong> роботи з ПТСР</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 shrink-0" />
+                      <span>80+ років досвіду та дослідження</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 shrink-0" />
+                      <span>Не вимагає детального вербалізування травми</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 shrink-0" />
+                      <span>Особливо ефективна для підлітків</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-blue-600 mt-0.5 shrink-0" />
+                      <span><strong>Партнер:</strong> Geha Clalit (Ізраїль)</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="h-full border-2 border-amber-200">
+                <CardContent className="pt-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <Lightbulb className="h-7 w-7 text-amber-600" />
+                    <h3 className="text-xl font-bold">VR-терапія</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    BRAVEMIND & Exposure Therapy (USC ICT)
+                  </p>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+                      <span>Експозиційна терапія у <strong>віртуальному просторі</strong></span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+                      <span>Технологія, що рятувала американських ветеранів</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+                      <span>Мультиплікатор: <strong>1:200+</strong> пацієнтів на 1 терапевта</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+                      <span>Meta Quest 3 обладнання</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+                      <span>$12.50 / сесія (субсидована)</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Supervision & Research */}
+      <section className="py-16 bg-slate-900 text-white">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-3 text-center">Супервізія та дослідження</h2>
+          <p className="text-white/70 text-center mb-10 max-w-2xl mx-auto">
+            Після завершення навчання — інтеграція в систему клінічної супервізії та участь
+            у дослідженнях адаптації методів в українському контексті.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="bg-white/10 border-white/20 h-full">
+                <CardContent className="pt-6">
+                  <Users className="h-8 w-8 text-green-400 mb-3" />
+                  <h3 className="text-lg font-bold text-white mb-2">Індивідуальна супервізія</h3>
+                  <p className="text-sm text-white/70">Менторство від досвідчених клініцистів та діаспори. 1:1 сеанси супервізії протягом 12 місяців.</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="bg-white/10 border-white/20 h-full">
+                <CardContent className="pt-6">
+                  <Globe className="h-8 w-8 text-blue-400 mb-3" />
+                  <h3 className="text-lg font-bold text-white mb-2">Дистанційна супервізія</h3>
+                  <p className="text-sm text-white/70">Доступ до супервізорів за кордоном через платформу. Асинхронні консультації та peer support.</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Card className="bg-white/10 border-white/20 h-full">
+                <CardContent className="pt-6">
+                  <Target className="h-8 w-8 text-yellow-400 mb-3" />
+                  <h3 className="text-lg font-bold text-white mb-2">Дослідницька участь</h3>
+                  <p className="text-sm text-white/70">Внесок в адаптацію методів для українського контексту. Публікації та опубліковані результати.</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Digital Scaling & Center of Excellence */}
+      <section className="py-16">
+        <div className="container">
+          <div className="grid md:grid-cols-2 gap-10 items-center">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">Масштабування</Badge>
+              <h2 className="text-3xl font-bold mb-4">Дигіталізація та Центр передового досвіду</h2>
+              <p className="text-muted-foreground mb-4">
+                Контент тренінгів буде цифровано та підготовано для продовження циклу тренінгів
+                у формі дистанційного інтерактивного навчання.
+              </p>
+              <ul className="space-y-3">
+                {[
+                  "Всі матеріали тренінгу переводяться у цифровий формат",
+                  "Інтерактивні модулі для дистанційного навчання (онлайн платформа)",
+                  "Центр передового досвіду при Університеті Шевченко",
+                  "Визначення ефективного досвіду серед локальних практиків",
+                  "Розширення кількості носіїв кращих практик",
+                  "Модель самовідновлення: один градус → наступні градуси"
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2 text-sm">
+                    <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="border-2 border-primary/20 bg-primary/5">
+                <CardContent className="pt-6">
+                  <Building2 className="h-8 w-8 text-primary mb-3" />
+                  <h3 className="text-xl font-bold mb-3">Чому це важливо</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    <strong>Один фахівець створює довгостроковий соціальний вплив без додаткових витрат для донора після навчання.</strong>
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Модель samovodnenia: інвестиція один раз → вплив повторюється на протязі років.
+                    Кожна когорта стає центром для наступної.
+                  </p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Triple Humanitarian Effect */}
+      <section className="py-16 bg-slate-50">
+        <div className="container">
+          <h2 className="text-3xl font-bold mb-3 text-center">Потрійний гуманітарний ефект</h2>
+          <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
+            Від одного внеску в Train for Care програму — три виміри впливу.
+          </p>
+          <div className="grid md:grid-cols-3 gap-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0 }}
+              viewport={{ once: true }}
+            >
+              <Card className="border-2 border-green-200 bg-green-50 h-full">
+                <CardContent className="pt-6">
+                  <Target className="h-10 w-10 text-green-700 mb-3" />
+                  <h3 className="text-xl font-bold text-green-900 mb-2">Сталий розвиток</h3>
+                  <ul className="space-y-2 text-sm text-green-800">
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Формалізація надавачів послуг</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Інтеграція з державною системою</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Довгострокова стійкість після закінчення грантів</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              viewport={{ once: true }}
+            >
+              <Card className="border-2 border-blue-200 bg-blue-50 h-full">
+                <CardContent className="pt-6">
+                  <Heart className="h-10 w-10 text-blue-700 mb-3" />
+                  <h3 className="text-xl font-bold text-blue-900 mb-2">Ефективна філантропія</h3>
+                  <ul className="space-y-2 text-sm text-blue-800">
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Документований ROI: 2.22× для КСВ-партнера</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Прозорість: кожен фахівець верифікований</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Масштабування: один вклад = багато когорт</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <Card className="border-2 border-purple-200 bg-purple-50 h-full">
+                <CardContent className="pt-6">
+                  <Heart className="h-10 w-10 text-purple-700 mb-3" />
+                  <h3 className="text-xl font-bold text-purple-900 mb-2">Реабілітація</h3>
+                  <ul className="space-y-2 text-sm text-purple-800">
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Вимірювані результати (PHQ-9, PCL-5)</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Доступ до лікування для 1000+ осіб / когорта</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <CheckCircle2 className="h-4 w-4 shrink-0 mt-0.5" />
+                      <span>Вихід з травми через стандартизовану опіку</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </section>
