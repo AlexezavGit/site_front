@@ -1,82 +1,77 @@
 import { Link } from "wouter";
+import { Shield } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t bg-background">
-      <div className="container py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-lg font-semibold mb-4">Feel Connect</h3>
-            <p className="text-sm text-muted-foreground">
-              Supporting mental health and wellbeing through humanitarian assistance
+    <footer className="border-t bg-slate-900 text-white">
+      <div className="container py-10 md:py-14">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+          <div className="md:col-span-1">
+            <div className="flex items-center gap-2 mb-3">
+              <Shield className="h-5 w-5 text-blue-400" />
+              <span className="font-bold text-lg">FEEL Again</span>
+            </div>
+            <p className="text-sm text-slate-400 mb-3">
+              Цифрова інфраструктура гуманітарної координації MHPSS в Україні.
+            </p>
+            <p className="text-xs text-slate-500">
+              Не платформа. Не стартап.<br />
+              Фінансові рейки для сектору.
             </p>
           </div>
-          
+
           <div>
-            <h4 className="font-medium mb-4">Quick Links</h4>
+            <h4 className="font-semibold mb-4 text-slate-200">Для учасників</h4>
             <ul className="space-y-2">
-              <li>
-                <Link href="/about">
-                  <a className="text-sm text-muted-foreground hover:text-foreground">
-                    About Us
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/sustainable">
-                  <a className="text-sm text-muted-foreground hover:text-foreground">
-                    Sustainable Development
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/referral">
-                  <a className="text-sm text-muted-foreground hover:text-foreground">
-                    Get Help
-                  </a>
-                </Link>
-              </li>
+              {[
+                { href: "/pro", label: "Фахівцям" },
+                { href: "/training", label: "Підвищення кваліфікації" },
+                { href: "/beneficiaries", label: "Бенефіціарам" },
+                { href: "/referral", label: "Реєстрація" },
+              ].map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className="text-sm text-slate-400 hover:text-white transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-medium mb-4">Resources</h4>
+            <h4 className="font-semibold mb-4 text-slate-200">Партнерам</h4>
             <ul className="space-y-2">
-              <li>
-                <Link href="/sources">
-                  <a className="text-sm text-muted-foreground hover:text-foreground">
-                    Sources
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/data">
-                  <a className="text-sm text-muted-foreground hover:text-foreground">
-                    Data & Statistics
-                  </a>
-                </Link>
-              </li>
-              <li>
-                <Link href="/csr">
-                  <a className="text-sm text-muted-foreground hover:text-foreground">
-                    CSR
-                  </a>
-                </Link>
-              </li>
+              {[
+                { href: "/donors", label: "Донорам та КСВ" },
+                { href: "/about", label: "Про програму" },
+                { href: "/data", label: "Відкриті дані" },
+                { href: "/methodology", label: "Методологія" },
+              ].map(({ href, label }) => (
+                <li key={href}>
+                  <Link href={href} className="text-sm text-slate-400 hover:text-white transition-colors">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="font-medium mb-4">Contact</h4>
-            <address className="not-italic text-sm text-muted-foreground">
-              <p>Email: contact@feelconnect.org</p>
-              <p>Phone: +380 44 123 4567</p>
+            <h4 className="font-semibold mb-4 text-slate-200">Контакт</h4>
+            <address className="not-italic text-sm text-slate-400 space-y-1">
+              <p>info@feelagain.org</p>
+              <p>Київ, Україна</p>
+              <p className="text-xs text-slate-500 mt-3">
+                Програма FEEL Again консорціум.<br />
+                Усі кількісні дані — Doc 4, Canonical Dataset v1.0
+              </p>
             </address>
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Feel Connect. All rights reserved.</p>
+        <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+          <p>&copy; {new Date().getFullYear()} FEEL Again Programme Consortium. Усі права захищені.</p>
+          <p>$1,945K · 3 кластери · 12 проєктів · Вартість для держави: $0.00</p>
         </div>
       </div>
     </footer>
