@@ -52,6 +52,11 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a href="https://dashboard-1q7.pages.dev/" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-400 hover:text-white transition-colors">
+                  📊 Дашборд даних
+                </a>
+              </li>
             </ul>
           </div>
 

@@ -222,7 +222,13 @@ export default function About() {
                     {cluster.projects.map((proj, j) => (
                       <li key={j} className="flex items-center gap-2 text-sm">
                         <ArrowRight className="h-3.5 w-3.5 text-primary shrink-0" />
-                        <span>{proj}</span>
+                        {proj === "Open Data Dashboard" ? (
+                          <a href="https://dashboard-1q7.pages.dev/" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline font-semibold">
+                            {proj} ↗
+                          </a>
+                        ) : (
+                          <span>{proj}</span>
+                        )}
                       </li>
                     ))}
                   </ul>

@@ -203,6 +203,14 @@ export default function Methodology() {
               </motion.div>
             ))}
           </div>
+          <div className="text-center mt-8">
+            <a href="https://dashboard-1q7.pages.dev/" target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="inline-flex items-center gap-2">
+                📊 Переглянути Live Dashboard
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </a>
+          </div>
         </div>
       </section>
 
