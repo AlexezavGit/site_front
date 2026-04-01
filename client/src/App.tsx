@@ -13,7 +13,6 @@ import ForDonors from "@/pages/ForDonors";
 import ForBeneficiaries from "@/pages/ForBeneficiaries";
 import About from "@/pages/About";
 import Methodology from "@/pages/Methodology";
-import OpenData from "@/pages/OpenData";
 import Referral from "@/pages/Referral";
 
 function Router() {
@@ -29,7 +28,6 @@ function Router() {
           <Route path="/beneficiaries" component={ForBeneficiaries} />
           <Route path="/about" component={About} />
           <Route path="/methodology" component={Methodology} />
-          <Route path="/data" component={OpenData} />
           <Route path="/referral" component={Referral} />
           <Route component={NotFound} />
         </Switch>

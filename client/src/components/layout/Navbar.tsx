@@ -24,7 +24,6 @@ const forPartners = [
 const aboutProgram = [
   { href: "/about", label: "Про FEEL Again", desc: "6 розривів, архітектура, місія" },
   { href: "/methodology", label: "Методологія", desc: "Stepped care, VR, клінічні інструменти" },
-  { href: "/data", label: "Відкриті дані", desc: "Canonical Dataset, сектор, фінанси" },
 ];
 
 export default function Navbar() {
@@ -38,7 +37,6 @@ export default function Navbar() {
     { href: "/beneficiaries", label: "Бенефіціарам" },
     { href: "/about", label: "Про програму" },
     { href: "/methodology", label: "Методологія" },
-    { href: "/data", label: "Відкриті дані" },
     { href: "/referral", label: "Реєстрація" },
   ];
 

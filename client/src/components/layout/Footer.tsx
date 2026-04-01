@@ -44,7 +44,6 @@ export default function Footer() {
               {[
                 { href: "/donors", label: "Донорам та КСВ" },
                 { href: "/about", label: "Про програму" },
-                { href: "/data", label: "Відкриті дані" },
                 { href: "/methodology", label: "Методологія" },
               ].map(({ href, label }) => (
                 <li key={href}>
