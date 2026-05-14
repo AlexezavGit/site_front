@@ -59,31 +59,11 @@ const audiences = [
   },
 ];
 
-const financingModel = [
-  { label: "Рівень 1", title: "Community", desc: "P2P, мікро-донації, краудфандинг", color: "bg-green-100 text-green-800" },
-  { label: "Рівень 2", title: "Бізнес КСВ", desc: "Корпоративне співфінансування, Train for Care", color: "bg-blue-100 text-blue-800" },
-  { label: "Рівень 3", title: "Місцевий фонд", desc: "Муніципалітет, регіональний фонд", color: "bg-purple-100 text-purple-800" },
-  { label: "Рівень 4", title: "Глобальний донор", desc: "USAID, EU, UN — останній резерв", color: "bg-slate-200 text-slate-700" },
-];
-
-const precedents = [
-  { name: "WFP Building Blocks", sector: "Blockchain", proof: "Blockchain-based aid delivery at scale (Jordan, Bangladesh)" },
-  { name: "UNHCR Stellar Aid Ukraine", sector: "Fintech", proof: "Crypto-based direct cash transfers до переселенців України" },
-  { name: "Oxfam UnBlocked Cash", sector: "Blockchain", proof: "Децентралізований розподіл допомоги, пілот Vanuatu" },
-  { name: "Dutch Relief Alliance", sector: "Координація", proof: "Спільна модель координації гуманітарного реагування" },
-  { name: "UK IAPT Programme", sector: "Нац. MH", proof: "Stepped-care модель у масштабі мільйонів (NHS England)" },
-];
-
 export default function ForDonors() {
   return (
     <div>
-      {/* Hero */}
       <section className="py-16 md:py-24 bg-gradient-to-br from-amber-50 to-background">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="container"
-        >
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="container">
           <Badge className="mb-4 bg-amber-100 text-amber-800 border-amber-200">Донорам, КСВ та партнерам</Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl">
             Де-ризиковане<br />
@@ -97,7 +77,7 @@ export default function ForDonors() {
           </p>
           <p className="text-sm text-muted-foreground max-w-2xl mb-8 font-mono bg-slate-100 p-3 rounded-lg">
             Reverse Waterfall: Donor fills gap, not the whole budget. Local ownership first.<br />
-            Комісія платформи: 7% → 3% дегресивна. Потрібно $3M/місяць для blockchain.
+            Комісія платформи: 7% → 3% дегресивна.
           </p>
           <div className="flex flex-wrap gap-4">
             <Link href="/referral">
@@ -106,16 +86,15 @@ export default function ForDonors() {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
-            <Link href="/data">
+            <a href="https://dashboard-1q7.pages.dev/" target="_blank" rel="noopener noreferrer">
               <Button variant="outline" size="lg">
-                Відкриті дані <BarChart3 className="ml-2 h-4 w-4" />
+                Відкрити дашборд <BarChart3 className="ml-2 h-4 w-4" />
               </Button>
-            </Link>
+            </a>
           </div>
         </motion.div>
       </section>
 
-      {/* Key numbers */}
       <section className="py-10 bg-slate-900 text-white">
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
@@ -135,19 +114,12 @@ export default function ForDonors() {
         </div>
       </section>
 
-      {/* Audience Cards */}
       <section className="py-16">
         <div className="container">
           <h2 className="text-3xl font-bold mb-10 text-center">Цінність для кожного партнера</h2>
           <div className="grid lg:grid-cols-3 gap-6">
             {audiences.map((aud, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-              >
+              <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.1 }} viewport={{ once: true }}>
                 <Card className={`h-full border-2 ${aud.color}`}>
                   <CardHeader>
                     <aud.icon className="h-9 w-9 text-primary mb-2" />
@@ -174,85 +146,6 @@ export default function ForDonors() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Reverse Waterfall */}
-      <section className="py-16 bg-slate-50">
-        <div className="container">
-          <h2 className="text-3xl font-bold mb-3 text-center">Reverse Waterfall</h2>
-          <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-            Порядок фінансування знизу вгору: донор заповнює розрив, а не весь бюджет.
-            Local ownership першочергово.
-          </p>
-          <div className="max-w-xl mx-auto space-y-3">
-            {financingModel.map((level, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className={`flex items-center gap-4 p-4 rounded-xl border ${level.color}`}
-                style={{ marginLeft: `${i * 20}px` }}
-              >
-                <Badge className={level.color + " shrink-0"}>{level.label}</Badge>
-                <div>
-                  <div className="font-semibold text-sm">{level.title}</div>
-                  <div className="text-xs text-muted-foreground">{level.desc}</div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Precedents */}
-      <section className="py-16">
-        <div className="container">
-          <h2 className="text-3xl font-bold mb-3 text-center">Верифіковані прецеденти</h2>
-          <p className="text-muted-foreground text-center mb-10 max-w-xl mx-auto">
-            Аналогічні підходи вже доведені в полі. FEEL Again — системна інтеграція цих рішень.
-          </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-slate-100">
-                  <th className="text-left p-3 font-semibold">Прецедент</th>
-                  <th className="text-left p-3 font-semibold">Сектор</th>
-                  <th className="text-left p-3 font-semibold">Що доводить</th>
-                </tr>
-              </thead>
-              <tbody>
-                {precedents.map((p, i) => (
-                  <tr key={i} className="border-t hover:bg-slate-50">
-                    <td className="p-3 font-medium">{p.name}</td>
-                    <td className="p-3"><Badge variant="outline">{p.sector}</Badge></td>
-                    <td className="p-3 text-muted-foreground">{p.proof}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-xs text-muted-foreground mt-3 text-center">
-            Джерело: Grand Bargain 3.0, IASC, WHO pptx slide 5
-          </p>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 bg-primary text-white text-center">
-        <div className="container max-w-2xl mx-auto">
-          <h2 className="text-3xl font-bold mb-4">Стати партнером FEEL Again</h2>
-          <p className="text-primary-foreground/80 mb-8">
-            Від Train for Care когорти (€75K) до стратегічного партнерства.
-            Кожен рівень — з прозорою звітністю та вимірюваним впливом.
-          </p>
-          <Link href="/referral">
-            <Button variant="secondary" size="lg">
-              Запит на партнерство <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </Link>
         </div>
       </section>
     </div>
