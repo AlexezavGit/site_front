@@ -2,6 +2,11 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
+console.log("[BOOT] server/index.ts starting", Date.now());
+
+process.on('uncaughtException', (err) => console.error('[FATAL uncaughtException]', err));
+process.on('unhandledRejection', (err) => console.error('[FATAL unhandledRejection]', err));
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -44,7 +49,6 @@ app.use((req, res, next) => {
     const message = err.message || "Internal Server Error";
 
     res.status(status).json({ message });
-    throw err;
   });
 
   // importantly only setup vite in development and after
@@ -60,6 +64,9 @@ app.use((req, res, next) => {
   // this serves both the API and the client
   const PORT = 5000;
   server.listen(PORT, "0.0.0.0", () => {
-    log(`serving on port ${PORT}`);
+    log(`Server listening on port ${PORT}`);
   });
+
+  // Keep the process alive
+  setInterval(() => {}, 30000);
 })();
