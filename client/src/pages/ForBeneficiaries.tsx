@@ -5,7 +5,8 @@ import { Badge } from "@/components/ui/badge";
 import { Link } from "wouter";
 import {
   ArrowRight, Heart, CheckCircle2, Shield, Phone,
-  MapPin, Clock, Users, Star, ChevronRight
+  MapPin, Clock, Users, Star, ChevronRight,
+  Stethoscope, Calculator, Share2
 } from "lucide-react";
 
 const steppedCare = [
@@ -212,6 +213,36 @@ export default function ForBeneficiaries() {
             Гаряча лінія: 0 800 505 010 (ТИ ЯК?)
           </p>
           <p className="text-sm text-red-500">Безкоштовно · 24/7 · Анонімно</p>
+        </div>
+      </section>
+
+      {/* Cabinet teaser */}
+      <section className="py-14" style={{ background: "#FAFBFC", borderTop: "1px solid #E5E7EB" }}>
+        <div className="container">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: "#0F2B46" }}>Попередже кабінет бенефіціара</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">Інтерактивні мокапи: діагностика, вибір фахівця, калькулятор кошторису, P2P-збір.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+            <div className="rounded-xl p-5 border border-rose-200 bg-rose-50 text-center">
+              <Stethoscope className="h-8 w-8 text-rose-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">Самодіагностика</h3>
+              <p className="text-xs text-muted-foreground mb-3">3 питання — оцінка тривоги, сну, концентрації. Рекомендація до спеціаліста.</p>
+              <Link href="/portal/beneficiary"><Button variant="outline" size="sm" className="w-full border-rose-400 text-rose-700">Перейти →</Button></Link>
+            </div>
+            <div className="rounded-xl p-5 border border-rose-200 bg-rose-50 text-center">
+              <Calculator className="h-8 w-8 text-rose-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">Калькулятор кошторису</h3>
+              <p className="text-xs text-muted-foreground mb-3">Кількість сеансів × вартість × співфінансування = самооплата.</p>
+              <Link href="/portal/beneficiary"><Button variant="outline" size="sm" className="w-full border-rose-400 text-rose-700">Розрахувати →</Button></Link>
+            </div>
+            <div className="rounded-xl p-5 border border-rose-200 bg-rose-50 text-center">
+              <Share2 className="h-8 w-8 text-rose-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">P2P-збір коштів</h3>
+              <p className="text-xs text-muted-foreground mb-3">Створити кампанію, поширити серед друзів, відстежувати прогрес.</p>
+              <Link href="/portal/beneficiary"><Button variant="outline" size="sm" className="w-full border-rose-400 text-rose-700">Розпочати →</Button></Link>
+            </div>
+          </div>
         </div>
       </section>
 

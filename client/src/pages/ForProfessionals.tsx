@@ -210,6 +210,36 @@ export default function ForProfessionals() {
           </Link>
         </div>
       </section>
+
+      {/* Cabinet teaser */}
+      <section className="py-14" style={{ background: "#FAFBFC", borderTop: "1px solid #E5E7EB" }}>
+        <div className="container">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: NAVY }}>Попередже кабінет фахівця</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">Інтерактивні мокапи: циркулейшн фолдер, ренкінг, калькулятор доходу.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+            <div className="rounded-xl p-5 border border-teal-200 bg-teal-50 text-center">
+              <Users className="h-8 w-8 text-teal-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">Циркулейшн фолдер</h3>
+              <p className="text-xs text-muted-foreground mb-3">Керування пацієнтами: діагностовано / не діагностовано, статуси, запрос сеансів.</p>
+              <Link href="/portal/provider"><Button variant="outline" size="sm" className="w-full border-teal-400 text-teal-700">Перейти →</Button></Link>
+            </div>
+            <div className="rounded-xl p-5 border border-teal-200 bg-teal-50 text-center">
+              <Award className="h-8 w-8 text-teal-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">Ренкінг фахівців</h3>
+              <p className="text-xs text-muted-foreground mb-3">70% вага верифікованих бенефіціарами + 20% сертифікати + 10% освіта.</p>
+              <Link href="/portal/provider"><Button variant="outline" size="sm" className="w-full border-teal-400 text-teal-700">Переглянути →</Button></Link>
+            </div>
+            <div className="rounded-xl p-5 border border-teal-200 bg-teal-50 text-center">
+              <Banknote className="h-8 w-8 text-teal-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">Калькулятор доходу</h3>
+              <p className="text-xs text-muted-foreground mb-3">Сеанси у тиждень × вартість × витрати × податок = чистий дохід.</p>
+              <Link href="/portal/provider"><Button variant="outline" size="sm" className="w-full border-teal-400 text-teal-700">Розрахувати →</Button></Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

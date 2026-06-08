@@ -148,6 +148,35 @@ export default function ForDonors() {
           </div>
         </div>
       </section>
+      {/* Cabinet teaser */}
+      <section className="py-14" style={{ background: "#FAFBFC", borderTop: "1px solid #E5E7EB" }}>
+        <div className="container">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold mb-2" style={{ color: NAVY }}>Попередже кабінет донора</h2>
+            <p className="text-muted-foreground max-w-xl mx-auto">Інтерактивні мокапи: скоринг ініціатив, імпакт-калькулятор, дошка пошани.</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">
+            <div className="rounded-xl p-5 border border-amber-200 bg-amber-50 text-center">
+              <BarChart3 className="h-8 w-8 text-amber-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">Скоринг ініціатив</h3>
+              <p className="text-xs text-muted-foreground mb-3">Авто-затвердження за порогами: скор &gt;75 = auto, 50-75 = review.</p>
+              <Link href="/portal/donor"><Button variant="outline" size="sm" className="w-full border-amber-400 text-amber-700">Перейти →</Button></Link>
+            </div>
+            <div className="rounded-xl p-5 border border-amber-200 bg-amber-50 text-center">
+              <Banknote className="h-8 w-8 text-amber-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">Імпакт-калькулятор</h3>
+              <p className="text-xs text-muted-foreground mb-3">Train for Care ROI: бюджет → бенефіціари → платформна комісія → чистий вплив.</p>
+              <Link href="/portal/donor"><Button variant="outline" size="sm" className="w-full border-amber-400 text-amber-700">Розрахувати →</Button></Link>
+            </div>
+            <div className="rounded-xl p-5 border border-amber-200 bg-amber-50 text-center">
+              <Shield className="h-8 w-8 text-amber-600 mx-auto mb-3" />
+              <h3 className="font-bold text-sm mb-1">Дошка пошани</h3>
+              <p className="text-xs text-muted-foreground mb-3">Золотий та серебрний партнери за внесок та вплив.</p>
+              <Link href="/portal/donor"><Button variant="outline" size="sm" className="w-full border-amber-400 text-amber-700">Переглянути →</Button></Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

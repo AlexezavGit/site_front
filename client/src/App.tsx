@@ -14,6 +14,10 @@ import ForBeneficiaries from "@/pages/ForBeneficiaries";
 import About from "@/pages/About";
 import Methodology from "@/pages/Methodology";
 import Referral from "@/pages/Referral";
+import Portal from "@/pages/Portal";
+import DonorCabinet from "@/pages/portal/DonorCabinet";
+import ProviderCabinet from "@/pages/portal/ProviderCabinet";
+import BeneficiaryCabinet from "@/pages/portal/BeneficiaryCabinet";
 
 function Router() {
   return (
@@ -29,6 +33,10 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/methodology" component={Methodology} />
           <Route path="/referral" component={Referral} />
+          <Route path="/portal" component={Portal} />
+          <Route path="/portal/donor" component={DonorCabinet} />
+          <Route path="/portal/provider" component={ProviderCabinet} />
+          <Route path="/portal/beneficiary" component={BeneficiaryCabinet} />
           <Route component={NotFound} />
         </Switch>
       </main>

@@ -252,6 +252,20 @@ export default function Referral() {
                   </ul>
                 </CardContent>
               </Card>
+
+              {/* Portal shortcut */}
+              <Card>
+                <CardContent className="pt-5">
+                  <h3 className="font-bold mb-3">Вести вже обліковий запис?</h3>
+                  <p className="text-xs text-muted-foreground mb-3">Увійдіть у кабінет залежно від вашої ролі:</p>
+                  <div className="space-y-2">
+                    <Link href="/portal/donor"><Button variant="outline" size="sm" className="w-full border-amber-400 text-amber-700">Кабінет донора</Button></Link>
+                    <Link href="/portal/provider"><Button variant="outline" size="sm" className="w-full border-teal-400 text-teal-700">Кабінет фахівця</Button></Link>
+                    <Link href="/portal/beneficiary"><Button variant="outline" size="sm" className="w-full border-rose-400 text-rose-700">Кабінет бенефіціара</Button></Link>
+                    <Link href="/portal"><Button variant="ghost" size="sm" className="w-full">Портал входу</Button></Link>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>

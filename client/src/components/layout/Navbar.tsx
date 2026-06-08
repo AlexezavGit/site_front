@@ -38,6 +38,7 @@ const mobileItems = [
   { href: "/about",         label: "Про програму" },
   { href: "/methodology",   label: "Методологія" },
   { href: "/referral",      label: "Реєстрація" },
+  { href: "/portal",        label: "Кабінети" },
 ];
 
 function DropMenu({ items }: { items: typeof forProfessionals }) {
@@ -155,6 +156,18 @@ export default function Navbar() {
                 <NavigationMenuContent>
                   <DropMenu items={aboutProgram} />
                 </NavigationMenuContent>
+              </NavigationMenuItem>
+
+              {/* Portal */}
+              <NavigationMenuItem>
+                <Link href="/portal">
+                  <button style={navLinkStyle(location === "/portal")}
+                    onMouseEnter={e => { if (location !== "/portal") (e.currentTarget as HTMLElement).style.color = "white"; }}
+                    onMouseLeave={e => { if (location !== "/portal") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.75)"; }}
+                  >
+                    Кабінети
+                  </button>
+                </Link>
               </NavigationMenuItem>
 
               {/* External dashboard */}
