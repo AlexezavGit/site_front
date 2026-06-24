@@ -7,17 +7,12 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
-import ForProfessionals from "@/pages/ForProfessionals";
-import Training from "@/pages/Training";
-import ForDonors from "@/pages/ForDonors";
-import ForBeneficiaries from "@/pages/ForBeneficiaries";
 import About from "@/pages/About";
+import Impact from "@/pages/Impact";
 import Methodology from "@/pages/Methodology";
+import ForDonors from "@/pages/ForDonors";
+import Stories from "@/pages/Stories";
 import Referral from "@/pages/Referral";
-import Portal from "@/pages/Portal";
-import DonorCabinet from "@/pages/portal/DonorCabinet";
-import ProviderCabinet from "@/pages/portal/ProviderCabinet";
-import BeneficiaryCabinet from "@/pages/portal/BeneficiaryCabinet";
 
 function Router() {
   return (
@@ -26,17 +21,12 @@ function Router() {
       <main className="flex-1">
         <Switch>
           <Route path="/" component={Home} />
-          <Route path="/pro" component={ForProfessionals} />
-          <Route path="/training" component={Training} />
-          <Route path="/donors" component={ForDonors} />
-          <Route path="/beneficiaries" component={ForBeneficiaries} />
           <Route path="/about" component={About} />
+          <Route path="/impact" component={Impact} />
           <Route path="/methodology" component={Methodology} />
+          <Route path="/for-donors" component={ForDonors} />
+          <Route path="/stories" component={Stories} />
           <Route path="/referral" component={Referral} />
-          <Route path="/portal" component={Portal} />
-          <Route path="/portal/donor" component={DonorCabinet} />
-          <Route path="/portal/provider" component={ProviderCabinet} />
-          <Route path="/portal/beneficiary" component={BeneficiaryCabinet} />
           <Route component={NotFound} />
         </Switch>
       </main>
