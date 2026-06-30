@@ -5,9 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
+import RoleSwitcher from "@/components/RoleSwitcher";
 import {
   ArrowLeft, Stethoscope, Users, TrendingUp, Calculator,
-  CheckCircle2, AlertCircle, FileText, Star, Clock, DollarSign
+  CheckCircle2, AlertCircle, FileText, Star, Clock, DollarSign,
+  PlusCircle, ClipboardList, Shield, Sparkles
 } from "lucide-react";
 
 function CirculationFolder() {

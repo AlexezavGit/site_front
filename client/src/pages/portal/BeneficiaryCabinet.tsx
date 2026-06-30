@@ -5,9 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
+import RoleSwitcher from "@/components/RoleSwitcher";
 import {
   ArrowLeft, Users, Heart, Calculator, Stethoscope,
-  CheckCircle2, AlertCircle, DollarSign, TrendingUp, Share2
+  CheckCircle2, AlertCircle, DollarSign, TrendingUp, Share2,
+  CalendarDays, Sparkles, Shield
 } from "lucide-react";
 
 function DiagnosisMockup() {

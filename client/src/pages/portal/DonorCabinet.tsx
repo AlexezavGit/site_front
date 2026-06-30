@@ -5,9 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Link } from "wouter";
+import RoleSwitcher from "@/components/RoleSwitcher";
 import {
   ArrowLeft, Heart, TrendingUp, BarChart3, Award, Calculator,
-  Shield, Globe, Users, CheckCircle2, AlertCircle, FileText
+  Shield, Globe, Users, CheckCircle2, AlertCircle, FileText,
+  Activity, ClipboardList, PlusCircle
 } from "lucide-react";
 
 function ImpactCalculator() {
