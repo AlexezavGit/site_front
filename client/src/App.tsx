@@ -18,6 +18,7 @@ import Portal from "@/pages/Portal";
 import DonorCabinet from "@/pages/portal/DonorCabinet";
 import ProviderCabinet from "@/pages/portal/ProviderCabinet";
 import BeneficiaryCabinet from "@/pages/portal/BeneficiaryCabinet";
+import AuditorCabinet from "@/pages/portal/AuditorCabinet";
 
 function Router() {
   return (
@@ -37,6 +38,7 @@ function Router() {
           <Route path="/portal/donor" component={DonorCabinet} />
           <Route path="/portal/provider" component={ProviderCabinet} />
           <Route path="/portal/beneficiary" component={BeneficiaryCabinet} />
+          <Route path="/portal/auditor" component={AuditorCabinet} />
           <Route component={NotFound} />
         </Switch>
       </main>

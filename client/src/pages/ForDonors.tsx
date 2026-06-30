@@ -154,7 +154,7 @@ export default function ForDonors() {
       <section className="py-14" style={{ background: "#FAFBFC", borderTop: "1px solid #E5E7EB" }}>
         <div className="container">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-2" style={{ color: NAVY }}>Попередже кабінет донора</h2>
+            <h2 className="text-2xl font-bold mb-2" style={{ color: NAVY }}>Кабінет донора — попередній перегляд</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">Інтерактивні мокапи: скоринг ініціатив, імпакт-калькулятор, дошка пошани.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">

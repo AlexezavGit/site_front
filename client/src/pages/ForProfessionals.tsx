@@ -123,76 +123,6 @@ export default function ForProfessionals() {
         </div>
       </section>
 
-      {/* Sectors */}
-      <section className="py-16 bg-slate-50">
-        <div className="container">
-          <h2 className="text-3xl font-bold mb-4 text-center">Три сектори надавачів</h2>
-          <p className="text-muted-foreground text-center mb-10 max-w-2xl mx-auto">
-            Між первинною допомогою та психіатричними закладами — пропасть. FEEL Again будує
-            Trusted Digital Layer для Missing Middle.
-          </p>
-          <div className="grid md:grid-cols-3 gap-6">
-            {sectors.map((s, i) => (
-              <Card key={i} className={`border-2 ${s.color} h-full`}>
-                <CardHeader>
-                  <div className="flex justify-between items-start">
-                    <CardTitle className="text-lg">{s.title}</CardTitle>
-                    <Badge className={s.badgeColor}>{s.badge}</Badge>
-                  </div>
-                  <p className="text-sm font-semibold text-muted-foreground">{s.count}</p>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4">{s.situation}</p>
-                  <div className="border-t pt-3">
-                    <p className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">Рішення FEEL:</p>
-                    <p className="text-sm">{s.solution}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pipeline Table */}
-      <section className="py-16">
-        <div className="container">
-          <h2 className="text-3xl font-bold mb-3 text-center">8 потоків фахівців</h2>
-          <p className="text-muted-foreground text-center mb-2 max-w-2xl mx-auto">
-            Консервативна оцінка Year 1: ~1,500–2,500 формалізованих фахівців.
-          </p>
-          <p className="text-xs text-center text-muted-foreground mb-8">
-            Doc 4 · Canonical Dataset v1.0 · Конверсії — консервативні оцінки, потребують валідації через пілот
-          </p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-slate-100">
-                  <th className="text-left p-3 font-semibold">#</th>
-                  <th className="text-left p-3 font-semibold">Потік</th>
-                  <th className="text-left p-3 font-semibold">Опис</th>
-                  <th className="text-right p-3 font-semibold">Pool</th>
-                  <th className="text-right p-3 font-semibold">Конверсія</th>
-                </tr>
-              </thead>
-              <tbody>
-                {pipeline.map((row, i) => (
-                  <tr key={i} className="border-t hover:bg-slate-50 transition-colors">
-                    <td className="p-3 text-muted-foreground font-mono">{i + 1}</td>
-                    <td className="p-3 font-medium">{row.stream}</td>
-                    <td className="p-3 text-muted-foreground">{row.desc}</td>
-                    <td className="p-3 text-right font-mono">{row.pool}</td>
-                    <td className="p-3 text-right">
-                      <Badge variant="outline" className="text-green-700 border-green-300">{row.conv}</Badge>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
       {/* How to Join */}
       <section className="py-16 bg-primary text-white">
         <div className="container text-center max-w-2xl mx-auto">
@@ -217,7 +147,7 @@ export default function ForProfessionals() {
       <section className="py-14" style={{ background: "#FAFBFC", borderTop: "1px solid #E5E7EB" }}>
         <div className="container">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-2" style={{ color: NAVY }}>Попередже кабінет фахівця</h2>
+            <h2 className="text-2xl font-bold mb-2" style={{ color: NAVY }}>Кабінет фахівця — попередній перегляд</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">Інтерактивні мокапи: циркулейшн фолдер, ренкінг, калькулятор доходу.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">

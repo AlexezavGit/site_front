@@ -82,7 +82,7 @@ export default function ForBeneficiaries() {
           animate={{ opacity: 1, y: 0 }}
           className="container"
         >
-          <Badge className="mb-4 bg-purple-100 text-purple-800 border-purple-200">Бенефіціарам</Badge>
+          <Badge className="mb-4 bg-purple-100 text-purple-800 border-purple-200">Бенефіціарам · Клієнтам · Пацієнтам</Badge>
           <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl">
             Рівний доступ<br />
             <span className="text-primary">до якісної</span><br />
@@ -222,7 +222,7 @@ export default function ForBeneficiaries() {
       <section className="py-14" style={{ background: "#FAFBFC", borderTop: "1px solid #E5E7EB" }}>
         <div className="container">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold mb-2" style={{ color: "#0F2B46" }}>Попередже кабінет бенефіціара</h2>
+            <h2 className="text-2xl font-bold mb-2" style={{ color: "#0F2B46" }}>Кабінет бенефіціара · клієнта · пацієнта — попередній перегляд</h2>
             <p className="text-muted-foreground max-w-xl mx-auto">Інтерактивні мокапи: діагностика, вибір фахівця, калькулятор кошторису, P2P-збір.</p>
           </div>
           <div className="grid md:grid-cols-3 gap-5 max-w-4xl mx-auto">
