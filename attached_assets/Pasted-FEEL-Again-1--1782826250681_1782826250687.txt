@@ -1,0 +1,126 @@
+FEEL Again — Інтеграція кабінетів та розділення контенту
+Архітектура розділення
+1. Наративний сайт (публічний контент)
+Ціль: Інформувати про програму, залучувати нових користувачів
+Сторінки: Home, About, Methodology, Training, ForProfessionals, ForDonors, ForBeneficiaries
+Особливість: Інфографіка, статичний контент, немає операційного функціоналу
+2. Портал користувачів (рольові кабінети)
+Ціль: Операційний функціонал, живі дані, взаємодія між ролями
+Шляхи входу (питання-шлюзи на /portal):
+"Бажаю анонімно діагностуватися" → BeneficiaryCabinet
+"Маю наміри надавати фахову допомогу" → ProviderCabinet
+"Поцікавитись цифровим контролем трансакцій" → DonorCabinet
+Мульти-роль: Всередині кабінету можливість змінити роль (RoleSwitcher)
+3. Дашборд (операційна панель)
+Ціль: Агрегована аналітика, моніторинг для адмінів
+Зовнішній: https://dashboard-1q7.pages.dev/
+Дата-модель (схема програм фінансування)
+// FundingProgram — програма, яку створює донор
+interface FundingProgram {
+  id: string;
+  name: string;
+  description: string;
+  donorId: string;
+  budgetTotal: number;        // Загальний бюджет
+  budgetUsed: number;         // Використано
+  complianceRules: {
+    autoApprove: boolean;      // Автоматичне або ручне прийняття
+    maxSessionCost: number;    // Макс вартість сеансу
+    requiredCredentials: string[]; // Обов'язкові сертифікати фахівця
+    beneficiaryEligibility: string[]; // Критерії елігібільності бенефіціара
+  };
+  status: 'draft' | 'active' | 'paused' | 'closed';
+  createdAt: Date;
+  startsAt: Date;
+  endsAt: Date;
+}
+// ProgramEnrollment — запис на програму
+interface ProgramEnrollment {
+  id: string;
+  programId: string;
+  userId: string;           // надавач або бенефіціар
+  userRole: 'provider' | 'beneficiary';
+  status: 'pending' | 'compliance_review' | 'approved' | 'rejected';
+  complianceData: Record<string, any>;
+  enrolledAt: Date;
+  approvedAt?: Date;
+}
+// Project — проєкт, який створює надавач за підтримки програми
+interface Project {
+  id: string;
+  providerId: string;
+  programId: string;
+  name: string;
+  description: string;
+  beneficiaries: string[];   // IDs бенефіціарів
+  sessionsPlanned: number;
+  sessionsCompleted: number;
+  budgetAllocated: number;
+  budgetSpent: number;
+  status: 'draft' | 'submitted' | 'approved' | 'active' | 'completed';
+  reports: Report[];
+}
+// Report — звіт про проєкт
+interface Report {
+  id: string;
+  projectId: string;
+  type: 'progress' | 'final' | 'financial';
+  period: { start: Date; end: Date };
+  metrics: {
+    beneficiariesServed: number;
+    sessionsDelivered: number;
+    outcomes: Record<string, number>;
+  };
+  status: 'draft' | 'submitted' | 'reviewed' | 'approved';
+  submittedAt?: Date;
+  approvedAt?: Date;
+}
+
+Функціонал кабінетів (детально)
+DonorCabinet (Донор)
+ Програми фінансування: Створення, редагування, налаштування комплаєнсу
+ Моніторинг програм: Бюджет, використання, залишок, прогрес
+ Контроль трансакцій: Хейн-аудит платежів, верифікація результатів
+ Звітність: Агреговані звіти по всім програмам
+ Супервайзорський доступ: Окрема роль для аудитора/громади
+ProviderCabinet (Надавач)
+ Реєстрація бенефіціарів: Додавання з підтвердженням бенефіціара (як в service admin)
+ Проєкти: Створення, подача на затвердження, виконання
+ Банери програм: Активні програми фінансування для запису
+ Комплаєнс: Перевірка сертифікатів, елігібільності
+ Звітність: Створення звітів по проєктам
+BeneficiaryCabinet (Бенефіціар)
+ Самодіагностика: Анонімна, без обов'язкової реєстрації
+ Банери програм: Доступні програми для запису
+ Запис на програму: Подача заявки, проходження комплаєнсу
+ Вибір фахівця: Каталог з фільтрами й рейтингом
+ Мій графік допомоги: Заплановані та пройдені сесії
+Інтеграційні точки
+Provider ↔ Beneficiary
+Надавач реєструє бенефіціара (з підтвердженням бенефіціара)
+Бенефіціар бачить проєкти надавача у своєму кабінеті
+Надавач і бенефіціар подаються на одні й ті ж програми фінансування
+Donor ↔ Provider/Beneficiary
+Донор створює програму → вона стає банером у кабінетах
+Провайдер подає проєкт на програму → донор бачить заявку
+Донор бачить звіти про використання коштів
+Reporting Flow
+Надавач створює звіт → прив'язаний до проєкту та програми
+Звіт видний донору (моніторинг) і супервайзеру (аудит)
+Супервайзер може затвердити/відхилити звіт
+Поточний статус (що вже зроблено)
+ Portal з трима картками ролей
+ ДонорCabinet: імпакт-калькулятор, скоринг, дошка пошани
+ ProviderCabinet: циркулейшн, калькулятор, рейтинг
+ BeneficiaryCabinet: діагностика, калькулятор, P2P-збір
+ Наративні сторінки: Home, About, Methodology, Training, Pro, Donors, Beneficiaries
+Що потрібно зробити наступним кроком
+ Створити дата-модель FundingProgram, ProgramEnrollment, Project, Report у schema.ts
+ Додати IStorage методи для програм, проєктів, звітів, записів
+ API ендпоінти для CRUD операцій з програмами та проєктами
+ Оновити Portal: питання-шлюзи, анонімний вхід для бенефіціарів
+ Оновити DonorCabinet: програми, моніторинг, звітність
+ Оновити ProviderCabinet: реєстрація бенефіціарів, проєкти, банери, комплаєнс
+ Оновити BeneficiaryCabinet: банери програм, запис, комплаєнс, графік
+ Додати RoleSwitcher до кожного кабінету
+ Оновити навігацію: розділення наративного сайту та порталу

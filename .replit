@@ -7,9 +7,9 @@ channel = "stable-24_05"
 packages = ["iputils"]
 
 [deployment]
-deploymentTarget = "cloudrun"
+deploymentTarget = "autoscale"
 build = ["npm", "run", "build"]
-run = ["npm", "run", "start"]
+run = ["node", "./dist/index.cjs"]
 
 [[ports]]
 localPort = 5000
@@ -35,9 +35,9 @@ author = "agent"
 agentRequireRestartOnSave = false
 
 [[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[agent]
+stack = "FULLSTACK_JS"
