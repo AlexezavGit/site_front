@@ -19,8 +19,10 @@ import {
   ArrowLeft, Stethoscope, Users, Calculator, Star,
   CheckCircle2, FileText, Banknote, PlusCircle, Send,
   Clock, TrendingUp, UserPlus, ClipboardList, LayoutGrid,
-  ArrowRight, BadgeCheck, Shield, ChevronRight, RefreshCw
+  ArrowRight, BadgeCheck, Shield, ChevronRight, RefreshCw, Timer
 } from "lucide-react";
+import CirculationFolder from "@/components/CirculationFolder";
+import SessionHandshake from "@/components/SessionHandshake";
 
 const TEAL = "#0D9488";
 const NAVY = "#0F2B46";
@@ -579,60 +581,6 @@ function Reports() {
   );
 }
 
-function CirculationFolder() {
-  const [patients] = useState([
-    { id: 1, name: "Бенефіціар #2847", status: "active", diagnosis: "PTSD · 8/12 сеансів", progress: 34, nextSession: "15 липня", coFin: 60 },
-    { id: 2, name: "Бенефіціар #3120", status: "pending", diagnosis: "Не діагностовано — очікує скринінгу", progress: 0, nextSession: "—", coFin: 0 },
-    { id: 3, name: "Бенефіціар #2991", status: "active", diagnosis: "GAD-7 · 3/8 сеансів", progress: 18, nextSession: "18 липня", coFin: 75 },
-  ]);
-
-  return (
-    <div className="space-y-4">
-      {patients.map((p) => (
-        <Card key={p.id} className={p.status === "active" ? "border-teal-200 bg-teal-50/30" : ""}>
-          <CardContent className="pt-4 pb-4">
-            <div className="flex items-start justify-between mb-2">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="font-semibold text-sm" style={{ color: NAVY }}>{p.name}</span>
-                  <Badge className={p.status === "active" ? "bg-teal-100 text-teal-800" : "bg-slate-100 text-slate-700"}>
-                    {p.status === "active" ? "Активний" : "Очікує"}
-                  </Badge>
-                </div>
-                <p className="text-xs text-muted-foreground">{p.diagnosis}</p>
-              </div>
-              {p.status === "active" && (
-                <div className="text-right text-xs text-muted-foreground">
-                  <div className="flex items-center gap-1"><Clock className="w-3 h-3" />{p.nextSession}</div>
-                  <div className="flex items-center gap-1 mt-0.5"><Banknote className="w-3 h-3" />Спів: {p.coFin}%</div>
-                </div>
-              )}
-            </div>
-            {p.status === "active" && p.progress > 0 && (
-              <div>
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-muted-foreground">Покращення PHQ-9</span>
-                  <span className="font-semibold text-green-600">+{p.progress}%</span>
-                </div>
-                <div className="bg-slate-200 rounded-full h-1.5">
-                  <div className="h-1.5 rounded-full bg-green-500" style={{ width: `${p.progress}%` }} />
-                </div>
-              </div>
-            )}
-            <div className="flex gap-2 mt-3">
-              <Button size="sm" variant="outline" className="text-xs h-7">
-                <FileText className="w-3 h-3 mr-1" /> Сеанс
-              </Button>
-              <Button size="sm" variant="outline" className="text-xs h-7">
-                <TrendingUp className="w-3 h-3 mr-1" /> Прогрес
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
-    </div>
-  );
-}
 
 function IncomeCalculator() {
   const [sessionsPerWeek, setSessionsPerWeek] = useState(20);
@@ -680,16 +628,17 @@ function IncomeCalculator() {
 }
 
 const TABS = [
+  { id: "circulation", label: "Фолдер", icon: Users },
   { id: "programs", label: "Програми", icon: LayoutGrid },
   { id: "register", label: "Реєстрація клієнта", icon: UserPlus },
   { id: "projects", label: "Проєкти", icon: ClipboardList },
   { id: "reports", label: "Звітність", icon: FileText },
-  { id: "circulation", label: "Фолдер", icon: Users },
+  { id: "session", label: "Сеанс", icon: Timer },
   { id: "calculator", label: "Дохід", icon: Calculator },
 ];
 
 export default function ProviderCabinet() {
-  const [activeTab, setActiveTab] = useState("programs");
+  const [activeTab, setActiveTab] = useState("circulation");
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -731,11 +680,19 @@ export default function ProviderCabinet() {
       <div className="container py-6">
         <AnimatePresence mode="wait">
           <motion.div key={activeTab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }}>
+            {activeTab === "circulation" && <CirculationFolder />}
             {activeTab === "programs" && <ProgramBanners providerId={PROVIDER_ID} />}
             {activeTab === "register" && <RegisterClient />}
             {activeTab === "projects" && <Projects />}
             {activeTab === "reports" && <Reports />}
-            {activeTab === "circulation" && <CirculationFolder />}
+            {activeTab === "session" && (
+              <SessionHandshake
+                sessionNumber={9}
+                totalSessions={12}
+                providerName="Бенефіціар #2847"
+                role="provider"
+              />
+            )}
             {activeTab === "calculator" && <IncomeCalculator />}
           </motion.div>
         </AnimatePresence>

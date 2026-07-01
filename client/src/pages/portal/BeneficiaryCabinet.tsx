@@ -13,8 +13,10 @@ import {
   ArrowLeft, Heart, Calculator, Stethoscope, Share2,
   CheckCircle2, DollarSign, TrendingUp, CalendarDays,
   Search, Star, BadgeCheck, ChevronRight, RefreshCw,
-  LayoutGrid, Clock, MapPin, Video, Phone, Users, AlertCircle
+  LayoutGrid, Clock, MapPin, Video, Phone, Users, AlertCircle, Timer
 } from "lucide-react";
+import ScreeningFlow from "@/components/diagnostic/ScreeningFlow";
+import SessionHandshake from "@/components/SessionHandshake";
 
 const ROSE = "#E11D48";
 const NAVY = "#0F2B46";
@@ -520,6 +522,7 @@ const TABS = [
   { id: "diagnosis", label: "Скринінг", icon: Stethoscope },
   { id: "providers", label: "Фахівці", icon: Users },
   { id: "schedule", label: "Мій графік", icon: CalendarDays },
+  { id: "session", label: "Сеанс", icon: Timer },
   { id: "calculator", label: "Калькулятор", icon: Calculator },
   { id: "p2p", label: "P2P-збір", icon: Share2 },
 ];
@@ -568,9 +571,17 @@ export default function BeneficiaryCabinet() {
         <AnimatePresence mode="wait">
           <motion.div key={activeTab} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.15 }}>
             {activeTab === "programs" && <ProgramBanners />}
-            {activeTab === "diagnosis" && <DiagnosisMockup />}
+            {activeTab === "diagnosis" && <ScreeningFlow />}
             {activeTab === "providers" && <ProviderCatalog />}
             {activeTab === "schedule" && <MySchedule />}
+            {activeTab === "session" && (
+              <SessionHandshake
+                sessionNumber={9}
+                totalSessions={12}
+                providerName="Др. Олена Шевченко"
+                role="beneficiary"
+              />
+            )}
             {activeTab === "calculator" && <CostCalculator />}
             {activeTab === "p2p" && <P2PFundraising />}
           </motion.div>
