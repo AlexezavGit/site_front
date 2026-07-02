@@ -518,62 +518,53 @@ function ImpactCalculator({ donorType }: { donorType: string }) {
 }
 
 function Partners() {
-  const partners = [
+  const clinicalPartners = [
     {
-      rank: 1,
-      name: "Інвент Глобал",
-      type: "SIB-інвестор",
-      contribution: "€2.4M",
-      beneficiaries: "12,000",
-      badge: "Золотий партнер",
-      badgeColor: "bg-amber-100 text-amber-800",
-      rankBg: "bg-amber-400",
-      esg: "A+",
-    },
-    {
-      rank: 2,
-      name: "Укргазбанк / ЄБРР",
-      type: "Банк / фонд",
-      contribution: "€89M гарантія",
-      beneficiaries: "8,500",
-      badge: "Срібний партнер",
-      badgeColor: "bg-slate-200 text-slate-700",
-      rankBg: "bg-slate-400",
-      esg: "A",
-    },
-    {
-      rank: 3,
-      name: "NGO Open Society",
-      type: "Гуманітарний актор",
-      contribution: "€1.1M",
-      beneficiaries: "5,200",
-      badge: "Бронзовий партнер",
-      badgeColor: "bg-orange-100 text-orange-800",
-      rankBg: "bg-orange-400",
-      esg: "A-",
-    },
-    {
-      rank: 4,
-      name: "Geha Clalit (Ізраїль)",
-      type: "Методологічний партнер",
-      contribution: "Pro bono EMDR",
-      beneficiaries: "47 фахівців навчено",
-      badge: "Train for Care",
+      name: "Geha Mental Health Center · Clalit Health Services",
+      country: "Ізраїль",
+      role: "Клінічний партнер з EMDR. Провідний центр Clalit. Бойова травма, диференціальна діагностика ПТСР, модуль 1 Train for Care.",
+      badge: "Clinical Excellence",
       badgeColor: "bg-blue-100 text-blue-800",
-      rankBg: "bg-blue-400",
-      esg: "—",
+      icon: Brain,
+      color: "text-blue-600",
+      bg: "bg-blue-50",
     },
     {
-      rank: 5,
-      name: "USC / Skip Rizzo",
-      type: "Методологічний партнер",
-      contribution: "VR Bravemind IP",
-      beneficiaries: "170+ центрів VA",
-      badge: "Train for Care",
+      name: "USC ICT · Dr. Albert «Skip» Rizzo",
+      country: "США",
+      role: "Розробник BRAVEMIND (VRET). 20+ років доказової бази. 170+ клінік VA. Модуль 2 Train for Care. Крос-культурна адаптація.",
+      badge: "Clinical Excellence",
       badgeColor: "bg-violet-100 text-violet-800",
-      rankBg: "bg-violet-400",
-      esg: "—",
+      icon: Zap,
+      color: "text-violet-600",
+      bg: "bg-violet-50",
     },
+    {
+      name: "IIPE КНУ ім. Тараса Шевченка · Оля Запорожець & Оксана Сивак",
+      country: "Україна",
+      role: "Center of Excellence. Науково-дослідне партнерство. Регресійний датасет 2014–2024. БПР-акредитація (Наказ МОЗ №446).",
+      badge: "Center of Excellence",
+      badgeColor: "bg-teal-100 text-teal-800",
+      icon: GraduationCap,
+      color: "text-teal-600",
+      bg: "bg-teal-50",
+    },
+    {
+      name: "Dr. Jessica Stone · Virtual Sandtray (VSA)",
+      country: "США",
+      role: "VSA Certified Practitioner. Expansion pack «Virtual Ukraine». Нейродивергентні, підлітки, ACEs. Дистанційна та телехелс-сесія.",
+      badge: "Train for Care",
+      badgeColor: "bg-amber-100 text-amber-800",
+      icon: Sparkles,
+      color: "text-amber-700",
+      bg: "bg-amber-50",
+    },
+  ];
+
+  const honorPlaceholders = [
+    { rank: 1, label: "Ваш логотип тут", type: "Золотий донор", note: "Програми від €75,000", color: "bg-amber-400" },
+    { rank: 2, label: "Ваш логотип тут", type: "Срібний донор", note: "Програми від €25,000", color: "bg-slate-400" },
+    { rank: 3, label: "Ваш логотип тут", type: "Бронзовий донор", note: "Програми від €10,000", color: "bg-orange-400" },
   ];
 
   const donorTypeCards = DONOR_TYPES.map((dt) => {
@@ -592,32 +583,70 @@ function Partners() {
 
   return (
     <div className="space-y-6">
+      <Card className="border-amber-200 bg-amber-50/30">
+        <CardContent className="pt-4 pb-4">
+          <div className="flex items-start gap-3">
+            <Shield className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
+            <div>
+              <p className="text-sm font-semibold text-amber-900">ГО «Фундація Відкрите Суспільство» — координатор і адміністратор програми FEEL Again</p>
+              <p className="text-xs text-amber-800 mt-1">Відповідає за цифрову інфраструктуру, відкриті дані, комплаєнс і координацію між глобальними акторами та локальними провайдерами. Geha Clalit і USC ICT — партнери клінічного Excellence.</p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Star className="w-4 h-4 text-blue-600" />
+            Партнери клінічного Excellence · Train for Care
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          {clinicalPartners.map((p, i) => {
+            const Icon = p.icon;
+            return (
+              <div key={i} className={`rounded-lg p-3 border ${p.bg} flex items-start gap-3`}>
+                <div className={`w-8 h-8 rounded-full bg-white flex items-center justify-center shrink-0 border`}>
+                  <Icon className={`w-4 h-4 ${p.color}`} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-start justify-between gap-2 flex-wrap">
+                    <div>
+                      <p className="text-xs font-semibold text-slate-800">{p.name}</p>
+                      <p className="text-xs text-muted-foreground">{p.country}</p>
+                    </div>
+                    <Badge className={`text-xs shrink-0 ${p.badgeColor}`}>{p.badge}</Badge>
+                  </div>
+                  <p className="text-xs text-slate-600 mt-1">{p.role}</p>
+                </div>
+              </div>
+            );
+          })}
+        </CardContent>
+      </Card>
+
       <Card>
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <Trophy className="w-4 h-4 text-amber-600" />
-            Дошка пошани гуманітарних акторів
+            Дошка пошани донорів
+            <Badge className="ml-auto text-xs bg-slate-100 text-slate-500 font-normal">Місця очікують на перших донорів</Badge>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          {partners.map((p) => (
-            <div key={p.rank} className="flex items-center gap-4 p-3 rounded-lg border bg-white hover:bg-slate-50 transition-colors">
-              <div className={`w-9 h-9 rounded-full ${p.rankBg} flex items-center justify-center text-white font-bold text-sm shrink-0`}>
+          {honorPlaceholders.map((p) => (
+            <div key={p.rank} className="flex items-center gap-4 p-3 rounded-lg border border-dashed border-slate-200 bg-slate-50/50">
+              <div className={`w-9 h-9 rounded-full ${p.color} opacity-30 flex items-center justify-center text-white font-bold text-sm shrink-0`}>
                 {p.rank}
               </div>
-              <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-semibold text-sm" style={{ color: NAVY }}>{p.name}</span>
-                  <Badge className={`text-xs ${p.badgeColor}`}>{p.badge}</Badge>
-                </div>
-                <p className="text-xs text-muted-foreground">{p.type} · {p.contribution} · {p.beneficiaries}</p>
+              <div className="flex-1">
+                <p className="text-xs font-medium text-slate-400">{p.label}</p>
+                <p className="text-xs text-slate-400">{p.type} · {p.note}</p>
               </div>
-              {p.esg !== "—" && (
-                <div className="text-center">
-                  <p className="text-xs text-muted-foreground">ESG</p>
-                  <p className="text-sm font-bold text-emerald-600">{p.esg}</p>
-                </div>
-              )}
+              <Button size="sm" variant="outline" className="text-xs h-7 border-amber-300 text-amber-700">
+                Стати першим
+              </Button>
             </div>
           ))}
         </CardContent>

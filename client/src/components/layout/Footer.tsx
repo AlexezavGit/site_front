@@ -73,8 +73,8 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs" style={{ borderTop: "1px solid rgba(212,160,23,0.12)", color: "rgba(255,255,255,0.45)" }}>
-          <p>&copy; {new Date().getFullYear()} FEEL Again Programme Consortium.</p>
-          <p>$1,945K · 3 кластери · 12 проєктів · 7% → 3%</p>
+          <p>&copy; {new Date().getFullYear()} ГО «Фундація Відкрите Суспільство» · Програма FEEL Again. Усі права захищені.</p>
+          <p>Geha Clalit Health Services · USC ICT · КНУ ім. Шевченка — партнери клінічного Excellence</p>
         </div>
       </div>
     </footer>
