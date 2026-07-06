@@ -10,8 +10,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Menu, ExternalLink } from "lucide-react";
+import { Menu, ExternalLink, User as UserIcon, LogOut } from "lucide-react";
 import { FeelAgainLogoInline } from "./FeelAgainLogo";
+import { useAuth } from "@/hooks/use-auth";
 
 const NAVY  = "#0F2B46";
 const GOLD  = "#D4A017";
@@ -61,6 +62,7 @@ function DropMenu({ items }: { items: typeof forProfessionals }) {
 
 export default function Navbar() {
   const [location] = useLocation();
+  const { user, logoutMutation } = useAuth();
   const isActive = (...paths: string[]) => paths.includes(location);
 
   const navLinkStyle = (active: boolean) => ({
@@ -190,27 +192,66 @@ export default function Navbar() {
         </div>
 
         {/* ── CTA ───────────────────────────────────── */}
-        <div className="ml-auto hidden md:flex">
-          <Link href="/referral">
-            <button
-              style={{
-                background: GOLD,
-                color: NAVY,
-                fontWeight: 600,
-                fontSize: "0.8125rem",
-                padding: "0.45rem 1.1rem",
-                borderRadius: "0.375rem",
-                border: "none",
-                cursor: "pointer",
-                letterSpacing: "0.03em",
-                transition: "opacity 0.15s",
-              }}
-              onMouseEnter={e => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
-              onMouseLeave={e => ((e.currentTarget as HTMLElement).style.opacity = "1")}
-            >
-              Реєстрація
-            </button>
-          </Link>
+        <div className="ml-auto hidden md:flex items-center gap-2">
+          {user ? (
+            <>
+              <Link href="/portal">
+                <button
+                  data-testid="link-my-cabinet"
+                  style={{ ...navLinkStyle(false), gap: "0.4rem" }}
+                  onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "white")}
+                  onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.75)")}
+                >
+                  <UserIcon style={{ width: 14, height: 14 }} />
+                  {user.name}
+                </button>
+              </Link>
+              <button
+                data-testid="button-logout"
+                onClick={() => logoutMutation.mutate()}
+                style={{ ...navLinkStyle(false), gap: "0.4rem" }}
+                onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "white")}
+                onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.75)")}
+              >
+                <LogOut style={{ width: 14, height: 14 }} />
+                Вийти
+              </button>
+            </>
+          ) : (
+            <>
+              <Link href="/auth">
+                <button
+                  data-testid="link-login"
+                  style={navLinkStyle(location === "/auth")}
+                  onMouseEnter={e => { if (location !== "/auth") (e.currentTarget as HTMLElement).style.color = "white"; }}
+                  onMouseLeave={e => { if (location !== "/auth") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.75)"; }}
+                >
+                  Увійти
+                </button>
+              </Link>
+              <Link href="/auth">
+                <button
+                  data-testid="link-register"
+                  style={{
+                    background: GOLD,
+                    color: NAVY,
+                    fontWeight: 600,
+                    fontSize: "0.8125rem",
+                    padding: "0.45rem 1.1rem",
+                    borderRadius: "0.375rem",
+                    border: "none",
+                    cursor: "pointer",
+                    letterSpacing: "0.03em",
+                    transition: "opacity 0.15s",
+                  }}
+                  onMouseEnter={e => ((e.currentTarget as HTMLElement).style.opacity = "0.9")}
+                  onMouseLeave={e => ((e.currentTarget as HTMLElement).style.opacity = "1")}
+                >
+                  Реєстрація
+                </button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* ── Mobile hamburger ──────────────────────── */}

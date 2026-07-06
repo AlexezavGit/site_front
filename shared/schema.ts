@@ -4,8 +4,10 @@ import { z } from "zod";
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
-  username: text("username").notNull(),
+  username: text("username").notNull().unique(),
   password: text("password").notNull(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
   createdAt: timestamp("created_at").defaultNow().notNull()
 });
 
@@ -63,10 +65,29 @@ export const donors = pgTable("donors", {
 export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   createdAt: true
+}).extend({
+  email: z.string().email(),
+  username: z.string().min(3, "Мінімум 3 символи"),
+  password: z.string().min(6, "Мінімум 6 символів"),
+  name: z.string().min(2, "Введіть ім'я"),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
+
+export const ROLE_VALUES = ["provider", "beneficiary", "donor", "supervisor"] as const;
+export type RoleValue = typeof ROLE_VALUES[number];
+
+export const registerUserSchema = insertUserSchema.extend({
+  role: z.enum(ROLE_VALUES),
+});
+export type RegisterUser = z.infer<typeof registerUserSchema>;
+
+export const loginUserSchema = z.object({
+  username: z.string().min(1, "Введіть логін"),
+  password: z.string().min(1, "Введіть пароль"),
+});
+export type LoginUser = z.infer<typeof loginUserSchema>;
 
 export const insertProfessionalSchema = createInsertSchema(professionals).omit({
   id: true,

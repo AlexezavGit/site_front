@@ -1,4 +1,5 @@
 import { 
+  users, type User, type InsertUser,
   professionals, type Professional, type InsertProfessional,
   trainings, type Training, type InsertTraining,
   impactMetrics, type ImpactMetric, type InsertImpactMetric,
@@ -14,6 +15,12 @@ import { db } from "./db";
 import { eq } from "drizzle-orm";
 
 export interface IStorage {
+  // User operations
+  getUser(id: number): Promise<User | undefined>;
+  getUserByUsername(username: string): Promise<User | undefined>;
+  getUserByEmail(email: string): Promise<User | undefined>;
+  createUser(user: InsertUser): Promise<User>;
+
   // Professional operations
   getProfessional(id: number): Promise<Professional | undefined>;
   listProfessionals(): Promise<Professional[]>;
@@ -72,6 +79,27 @@ export interface IStorage {
 }
 
 export class DatabaseStorage implements IStorage {
+  // User operations
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+
   // Professional operations
   async getProfessional(id: number): Promise<Professional | undefined> {
     const [professional] = await db.select().from(professionals).where(eq(professionals.id, id));

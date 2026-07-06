@@ -1,2 +1,3 @@
 - [Partner/Org roles](partner-roles.md) — NGO FOS = coordinator/admin; Geha Clalit + USC ICT = clinical excellence; KNU Shevchenko = CoE; never list banks as partners
 - [Stack conventions](stack.md) — tsx server/index.ts on port 5000; do NOT revert to ts-node or change package.json scripts
+- [Feel Again auth pattern](feel-again-auth.md) — email+password auth with role-based cabinet access; scrypt+passport-local+PG sessions

@@ -1,17 +1,23 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
+import passport from "passport";
 import { storage } from "./storage";
+import { setupAuth, hashPassword, requireAuth, sanitizeUser } from "./auth";
 import {
   insertReferralSchema,
   insertFundingProgramSchema,
   insertProgramEnrollmentSchema,
   insertProjectSchema,
-  insertReportSchema
+  insertReportSchema,
+  registerUserSchema,
+  loginUserSchema
 } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
 import { ZodError } from "zod";
 
 export function registerRoutes(app: Express): Server {
+  setupAuth(app);
+
   // Helper for error handling
   const handleZodError = (error: unknown, res: any) => {
     if (error instanceof ZodError) {
@@ -21,6 +27,58 @@ export function registerRoutes(app: Express): Server {
       res.status(500).json({ message: "An unexpected error occurred" });
     }
   };
+
+  // Auth endpoints
+  app.post("/api/register", async (req, res) => {
+    try {
+      const parsed = registerUserSchema.parse(req.body);
+      const existingUsername = await storage.getUserByUsername(parsed.username);
+      if (existingUsername) return res.status(400).json({ message: "Цей логін вже зайнято" });
+      const existingEmail = await storage.getUserByEmail(parsed.email);
+      if (existingEmail) return res.status(400).json({ message: "Цей email вже зареєстровано" });
+
+      const { role, ...userData } = parsed;
+      const hashed = await hashPassword(userData.password);
+      const user = await storage.createUser({ ...userData, password: hashed });
+      await storage.createUserRole({ userId: user.id, role, isPrimary: true });
+
+      req.login(user, (err) => {
+        if (err) return res.status(500).json({ message: "Помилка входу після реєстрації" });
+        res.status(201).json(sanitizeUser(user));
+      });
+    } catch (error) {
+      handleZodError(error, res);
+    }
+  });
+
+  app.post("/api/login", (req, res, next) => {
+    try {
+      loginUserSchema.parse(req.body);
+    } catch (error) {
+      return handleZodError(error, res);
+    }
+    passport.authenticate("local", (err: any, user: any, info: any) => {
+      if (err) return next(err);
+      if (!user) return res.status(401).json({ message: info?.message || "Невірний логін або пароль" });
+      req.login(user, (loginErr) => {
+        if (loginErr) return next(loginErr);
+        res.json(sanitizeUser(user));
+      });
+    })(req, res, next);
+  });
+
+  app.post("/api/logout", (req, res, next) => {
+    req.logout((err) => {
+      if (err) return next(err);
+      res.sendStatus(200);
+    });
+  });
+
+  app.get("/api/user", async (req, res) => {
+    if (!req.isAuthenticated()) return res.status(401).json({ message: "Не авторизовано" });
+    const roles = await storage.getUserRoles((req.user as any).id);
+    res.json({ ...sanitizeUser(req.user as any), roles });
+  });
 
   // Referral endpoints
   app.post("/api/referrals", async (req, res) => {

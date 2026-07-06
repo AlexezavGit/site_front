@@ -2,6 +2,8 @@ import { Switch, Route } from "wouter";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/hooks/use-auth";
+import { ProtectedRoute } from "@/lib/protected-route";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
@@ -15,6 +17,7 @@ import About from "@/pages/About";
 import Methodology from "@/pages/Methodology";
 import Referral from "@/pages/Referral";
 import Portal from "@/pages/Portal";
+import AuthPage from "@/pages/AuthPage";
 import DonorCabinet from "@/pages/portal/DonorCabinet";
 import ProviderCabinet from "@/pages/portal/ProviderCabinet";
 import BeneficiaryCabinet from "@/pages/portal/BeneficiaryCabinet";
@@ -34,11 +37,12 @@ function Router() {
           <Route path="/about" component={About} />
           <Route path="/methodology" component={Methodology} />
           <Route path="/referral" component={Referral} />
+          <Route path="/auth" component={AuthPage} />
           <Route path="/portal" component={Portal} />
-          <Route path="/portal/donor" component={DonorCabinet} />
-          <Route path="/portal/provider" component={ProviderCabinet} />
-          <Route path="/portal/beneficiary" component={BeneficiaryCabinet} />
-          <Route path="/portal/auditor" component={AuditorCabinet} />
+          <ProtectedRoute path="/portal/donor" component={DonorCabinet} role="donor" />
+          <ProtectedRoute path="/portal/provider" component={ProviderCabinet} role="provider" />
+          <ProtectedRoute path="/portal/beneficiary" component={BeneficiaryCabinet} role="beneficiary" />
+          <ProtectedRoute path="/portal/auditor" component={AuditorCabinet} role="supervisor" />
           <Route component={NotFound} />
         </Switch>
       </main>
@@ -50,8 +54,10 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router />
-      <Toaster />
+      <AuthProvider>
+        <Router />
+        <Toaster />
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
