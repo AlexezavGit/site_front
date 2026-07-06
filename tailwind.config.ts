@@ -4,6 +4,17 @@ export default {
   darkMode: ["class"],
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1180px",
+        "2xl": "1320px",
+      },
+    },
     extend: {
       borderRadius: {
         lg: "var(--radius)",

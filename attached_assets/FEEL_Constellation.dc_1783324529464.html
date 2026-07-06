@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600&family=Spline+Sans+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+  html,body{height:100%;}
+  body{background:#040d16;font-family:'Source Sans 3',sans-serif;color:#F2EADB;overflow:hidden;}
+  .mono{font-family:'Spline Sans Mono',monospace;}
+  .arch{font-family:'Archivo',sans-serif;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.3;}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</helmet>
+
+<div style="position:relative;width:100vw;height:100vh;overflow:hidden;background:#040d16;">
+
+  <!-- ══ RING BAND — fixed at top, integrated into hero gradient ══ -->
+  <div style="position:absolute;left:0;right:0;top:0;height:{{ bandH }}px;z-index:40;overflow:hidden;transition:height .5s cubic-bezier(.6,0,.2,1);">
+
+    <!-- gradient backdrop = the hero backdrop (shared composition) -->
+    <div style="position:absolute;inset:0;background:{{ heroGradient }};transition:opacity .6s;"></div>
+    <!-- top scrim so cream ink always reads (kills yellow-on-gold) -->
+    <div style="position:absolute;left:0;right:0;top:0;height:120px;background:linear-gradient(180deg,rgba(4,10,18,.72) 0%,rgba(4,10,18,.34) 55%,transparent 100%);"></div>
+
+    <!-- ── ROW 1 · GLOBAL radio-dial ── -->
+    <div style="position:relative;height:60px;display:flex;align-items:center;padding:0 30px;z-index:3;">
+      <!-- brand: FEEL mark + 'Again' as continuation -->
+      <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer;z-index:5;">
+        <img src="FEEL-mark-dark.svg" style="width:30px;height:30px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6));" alt="FEEL"/>
+        <span class="arch" style="font-weight:800;font-size:.7rem;letter-spacing:3px;color:#F2EADB;text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.6);">Again</span>
+      </div>
+
+      <!-- radio scale track -->
+      <div style="position:relative;flex:1;height:100%;overflow:hidden;">
+        <!-- center needle -->
+        <div style="position:absolute;left:50%;top:8px;transform:translateX(-50%);width:1px;height:14px;background:#F2EADB;box-shadow:0 0 6px rgba(242,234,219,.8);z-index:4;"></div>
+        <sc-for list="{{ gItems }}" as="g" hint-placeholder-count="8">
+          <div onClick="{{ g.onClick }}" style="position:absolute;left:50%;top:50%;transform:translate(calc(-50% + {{ g.x }}px),-50%) scale({{ g.scale }});opacity:{{ g.opacity }};cursor:pointer;white-space:nowrap;transition:transform .55s cubic-bezier(.6,0,.2,1),opacity .55s,color .4s;">
+            <span class="arch" style="font-weight:{{ g.weight }};font-size:.86rem;letter-spacing:3px;color:{{ g.color }};text-transform:uppercase;text-shadow:0 1px 3px rgba(0,0,0,.55);">{{ g.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- right: login/register always available -->
+      <div style="display:flex;align-items:center;gap:14px;flex-shrink:0;z-index:5;">
+        <span onClick="{{ goSupport }}" class="mono" style="font-size:.58rem;letter-spacing:2px;color:rgba(242,234,219,.6);text-transform:uppercase;cursor:pointer;">UA · EN</span>
+        <span onClick="{{ goLogin }}" class="mono" style="font-size:.62rem;font-weight:700;letter-spacing:2px;color:#0F2B46;background:#F2C04A;padding:7px 14px;border-radius:2px;text-transform:uppercase;cursor:pointer;">Вхід</span>
+      </div>
+    </div>
+
+    <!-- ── scale rule + ticks (radio aesthetic) ── -->
+    <div style="position:relative;height:12px;margin:0 30px;z-index:3;">
+      <div style="position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(242,234,219,.32) 8%,rgba(242,234,219,.32) 92%,transparent);"></div>
+      <div style="position:absolute;left:0;right:0;top:1px;height:5px;background:repeating-linear-gradient(90deg,transparent 0 13px,rgba(242,234,219,.18) 13px 14px,transparent 14px 28px);"></div>
+      <div style="position:absolute;left:0;right:0;top:1px;height:9px;background:repeating-linear-gradient(90deg,transparent 0 111px,rgba(242,234,219,.42) 111px 112px,transparent 112px 224px);"></div>
+    </div>
+
+    <!-- ── ROW 2 · LOCAL sub-nav (only when a resource has one) ── -->
+    <div style="position:relative;height:{{ localH }}px;overflow:hidden;transition:height .45s cubic-bezier(.6,0,.2,1);z-index:3;">
+      <div style="display:flex;align-items:center;gap:18px;padding:9px 30px 0;">
+        <span class="mono" style="font-size:.56rem;letter-spacing:2.5px;color:rgba(252,233,176,.6);text-transform:uppercase;flex-shrink:0;">{{ localCrumb }} ▸</span>
+        <div style="position:relative;flex:1;height:22px;overflow:hidden;">
+          <sc-for list="{{ lItems }}" as="l" hint-placeholder-count="5">
+            <div onClick="{{ l.onClick }}" style="position:absolute;left:0;top:50%;transform:translate({{ l.x }}px,-50%);opacity:{{ l.opacity }};cursor:pointer;white-space:nowrap;transition:transform .5s cubic-bezier(.6,0,.2,1),opacity .5s;">
+              <span class="mono" style="font-size:.62rem;font-weight:{{ l.weight }};letter-spacing:2px;color:{{ l.color }};text-transform:uppercase;border-bottom:{{ l.border }};padding-bottom:2px;">{{ l.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ROW 3 · METRICS (contextual, slides on switch) ── -->
+    <div style="position:relative;height:{{ metricsH }}px;overflow:hidden;transition:height .45s cubic-bezier(.6,0,.2,1);z-index:3;">
+      <div style="position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,.4) 40%,rgba(0,0,0,.45) 60%,transparent);"></div>
+      <div style="display:flex;align-items:center;gap:26px;padding:8px 30px 0;overflow-x:hidden;">
+        <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="6">
+          <div onClick="{{ m.onClick }}" style="display:flex;align-items:baseline;gap:7px;flex-shrink:0;cursor:pointer;animation:fadeUp .5s both;animation-delay:{{ m.delay }}s;">
+            <span class="mono" style="font-size:.74rem;font-weight:700;color:{{ m.vColor }};">{{ m.value }}</span>
+            <span class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:{{ m.lColor }};text-transform:uppercase;">{{ m.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ STAGE — hero / dashboard / other, below the ring band ══ -->
+  <div style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:10;">
+    <!-- gradient continues under stage seamlessly -->
+    <div style="position:absolute;inset:0;background:{{ heroGradient }};transition:opacity .6s;opacity:{{ stageGradOpacity }};"></div>
+    <div style="position:absolute;inset:0;background:#071019;opacity:{{ stageDarkOpacity }};transition:opacity .6s;"></div>
+
+    <!-- content mounts here, pushed below band -->
+    <div style="position:absolute;left:0;right:0;top:{{ bandH }}px;bottom:0;overflow:hidden;transition:top .5s cubic-bezier(.6,0,.2,1);">
+
+      <!-- ═══ HERO (home) ═══ -->
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;inset:0;display:flex;gap:44px;padding:56px 60px;">
+          <div style="flex:1.35;max-width:640px;align-self:center;animation:fadeUp .6s both;">
+            <div class="mono" style="font-size:.68rem;letter-spacing:4.5px;color:rgba(140,205,220,.9);margin-bottom:22px;text-transform:uppercase;">MHPSS · UKRAINE · 2025–2027</div>
+            <h1 class="arch" style="font-weight:900;font-size:clamp(2.6rem,4.6vw,4.2rem);line-height:.92;color:#F2EADB;text-transform:uppercase;letter-spacing:-1.8px;">Цифрове плече<br>для сектору</h1>
+            <div style="width:82px;height:2px;background:#F5A300;margin:26px 0;"></div>
+            <p style="font-size:1.08rem;line-height:1.55;color:rgba(242,234,219,.82);max-width:50ch;">Інфраструктура координації MHPSS, що закриває розрив між <b style="color:#F2EADB;">3.9M потреби</b> та спроможністю системи ментального здоров’я.</p>
+            <div style="display:flex;gap:12px;margin-top:34px;">
+              <span onClick="{{ goData }}" class="mono" style="font-size:.72rem;letter-spacing:2.5px;padding:13px 24px;background:#F2C04A;color:#0F2B46;text-transform:uppercase;font-weight:700;border-radius:2px;cursor:pointer;">ДАШБОРД →</span>
+              <span onClick="{{ goProgram }}" class="mono" style="font-size:.72rem;letter-spacing:2.5px;padding:13px 24px;border:1px solid rgba(242,234,219,.6);color:#F2EADB;text-transform:uppercase;font-weight:600;border-radius:2px;cursor:pointer;">ПРОГРАМА</span>
+            </div>
+          </div>
+          <!-- gold-side live infographic · navy ink -->
+          <div style="flex:1;align-self:center;padding:16px;">
+            <div class="mono" style="font-size:.62rem;letter-spacing:3px;color:rgba(15,43,70,.8);margin-bottom:20px;text-transform:uppercase;display:flex;align-items:center;gap:8px;"><span style="width:6px;height:6px;background:#8A2018;border-radius:50%;box-shadow:0 0 5px #8A2018;animation:blink 2s infinite;"></span>LIVE · GAP MONITOR</div>
+            <div style="display:flex;align-items:center;justify-content:center;height:196px;position:relative;">
+              <div style="position:absolute;width:186px;height:186px;border:1px dashed rgba(15,43,70,.3);border-radius:50%;"></div>
+              <div style="width:144px;height:144px;border-radius:50%;background:conic-gradient(#5A2418 0deg 223deg,#0F2B46 223deg 360deg);position:relative;box-shadow:0 0 44px rgba(90,36,24,.4);">
+                <div style="position:absolute;inset:22px;border-radius:50%;background:#1A0C04;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+                  <span class="arch" style="font-weight:300;font-size:2.1rem;color:#F2EADB;line-height:1;">62%</span>
+                  <span class="mono" style="font-size:.55rem;color:#F5A300;letter-spacing:2px;margin-top:2px;">GAP</span>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex;gap:14px;margin-top:20px;">
+              <div style="flex:1;text-align:center;"><div class="arch" style="font-weight:400;font-size:1.3rem;color:#06293A;line-height:1;">3.9M</div><div class="mono" style="font-size:.5rem;color:rgba(6,41,58,.75);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;">потреба</div></div>
+              <div style="flex:1;text-align:center;"><div class="arch" style="font-weight:400;font-size:1.3rem;color:#5A2418;line-height:1;">$8B</div><div class="mono" style="font-size:.5rem;color:rgba(90,36,24,.75);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;">втрати/рік</div></div>
+              <div style="flex:1;text-align:center;"><div class="arch" style="font-weight:400;font-size:1.3rem;color:#1A0C04;line-height:1;">4.5×</div><div class="mono" style="font-size:.5rem;color:rgba(26,12,4,.72);letter-spacing:1.5px;text-transform:uppercase;margin-top:4px;">ROI</div></div>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ═══ DASHBOARD (data) — macro base + sliding side panels + rising insights ═══ -->
+      <sc-if value="{{ isData }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;inset:0;background:#071019;">
+
+          <!-- left short-cut arrow → API panel -->
+          <div onClick="{{ openApi }}" title="API" style="position:absolute;left:0;top:50%;transform:translateY(-50%);z-index:20;width:34px;height:74px;display:flex;align-items:center;justify-content:center;background:rgba(11,58,77,.7);border:1px solid rgba(242,234,219,.12);border-left:none;border-radius:0 4px 4px 0;cursor:pointer;color:#8CCDDC;font-size:1.1rem;">‹</div>
+          <!-- right short-cut arrow → forecast panel -->
+          <div onClick="{{ openForecast }}" title="Моделювання" style="position:absolute;right:0;top:50%;transform:translateY(-50%);z-index:20;width:34px;height:74px;display:flex;align-items:center;justify-content:center;background:rgba(138,32,24,.6);border:1px solid rgba(242,234,219,.12);border-right:none;border-radius:4px 0 0 4px;cursor:pointer;color:#F0A06A;font-size:1.1rem;">›</div>
+
+          <!-- MACRO base screen -->
+          <div style="position:absolute;inset:0;padding:34px 60px;overflow:auto;">
+            <div class="mono" style="font-size:.62rem;letter-spacing:3px;color:#6AA8B4;text-transform:uppercase;margin-bottom:6px;">ГАЛУЗЕВИЙ ПАКЕТ ВІДКРИТИХ ДАНИХ · {{ dashLabel }}</div>
+            <h2 class="arch" style="font-weight:800;font-size:1.9rem;letter-spacing:-.5px;text-transform:uppercase;color:#F2EADB;">Ціна бездіяльності</h2>
+            <p style="font-size:.95rem;color:rgba(242,234,219,.6);margin-top:8px;max-width:60ch;">Послідовність макропоказників з drill-down на напрями. Клік по цифрі в кільці → відповідний розділ L2.</p>
+            <div style="display:grid;grid-template-columns:2.2fr 1fr 1fr;gap:16px;margin-top:26px;">
+              <div style="background:#0b1a26;border:1px solid rgba(46,137,166,.18);padding:18px;">
+                <div class="mono" style="font-size:.54rem;letter-spacing:2px;color:rgba(46,137,166,.7);text-transform:uppercase;margin-bottom:14px;">ЛАНДШАФТ ПОТРЕБ · 2024–2027</div>
+                <div style="height:170px;display:flex;align-items:flex-end;gap:5px;">
+                  <div style="flex:1;background:linear-gradient(to top,#06293A,#2E89A6);height:45%;"></div>
+                  <div style="flex:1;background:linear-gradient(to top,#06293A,#2E89A6);height:62%;"></div>
+                  <div style="flex:1;background:linear-gradient(to top,#06293A,#2E89A6);height:78%;"></div>
+                  <div style="flex:1;background:linear-gradient(to top,#8A2018,#D35F1E);height:96%;"></div>
+                  <div style="flex:1;background:linear-gradient(to top,#06293A,#2E89A6);height:70%;"></div>
+                  <div style="flex:1;background:linear-gradient(to top,#06293A,#2E89A6);height:52%;"></div>
+                  <div style="flex:1;background:linear-gradient(to top,#06293A,#2E89A6);height:40%;"></div>
+                </div>
+              </div>
+              <div style="background:#0b1a26;border:1px solid rgba(232,116,30,.18);padding:18px;">
+                <div class="mono" style="font-size:.54rem;letter-spacing:2px;color:rgba(232,116,30,.6);text-transform:uppercase;margin-bottom:14px;">РОЗРИВ</div>
+                <div style="display:flex;align-items:center;justify-content:center;height:170px;">
+                  <div style="width:118px;height:118px;border-radius:50%;background:conic-gradient(#8A2018 0deg 223deg,#0E4D63 223deg 360deg);position:relative;">
+                    <div style="position:absolute;inset:17px;border-radius:50%;background:#071019;display:flex;align-items:center;justify-content:center;"><span class="arch" style="font-weight:300;font-size:1.5rem;color:#F2EADB;">62%</span></div>
+                  </div>
+                </div>
+              </div>
+              <div style="background:#0b1a26;border:1px solid rgba(200,144,26,.2);padding:18px;">
+                <div class="mono" style="font-size:.54rem;letter-spacing:2px;color:rgba(200,144,26,.6);text-transform:uppercase;margin-bottom:14px;">ROI · ТРЕНД</div>
+                <div style="height:170px;position:relative;">
+                  <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="width:100%;height:100%;">
+                    <polyline points="0,82 15,74 30,68 45,55 60,42 75,28 90,18 100,10" fill="none" stroke="#F5A300" stroke-width="1.6"/>
+                  </svg>
+                  <div class="mono" style="position:absolute;bottom:0;right:0;font-size:.6rem;color:#F5A300;font-weight:700;">4.5×</div>
+                </div>
+              </div>
+            </div>
+            <div class="mono" style="margin-top:22px;padding-top:14px;border-top:1px dashed rgba(46,137,166,.2);font-size:.56rem;letter-spacing:2px;color:rgba(46,137,166,.5);text-transform:uppercase;">◷ Кабінет аналітика має окремий вхід · дата-сет відкритий · координація акторів від громад до глобальних</div>
+          </div>
+
+          <!-- API panel · slides from LEFT -->
+          <div style="position:absolute;inset:0;background:#081824;transform:translateX({{ apiX }});transition:transform .55s cubic-bezier(.6,0,.2,1);z-index:15;padding:34px 60px;overflow:auto;box-shadow:20px 0 60px rgba(0,0,0,.5);">
+            <div class="mono" style="font-size:.62rem;letter-spacing:3px;color:#6AA8B4;text-transform:uppercase;">L1 · ПІДКЛЮЧЕННЯ</div>
+            <h2 class="arch" style="font-weight:800;font-size:1.9rem;text-transform:uppercase;color:#F2EADB;margin-top:6px;">API · Trust Bridge</h2>
+            <p style="font-size:.95rem;color:rgba(242,234,219,.6);margin-top:8px;max-width:60ch;">Реєстр інтеграцій: ЄСОЗ / Трембіта, HL7 FHIR R4, KoBoToolbox, банківські рейки. Кількість підключень, % отриманих даних, uptime.</p>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px;">
+              <div style="background:#0b1a26;border:1px solid rgba(46,137,166,.2);padding:16px;"><div class="arch" style="font-size:1.8rem;color:#8CCDDC;">8</div><div class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:rgba(140,205,220,.6);text-transform:uppercase;margin-top:6px;">інтеграцій</div></div>
+              <div style="background:#0b1a26;border:1px solid rgba(46,137,166,.2);padding:16px;"><div class="arch" style="font-size:1.8rem;color:#8CCDDC;">62%</div><div class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:rgba(140,205,220,.6);text-transform:uppercase;margin-top:6px;">даних отрим.</div></div>
+              <div style="background:#0b1a26;border:1px solid rgba(46,137,166,.2);padding:16px;"><div class="arch" style="font-size:1.8rem;color:#8CCDDC;">99.4%</div><div class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:rgba(140,205,220,.6);text-transform:uppercase;margin-top:6px;">uptime</div></div>
+              <div style="background:#0b1a26;border:1px solid rgba(46,137,166,.2);padding:16px;"><div class="arch" style="font-size:1.8rem;color:#8CCDDC;">300+</div><div class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:rgba(140,205,220,.6);text-transform:uppercase;margin-top:6px;">організацій</div></div>
+            </div>
+          </div>
+
+          <!-- FORECAST panel · slides from RIGHT -->
+          <div style="position:absolute;inset:0;background:#1a0c08;transform:translateX({{ forecastX }});transition:transform .55s cubic-bezier(.6,0,.2,1);z-index:15;padding:34px 60px;overflow:auto;box-shadow:-20px 0 60px rgba(0,0,0,.5);">
+            <div class="mono" style="font-size:.62rem;letter-spacing:3px;color:#F0A06A;text-transform:uppercase;">L1 · ПРОГНОЗУВАННЯ</div>
+            <h2 class="arch" style="font-weight:800;font-size:1.9rem;text-transform:uppercase;color:#F2EADB;margin-top:6px;">Моделювання впливу</h2>
+            <p style="font-size:.95rem;color:rgba(242,234,219,.62);margin-top:8px;max-width:60ch;">Головний екран результатів: вплив на ВВП, повернення людей до економіки, capacity послуг, SROI unit-економіки одного психолога.</p>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px;">
+              <div style="background:#241109;border:1px solid rgba(213,95,30,.3);padding:16px;"><div class="arch" style="font-size:1.8rem;color:#F0A06A;">+$2.1B</div><div class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:rgba(240,160,106,.6);text-transform:uppercase;margin-top:6px;">вплив ВВП</div></div>
+              <div style="background:#241109;border:1px solid rgba(213,95,30,.3);padding:16px;"><div class="arch" style="font-size:1.8rem;color:#F0A06A;">128K</div><div class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:rgba(240,160,106,.6);text-transform:uppercase;margin-top:6px;">в економіку</div></div>
+              <div style="background:#241109;border:1px solid rgba(213,95,30,.3);padding:16px;"><div class="arch" style="font-size:1.8rem;color:#F0A06A;">4.5×</div><div class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:rgba(240,160,106,.6);text-transform:uppercase;margin-top:6px;">SROI</div></div>
+              <div style="background:#241109;border:1px solid rgba(213,95,30,.3);padding:16px;"><div class="arch" style="font-size:1.8rem;color:#F0A06A;">2.2×</div><div class="mono" style="font-size:.52rem;letter-spacing:1.5px;color:rgba(240,160,106,.6);text-transform:uppercase;margin-top:6px;">ROI навчання</div></div>
+            </div>
+          </div>
+
+          <!-- INSIGHTS panel · rises from BOTTOM -->
+          <div style="position:absolute;left:0;right:0;bottom:0;height:74%;background:#0a1622;transform:translateY({{ insightsY }});transition:transform .55s cubic-bezier(.6,0,.2,1);z-index:18;border-top:2px solid #F2C04A;padding:28px 60px;overflow:auto;box-shadow:0 -24px 60px rgba(0,0,0,.55);">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+              <div><div class="mono" style="font-size:.6rem;letter-spacing:3px;color:#F2C04A;text-transform:uppercase;">АНАЛІТИЧНИЙ ЗВІТ</div><h2 class="arch" style="font-weight:800;font-size:1.6rem;text-transform:uppercase;color:#F2EADB;margin-top:4px;">Інсайти за темами</h2></div>
+              <div class="mono" style="display:flex;gap:8px;font-size:.55rem;">
+                <span style="padding:7px 12px;border:1px solid rgba(242,234,219,.25);color:rgba(242,234,219,.7);text-transform:uppercase;letter-spacing:1.5px;">цифри</span>
+                <span style="padding:7px 12px;border:1px solid rgba(242,234,219,.25);color:rgba(242,234,219,.7);text-transform:uppercase;letter-spacing:1.5px;">наративи</span>
+                <span style="padding:7px 12px;background:#F2C04A;color:#0F2B46;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;">теми</span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;">
+              <div style="background:#0b1a26;border:1px solid rgba(46,137,166,.18);padding:16px;cursor:pointer;"><div class="arch" style="font-size:1.5rem;color:#8CCDDC;">74%</div><div class="mono" style="font-size:.55rem;letter-spacing:1.5px;color:rgba(242,234,219,.65);text-transform:uppercase;margin-top:8px;">Розрив лікування</div></div>
+              <div style="background:#0b1a26;border:1px solid rgba(232,116,30,.18);padding:16px;cursor:pointer;"><div class="arch" style="font-size:1.5rem;color:#F0A06A;">89%</div><div class="mono" style="font-size:.55rem;letter-spacing:1.5px;color:rgba(242,234,219,.65);text-transform:uppercase;margin-top:8px;">Бюджет → стаціонар</div></div>
+              <div style="background:#0b1a26;border:1px solid rgba(200,144,26,.2);padding:16px;cursor:pointer;"><div class="arch" style="font-size:1.5rem;color:#F2C04A;">6%</div><div class="mono" style="font-size:.55rem;letter-spacing:1.5px;color:rgba(242,234,219,.65);text-transform:uppercase;margin-top:8px;">Конверсія навчання</div></div>
+              <div style="background:#0b1a26;border:1px solid rgba(46,137,166,.18);padding:16px;cursor:pointer;"><div class="arch" style="font-size:1.5rem;color:#8CCDDC;">1.3</div><div class="mono" style="font-size:.55rem;letter-spacing:1.5px;color:rgba(242,234,219,.65);text-transform:uppercase;margin-top:8px;">Псих / 100K</div></div>
+            </div>
+            <div class="mono" style="margin-top:18px;font-size:.55rem;letter-spacing:1.5px;color:rgba(46,137,166,.5);text-transform:uppercase;">↓ сторінка скролиться · кнопки share / download за графіками, частинами звіту та звітом цілком</div>
+          </div>
+
+        </div>
+      </sc-if>
+
+      <!-- ═══ SIMPLE PAGES ═══ -->
+      <sc-if value="{{ isPage }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;padding:56px 60px;">
+          <div style="max-width:640px;animation:fadeUp .6s both;">
+            <div class="mono" style="font-size:.66rem;letter-spacing:4px;color:#6AA8B4;text-transform:uppercase;margin-bottom:20px;">{{ pageK }}</div>
+            <h1 class="arch" style="font-weight:900;font-size:clamp(2.2rem,4vw,3.4rem);line-height:.96;color:#F2EADB;text-transform:uppercase;letter-spacing:-1.2px;">{{ pageT }}</h1>
+            <div style="width:82px;height:2px;background:#F5A300;margin:24px 0;"></div>
+            <p style="font-size:1.05rem;line-height:1.55;color:rgba(242,234,219,.8);max-width:54ch;">{{ pageP }}</p>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { section:'home', dash:'macro', insights:false };
+
+  // ── canonical hero gradient (from DS) ──
+  HERO = "linear-gradient(112deg,#051620 0%,#06293A 13%,#0B3A4D 27%,#123C3A 39%,#5A2418 51%,#8A2018 60%,#B5481A 70%,#D35F1E 81%,#F2C04A 97%)";
+
+  GLOBAL = [
+    {id:'home',   label:'ОГЛЯД'},
+    {id:'data',   label:'ДАНІ'},
+    {id:'people', label:'УЧАСНИКИ'},
+    {id:'program',label:'РІШЕННЯ'},
+    {id:'demo',   label:'ДЕМО'},
+    {id:'login',  label:'ВХІД'},
+    {id:'support',label:'ПІДТРИМКА'},
+    {id:'consort',label:'КОНСОРЦІУМ'},
+  ];
+
+  // dashboard local sub-nav — API sits BEFORE macro (left)
+  DASH_LOCAL = [
+    {id:'api',      label:'API'},
+    {id:'macro',    label:'МАКРО'},
+    {id:'dir',      label:'НАПРЯМИ'},
+    {id:'forecast', label:'МОДЕЛЮВАННЯ'},
+    {id:'insights', label:'ІНСАЙТИ'},
+  ];
+
+  // metric sets by context
+  M = {
+    home: [
+      {value:'3.9M',   label:'з потребою'},
+      {value:'62%',    label:'розрив'},
+      {value:'48–76M', label:'сесій/рік'},
+      {value:'10–12K', label:'фахівців'},
+      {value:'2.5–3.5%',label:'комісія'},
+      {value:'4.5×',   label:'ROI'},
+    ],
+    macro: [
+      {value:'$8B',  label:'втрати ВВП/рік', to:'dir'},
+      {value:'~5%',  label:'ВВП',           to:'dir'},
+      {value:'89%',  label:'→ стаціонар',    to:'dir'},
+      {value:'71%',  label:'амбулаторно',    to:'dir'},
+      {value:'1.3',  label:'псих/100K',      to:'dir'},
+      {value:'74%',  label:'розрив лікув.',  to:'dir'},
+    ],
+    api: [
+      {value:'8',    label:'інтеграцій'},
+      {value:'62%',  label:'даних отрим.'},
+      {value:'99.4%',label:'uptime'},
+      {value:'300+', label:'організацій'},
+    ],
+    forecast: [
+      {value:'+$2.1B',label:'вплив ВВП'},
+      {value:'128K',  label:'повернуто в економіку'},
+      {value:'4.5×',  label:'SROI'},
+      {value:'2.2×',  label:'ROI навчання'},
+    ],
+    dir: [
+      {value:'5',    label:'напрямів'},
+      {value:'$8B',  label:'ціна бездіяльності'},
+      {value:'62%',  label:'розрив'},
+      {value:'4.5×', label:'ROI'},
+    ],
+    people: [
+      {value:'3',    label:'ролі'},
+      {value:'300+', label:'організацій'},
+      {value:'10–12K',label:'фахівців'},
+      {value:'P2P·SIB',label:'фінансування'},
+    ],
+    program: [
+      {value:'5',    label:'напрямів'},
+      {value:'2.5–3.5%',label:'комісія'},
+      {value:'300+', label:'провайдерів'},
+      {value:'4.5×', label:'ROI'},
+    ],
+  };
+
+  gIndex(){ return Math.max(0, this.GLOBAL.findIndex(g=>g.id===this.state.section)); }
+  hasLocal(){ return this.state.section==='data'; }
+
+  select(id){ this.setState({ section:id, insights:false }); }
+  selectDash(id){
+    if(id==='insights'){ this.setState({ dash:'macro', insights:!this.state.insights }); }
+    else { this.setState({ dash:id, insights:false }); }
+  }
+
+  // ── ROW 1 geometry: radio dial ──
+  buildGlobal(){
+    const SLOT=148, ai=this.gIndex();
+    return this.GLOBAL.map((g,i)=>{
+      const d=i-ai, dist=Math.abs(d);
+      const active=i===ai;
+      return {
+        label:g.label,
+        x:d*SLOT,
+        scale:active?1.06:Math.max(.6,1-dist*.12),
+        opacity:Math.max(0,1-dist*.26),
+        weight:active?800:500,
+        color:active?'#FCE9B0':'rgba(242,234,219,.82)',
+        onClick:()=>this.select(g.id),
+      };
+    });
+  }
+
+  // ── ROW 2 geometry: LOCAL scale slides TO the item (marker stays) ──
+  buildLocal(){
+    if(!this.hasLocal()) return [];
+    const SLOT=150;
+    const ai=Math.max(0,this.DASH_LOCAL.findIndex(l=>l.id===this.state.dash));
+    return this.DASH_LOCAL.map((l,i)=>{
+      const active=i===ai;
+      // scale slides so active item reaches left anchor (x=0)
+      const x=(i-ai)*SLOT;
+      return {
+        label:l.label,
+        x,
+        opacity:x<0?.5:(x>640?.35:.9),
+        weight:active?700:400,
+        color:active?'#F2EADB':'rgba(242,234,219,.55)',
+        border:active?'2px solid #F2C04A':'2px solid transparent',
+        onClick:()=>this.selectDash(l.id),
+      };
+    });
+  }
+
+  buildMetrics(){
+    let key=this.state.section;
+    if(key==='data') key=this.state.dash;
+    const set=this.M[key]||this.M.home;
+    return set.map((m,i)=>({
+      value:m.value, label:m.label,
+      vColor:'#FCE9B0', lColor:'rgba(242,234,219,.6)',
+      delay:i*0.05,
+      onClick:()=>{ if(m.to) this.selectDash(m.to); },
+    }));
+  }
+
+  // simple page copy
+  PAGE = {
+    people:{k:'КОНСТЕЛЯЦІЯ · УЧАСНИКИ', t:'Три ролі, один протокол', p:'Бенефіціар, надавач послуг і донор рухаються паралельно — синхронізовані спільними тригерами екосистеми.'},
+    program:{k:'РІШЕННЯ · ПРО ПРОГРАМУ', t:'Інфраструктура координації MHPSS', p:'Цифрове й фінансове «плече» сектору: наскрізна підзвітність на перетині багатоканального фінансування та розподілу гуманітарних ресурсів.'},
+    demo:{k:'ДЕМО · ЗАПИТ', t:'Подивіться систему в дії', p:'Пряме посилання на демонстрацію — доступне з будь-якої точки констеляції, без залежності від поточного ресурсу.'},
+    login:{k:'ДОСТУП · ВХІД / РЕЄСТРАЦІЯ', t:'Вхід до кабінетів', p:'Без обмежень на реєстрацію. Доступ до даних і сервісів відкривається в міру виконання умов комплаєнсу.'},
+    support:{k:'ПІДТРИМКА · РЕКЛАМАЦІЇ', t:'Ми на зв’язку', p:'Окремий канал для звернень, рекламацій і технічної підтримки учасників програми.'},
+    consort:{k:'КОНСОРЦІУМ', t:'Відкритий до приєднання', p:'Носії кращих MHPSS-практик, технологічні партнери та ОГС — з розподілом відповідальності між членами консорціуму.'},
+  };
+
+  renderVals(){
+    const s=this.state;
+    const dash = s.section==='data';
+    const pg = this.PAGE[s.section] || {};
+    return {
+      heroGradient:this.HERO,
+      bandH: this.hasLocal()?152:132,
+      localH: this.hasLocal()?32:0,
+      metricsH: 34,
+      localCrumb:'ДАШБОРД',
+      stageGradOpacity: dash?0.14:1,
+      stageDarkOpacity: dash?0.95:0,
+      gItems:this.buildGlobal(),
+      lItems:this.buildLocal(),
+      metrics:this.buildMetrics(),
+      goHome:()=>this.select('home'),
+      goLogin:()=>this.select('login'),
+      goSupport:()=>this.select('support'),
+      // stage flags
+      isHome:s.section==='home',
+      isData:dash,
+      isPage:!!this.PAGE[s.section],
+      pageK:pg.k, pageT:pg.t, pageP:pg.p,
+      // dashboard panel transforms
+      apiX: s.dash==='api'?'0%':'-104%',
+      forecastX: s.dash==='forecast'?'0%':'104%',
+      insightsY: s.insights?'0%':'104%',
+      dashLabel: (this.DASH_LOCAL.find(l=>l.id===s.dash)||{}).label||'МАКРО',
+      openApi:()=>this.selectDash('api'),
+      openForecast:()=>this.selectDash('forecast'),
+      goData:()=>this.select('data'),
+      goProgram:()=>this.select('program'),
+    };
+  }
+}
+</script>
+</body>
+</html>
