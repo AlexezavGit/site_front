@@ -81,7 +81,7 @@ export default function Methodology() {
   return (
     <div>
       {/* Hero — OPERATIONAL orange, process/flow framing */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "#0C2233" }}>
+      <section className="relative py-14 sm:py-20 md:py-28 overflow-hidden" style={{ background: "#0C2233" }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(232,116,30,0.14) 0%, transparent 70%)", pointerEvents: "none" }} />
         <motion.div
           initial={{ opacity: 0, y: 20 }}

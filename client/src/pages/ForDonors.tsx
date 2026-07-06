@@ -67,9 +67,9 @@ export default function ForDonors() {
   return (
     <div>
       {/* Hero — ROYAL BLUE / Donors */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: `linear-gradient(135deg, #06293A 0%, #0B3A4D 45%, ${ROYAL} 100%)` }}>
+      <section className="relative py-14 sm:py-20 md:py-28 overflow-hidden" style={{ background: `linear-gradient(135deg, #06293A 0%, #0B3A4D 45%, ${ROYAL} 100%)` }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 50% at 15% 0%, rgba(46,137,166,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
-        <div className="container relative grid md:grid-cols-[1.4fr_1fr] gap-10 items-center">
+        <div className="container relative grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-8 md:gap-10 items-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="inline-block mb-5 px-3 py-1 rounded-full text-xs font-medium uppercase" style={{ background: "rgba(46,137,166,0.15)", color: ROYAL_LIGHT, border: `1px solid rgba(46,137,166,0.35)`, letterSpacing: "0.12em" }}>
               Донорам, КСВ та партнерам
@@ -105,7 +105,7 @@ export default function ForDonors() {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="rounded-xl p-6" style={{ background: "rgba(0,0,0,0.18)", border: "1px solid rgba(46,137,166,0.25)" }}>
             <div className="text-xs uppercase mb-4" style={{ color: "rgba(255,255,255,0.5)", letterSpacing: "0.12em" }}>Модель фінансування</div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {[
                 { v: "7%→3%", l: "комісія (дегресивна)" },
                 { v: "3", l: "milestone-транші" },

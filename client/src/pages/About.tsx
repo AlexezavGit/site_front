@@ -67,20 +67,20 @@ export default function About() {
   return (
     <div>
       {/* Hero — editorial plaque, NAVY/GOLD */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "#F2EADB" }}>
+      <section className="relative py-14 sm:py-20 md:py-28 overflow-hidden" style={{ background: "#F2EADB" }}>
         <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(15,43,70,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(15,43,70,0.05) 1px,transparent 1px)", backgroundSize: "22px 22px" }} />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="container relative"
         >
-          <div className="text-xs font-medium uppercase mb-5" style={{ color: "#0F2B46", letterSpacing: "0.16em" }}>Про програму FEEL Again</div>
-          <div className="inline-block mb-2" style={{ border: "2.5px solid #0F2B46", borderRadius: 12, padding: "14px 22px" }}>
-            <h1 className="text-3xl md:text-5xl leading-none" style={{ color: "#0F2B46", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>
+          <div className="text-xs font-medium uppercase mb-4 sm:mb-5" style={{ color: "#0F2B46", letterSpacing: "0.16em" }}>Про програму FEEL Again</div>
+          <div className="inline-block mb-2 px-4 py-3 sm:px-5 sm:py-3.5 max-w-full" style={{ border: "2.5px solid #0F2B46", borderRadius: 12 }}>
+            <h1 className="text-2xl sm:text-3xl md:text-5xl leading-none break-words" style={{ color: "#0F2B46", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>
               Що таке FEEL Again
             </h1>
           </div>
-          <p className="text-lg mt-6 max-w-2xl" style={{ color: "rgba(15,43,70,0.7)" }}>(і чим він не є)</p>
+          <p className="text-base sm:text-lg mt-6 max-w-2xl" style={{ color: "rgba(15,43,70,0.7)" }}>(і чим він не є)</p>
 
           <div className="grid md:grid-cols-2 gap-8 mb-10">
             <div>

@@ -66,9 +66,9 @@ export default function ForProfessionals() {
   return (
     <div>
       {/* Hero — TEAL / Providers */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: `linear-gradient(135deg, #0B2422 0%, #123C3A 45%, ${TEAL} 100%)` }}>
+      <section className="relative py-14 sm:py-20 md:py-28 overflow-hidden" style={{ background: `linear-gradient(135deg, #0B2422 0%, #123C3A 45%, ${TEAL} 100%)` }}>
         <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 50% at 85% 0%, rgba(62,145,162,0.16) 0%, transparent 70%)", pointerEvents: "none" }} />
-        <div className="container relative grid md:grid-cols-[1.4fr_1fr] gap-10 items-center">
+        <div className="container relative grid grid-cols-1 md:grid-cols-[1.4fr_1fr] gap-8 md:gap-10 items-center">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
             <div className="inline-block mb-5 px-3 py-1 rounded-full text-xs font-medium uppercase" style={{ background: "rgba(62,145,162,0.15)", color: TEAL_LIGHT, border: `1px solid rgba(62,145,162,0.35)`, letterSpacing: "0.12em" }}>
               Фахівцям · Провайдерам послуг
@@ -100,7 +100,7 @@ export default function ForProfessionals() {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="rounded-xl p-6" style={{ background: "rgba(0,0,0,0.18)", border: "1px solid rgba(62,145,162,0.25)" }}>
             <div className="text-xs uppercase mb-4" style={{ color: "rgba(255,255,255,0.5)", letterSpacing: "0.12em" }}>Тіньовий сектор · зараз</div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {[
                 { v: "~8,000", l: "фахівців у тіні" },
                 { v: "42", l: "практикують під супервізією" },

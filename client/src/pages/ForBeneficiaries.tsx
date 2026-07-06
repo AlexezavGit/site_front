@@ -78,7 +78,7 @@ export default function ForBeneficiaries() {
   return (
     <div>
       {/* Hero — CREAM/SAND / Beneficiaries (LIGHT & CARE) */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "linear-gradient(160deg, #F2EADB 0%, #E9DEC9 100%)" }}>
+      <section className="relative py-14 sm:py-20 md:py-28 overflow-hidden" style={{ background: "linear-gradient(160deg, #F2EADB 0%, #E9DEC9 100%)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

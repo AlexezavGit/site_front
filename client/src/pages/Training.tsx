@@ -75,11 +75,11 @@ export default function Training() {
   return (
     <div>
       {/* Hero — light teal editorial, provider-adjacent but distinct from ForProfessionals */}
-      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "linear-gradient(160deg, #E9DEC9 0%, #DCEAE6 100%)" }}>
+      <section className="relative py-14 sm:py-20 md:py-28 overflow-hidden" style={{ background: "linear-gradient(160deg, #E9DEC9 0%, #DCEAE6 100%)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="container relative grid md:grid-cols-[1.3fr_1fr] gap-10 items-center"
+          className="container relative grid grid-cols-1 md:grid-cols-[1.3fr_1fr] gap-8 md:gap-10 items-center"
         >
           <div>
             <div className="inline-block mb-5 px-3 py-1 rounded-full text-xs font-medium uppercase" style={{ background: "rgba(28,90,82,0.1)", color: "#1C5A52", border: "1px solid rgba(28,90,82,0.25)", letterSpacing: "0.12em" }}>
@@ -112,7 +112,7 @@ export default function Training() {
 
           <div className="rounded-xl p-6" style={{ background: "rgba(18,60,58,0.06)", border: "1px solid rgba(18,60,58,0.15)" }}>
             <div className="text-xs uppercase mb-4" style={{ color: "rgba(18,60,58,0.55)", letterSpacing: "0.12em" }}>Train for Care · когорта</div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               {[
                 { v: trainForCare.roi, l: "ROI когорти" },
                 { v: trainForCare.cohort, l: "розмір когорти" },
