@@ -136,18 +136,17 @@ MARKET_COURSE_VALUE = 16 × €50 = €800 (ринкова ціна курсу)
 
 ---
 
-## 6. FIGMA DESIGNS (⚠️ ПОТРЕБУЄ ДОСТУПУ)
+## 6. FIGMA DESIGNS (✅ ДОСТУП НАДАНО 2026-07-06)
 
-**Статус:** Figma вимагає автентифікацію. Агент НЕ МАЄ доступу без логіну або публічного посилання.
+**Статус:** `FIGMA_ACCESS_TOKEN` додано в Secrets, доступ через Figma REST API підтверджено робочим.
 
-Надані посилання:
-1. `https://www.figma.com/design/7Wqd8AsNm4GQymzZ6PjLSP/Psy-web-app--Copy-` — застосунок для психологів
-2. `https://www.figma.com/design/riNpzgmEynWRnbsp4ndi7D/Stream-1.0-UX-UI--Copy-` — Stream 1.0 UX/UI (попередній сервіс для гуманітарки)
+Файли:
+1. `7Wqd8AsNm4GQymzZ6PjLSP` — "Psy web app (Copy)" — pages: Landing WEB, Landing MOB, Page 1, UI, trash
+2. `riNpzgmEynWRnbsp4ndi7D` — "Stream 1.0 UX/UI (Copy)" — pages: UI HiRes (Login Stream, Stream App, Beneficiary/Donor/Agent cabinet), Live Programs, HiRes Flow, Components (Stream Grid/Colors/Fonts/Buttons/Navigation), UI IA, Design system, etc.
 
-**Для отримання доступу (вибрати один варіант):**
-- A) Зробити файл публічним у Figma (Share → Anyone with link → Can view)
-- B) Експортувати фрейми як PNG/PDF через Figma Export
-- C) Надати Figma access token
+**Примітка:** Stream 1.0 файл використовує стару торгову марку "Потік" (блакитна палітра, фото-хіро) — це попередній продукт, не поточний бренд FEEL Again. Використовувати лише як референс UX-патернів (flow реєстрації, структура кабінетів донор/бенефіціар/агент), НЕ копіювати візуальний стиль напряму — актуальна палітра "bunker" (navy/teal/gold) описана в Design System Canvas (attached_assets).
+
+**Як отримати кадри:** `GET /v1/files/{key}?depth=N` для структури, `GET /v1/images/{key}?ids=...&format=png` для рендеру PNG (виклик через bash/node з `process.env.FIGMA_ACCESS_TOKEN` — токен НЕ доступний у code_execution sandbox).
 
 ---
 
