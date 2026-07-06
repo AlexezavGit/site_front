@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 
 const NAVY = "#0F2B46";
+const TEAL = "#1C5A52";
+const TEAL_LIGHT = "#3E91A2";
 
 const sectors = [
   {
@@ -63,38 +65,56 @@ const benefits = [
 export default function ForProfessionals() {
   return (
     <div>
-      {/* Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-blue-50 to-background">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="container"
-        >
-          <Badge className="mb-4 bg-blue-100 text-blue-800 border-blue-200">Фахівцям у сфері MHPSS</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl">
-            Справедлива платня.<br />
-            <span className="text-primary">Персональна ефективність.</span><br />
-            Гуманітарне реагування.
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mb-8">
-            FEEL Again створює Digital Corridor — спрощений шлях від неформальної практики до
-            підзвітної, сертифікованої та фінансово стабільної роботи. Не ще один тренінг —
-            рейки для тих, хто вже навчений.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/referral">
-              <Button size="lg">
-                Приєднатися до програми
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/training">
-              <Button variant="outline" size="lg">
-                Підвищення кваліфікації
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
+      {/* Hero — TEAL / Providers */}
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: `linear-gradient(135deg, #0B2422 0%, #123C3A 45%, ${TEAL} 100%)` }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 50% at 85% 0%, rgba(62,145,162,0.16) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div className="container relative grid md:grid-cols-[1.4fr_1fr] gap-10 items-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="inline-block mb-5 px-3 py-1 rounded-full text-xs font-medium uppercase" style={{ background: "rgba(62,145,162,0.15)", color: TEAL_LIGHT, border: `1px solid rgba(62,145,162,0.35)`, letterSpacing: "0.12em" }}>
+              Фахівцям · Провайдерам послуг
+            </div>
+            <h1 className="text-4xl md:text-5xl mb-5 max-w-xl leading-tight" style={{ color: "white", fontWeight: 300 }}>
+              Справедлива платня.<br />
+              <span style={{ color: TEAL_LIGHT, fontWeight: 500 }}>Персональна ефективність.</span><br />
+              Гуманітарне реагування.
+            </h1>
+            <p className="text-base md:text-lg max-w-xl mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+              FEEL Again створює Digital Corridor — спрощений шлях від неформальної практики до
+              підзвітної, сертифікованої та фінансово стабільної роботи. Не ще один тренінг —
+              рейки для тих, хто вже навчений.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/referral">
+                <Button size="lg" style={{ background: TEAL_LIGHT, color: "#06100E", fontWeight: 600, border: "none" }}>
+                  Приєднатися до програми
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/training">
+                <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.35)", color: "white", background: "transparent" }}>
+                  Підвищення кваліфікації
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="rounded-xl p-6" style={{ background: "rgba(0,0,0,0.18)", border: "1px solid rgba(62,145,162,0.25)" }}>
+            <div className="text-xs uppercase mb-4" style={{ color: "rgba(255,255,255,0.5)", letterSpacing: "0.12em" }}>Тіньовий сектор · зараз</div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { v: "~8,000", l: "фахівців у тіні" },
+                { v: "42", l: "практикують під супервізією" },
+                { v: "~3 год", l: "дохід/тиждень" },
+                { v: "10 кейсів", l: "= доступ до фінансування" },
+              ].map((s, i) => (
+                <div key={i}>
+                  <div style={{ color: TEAL_LIGHT, fontSize: "1.5rem", fontWeight: 700, lineHeight: 1.1 }}>{s.v}</div>
+                  <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.72rem", marginTop: "0.25rem" }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       {/* Benefits */}

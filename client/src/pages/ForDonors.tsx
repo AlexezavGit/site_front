@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 
 const NAVY = "#0F2B46";
+const ROYAL = "#0E4D63";
+const ROYAL_LIGHT = "#2E89A6";
 
 const audiences = [
   {
@@ -64,37 +66,60 @@ const audiences = [
 export default function ForDonors() {
   return (
     <div>
-      <section className="py-16 md:py-24 bg-gradient-to-br from-amber-50 to-background">
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="container">
-          <Badge className="mb-4 bg-amber-100 text-amber-800 border-amber-200">Донорам, КСВ та партнерам</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl">
-            Де-ризиковане<br />
-            <span className="text-primary">спів-фінансування.</span><br />
-            Вимірюваний вплив.
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mb-5">
-            FEEL Again усуває ключові ризики гуманітарного фінансування: дублювання,
-            неперевіреність результатів і втрата коштів при виході донорів.
-            Ваш внесок верифікований, підзвітний і вимірюваний на кожному кроці.
-          </p>
-          <p className="text-sm text-muted-foreground max-w-2xl mb-8 font-mono bg-slate-100 p-3 rounded-lg">
-            Reverse Waterfall: Donor fills gap, not the whole budget. Local ownership first.<br />
-            Комісія платформи: 7% → 3% дегресивна.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/referral">
-              <Button size="lg">
-                Стати партнером
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <a href="https://dashboard-1q7.pages.dev/" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="lg">
-                Відкрити дашборд <BarChart3 className="ml-2 h-4 w-4" />
-              </Button>
-            </a>
-          </div>
-        </motion.div>
+      {/* Hero — ROYAL BLUE / Donors */}
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: `linear-gradient(135deg, #06293A 0%, #0B3A4D 45%, ${ROYAL} 100%)` }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 60% 50% at 15% 0%, rgba(46,137,166,0.18) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div className="container relative grid md:grid-cols-[1.4fr_1fr] gap-10 items-center">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="inline-block mb-5 px-3 py-1 rounded-full text-xs font-medium uppercase" style={{ background: "rgba(46,137,166,0.15)", color: ROYAL_LIGHT, border: `1px solid rgba(46,137,166,0.35)`, letterSpacing: "0.12em" }}>
+              Донорам, КСВ та партнерам
+            </div>
+            <h1 className="text-4xl md:text-5xl mb-5 max-w-xl leading-tight" style={{ color: "white", fontWeight: 300 }}>
+              Де-ризиковане<br />
+              <span style={{ color: ROYAL_LIGHT, fontWeight: 500 }}>спів-фінансування.</span><br />
+              Вимірюваний вплив.
+            </h1>
+            <p className="text-base md:text-lg max-w-xl mb-4 leading-relaxed" style={{ color: "rgba(255,255,255,0.72)" }}>
+              FEEL Again усуває ключові ризики гуманітарного фінансування: дублювання,
+              неперевіреність результатів і втрата коштів при виході донорів.
+              Ваш внесок верифікований, підзвітний і вимірюваний на кожному кроці.
+            </p>
+            <p className="text-xs max-w-xl mb-8 font-mono p-3 rounded-lg" style={{ color: "rgba(255,255,255,0.5)", background: "rgba(0,0,0,0.2)", border: "1px solid rgba(46,137,166,0.2)" }}>
+              Reverse Waterfall: Donor fills gap, not the whole budget. Local ownership first.<br />
+              Комісія платформи: 7% → 3% дегресивна.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/referral">
+                <Button size="lg" style={{ background: ROYAL_LIGHT, color: "#06100E", fontWeight: 600, border: "none" }}>
+                  Стати партнером
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <a href="https://dashboard-1q7.pages.dev/" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" variant="outline" style={{ borderColor: "rgba(255,255,255,0.35)", color: "white", background: "transparent" }}>
+                  Відкрити дашборд <BarChart3 className="ml-2 h-4 w-4" />
+                </Button>
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }} className="rounded-xl p-6" style={{ background: "rgba(0,0,0,0.18)", border: "1px solid rgba(46,137,166,0.25)" }}>
+            <div className="text-xs uppercase mb-4" style={{ color: "rgba(255,255,255,0.5)", letterSpacing: "0.12em" }}>Модель фінансування</div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { v: "7%→3%", l: "комісія (дегресивна)" },
+                { v: "3", l: "milestone-транші" },
+                { v: "4.5×", l: "ROI сектору" },
+                { v: "25%", l: "ціль локалізації" },
+              ].map((s, i) => (
+                <div key={i}>
+                  <div style={{ color: ROYAL_LIGHT, fontSize: "1.5rem", fontWeight: 700, lineHeight: 1.1 }}>{s.v}</div>
+                  <div style={{ color: "rgba(255,255,255,0.6)", fontSize: "0.72rem", marginTop: "0.25rem" }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
       </section>
 
       <section className="py-10 bg-slate-900 text-white">

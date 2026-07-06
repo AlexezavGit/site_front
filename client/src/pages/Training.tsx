@@ -74,36 +74,57 @@ const clinicalTools = [
 export default function Training() {
   return (
     <div>
-      {/* Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-green-50 to-background">
+      {/* Hero — light teal editorial, provider-adjacent but distinct from ForProfessionals */}
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "linear-gradient(160deg, #E9DEC9 0%, #DCEAE6 100%)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="container"
+          className="container relative grid md:grid-cols-[1.3fr_1fr] gap-10 items-center"
         >
-          <Badge className="mb-4 bg-green-100 text-green-800 border-green-200">Підвищення кваліфікації</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl">
-            Навчання та<br />
-            <span className="text-primary">міжнародно визнана</span><br />
-            сертифікація
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mb-8">
-            Програма підготовки фахівців MHPSS — від базових навичок до клінічної практики
-            та супервізії. Усі рівні базуються на валідованих WHO інструментах. Кожен крок —
-            верифікований і прив'язаний до доступу до фінансування.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/referral">
-              <Button size="lg">
-                Записатися на програму
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link href="/pro">
-              <Button variant="outline" size="lg">
-                Для фахівців
-              </Button>
-            </Link>
+          <div>
+            <div className="inline-block mb-5 px-3 py-1 rounded-full text-xs font-medium uppercase" style={{ background: "rgba(28,90,82,0.1)", color: "#1C5A52", border: "1px solid rgba(28,90,82,0.25)", letterSpacing: "0.12em" }}>
+              Підвищення кваліфікації
+            </div>
+            <h1 className="text-4xl md:text-5xl mb-5 max-w-xl leading-tight" style={{ color: "#123C3A", fontWeight: 400 }}>
+              Навчання та<br />
+              <span style={{ fontWeight: 700 }}>міжнародно визнана</span><br />
+              сертифікація
+            </h1>
+            <p className="text-lg max-w-xl mb-8 leading-relaxed" style={{ color: "rgba(18,60,58,0.72)" }}>
+              Програма підготовки фахівців MHPSS — від базових навичок до клінічної практики
+              та супервізії. Усі рівні базуються на валідованих WHO інструментах. Кожен крок —
+              верифікований і прив'язаний до доступу до фінансування.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/referral">
+                <Button size="lg" style={{ background: "#1C5A52", color: "white", border: "none" }}>
+                  Записатися на програму
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link href="/pro">
+                <Button size="lg" variant="outline" style={{ borderColor: "rgba(18,60,58,0.3)", color: "#123C3A", background: "transparent" }}>
+                  Для фахівців
+                </Button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="rounded-xl p-6" style={{ background: "rgba(18,60,58,0.06)", border: "1px solid rgba(18,60,58,0.15)" }}>
+            <div className="text-xs uppercase mb-4" style={{ color: "rgba(18,60,58,0.55)", letterSpacing: "0.12em" }}>Train for Care · когорта</div>
+            <div className="grid grid-cols-2 gap-4">
+              {[
+                { v: trainForCare.roi, l: "ROI когорти" },
+                { v: trainForCare.cohort, l: "розмір когорти" },
+                { v: trainForCare.duration, l: "тривалість" },
+                { v: trainForCare.perPerson, l: "вартість/особу" },
+              ].map((s, i) => (
+                <div key={i}>
+                  <div style={{ color: "#1C5A52", fontSize: "1.4rem", fontWeight: 700, lineHeight: 1.1 }}>{s.v}</div>
+                  <div style={{ color: "rgba(18,60,58,0.6)", fontSize: "0.72rem", marginTop: "0.25rem" }}>{s.l}</div>
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </section>

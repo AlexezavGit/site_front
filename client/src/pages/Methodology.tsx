@@ -80,23 +80,32 @@ const supplyChain = [
 export default function Methodology() {
   return (
     <div>
-      {/* Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-primary/5 to-background">
+      {/* Hero — OPERATIONAL orange, process/flow framing */}
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "#0C2233" }}>
+        <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 70% 60% at 50% 100%, rgba(232,116,30,0.14) 0%, transparent 70%)", pointerEvents: "none" }} />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="container"
+          className="container relative"
         >
-          <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">Методологія FEEL Again</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl">
+          <div className="inline-block mb-5 px-3 py-1 rounded-full text-xs font-medium uppercase" style={{ background: "rgba(232,116,30,0.15)", color: "#F08A2E", border: "1px solid rgba(232,116,30,0.35)", letterSpacing: "0.12em" }}>
+            Методологія FEEL Again
+          </div>
+          <h1 className="text-4xl md:text-5xl mb-5 max-w-3xl leading-tight" style={{ color: "white", fontWeight: 300 }}>
             Як це працює:<br />
-            <span className="text-primary">від запиту</span><br />
+            <span style={{ color: "#F08A2E", fontWeight: 600 }}>від запиту</span><br />
             до верифікованого результату
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mb-8">
-            Identity → Session → Outcome → Payment → Reporting. Цифрова шина між тими,
-            хто потребує допомоги, і тими, хто здатен її надати. Кожен крок —
-            зафіксований і верифікований.
+          <div className="flex flex-wrap items-center gap-2 mb-6" style={{ color: "rgba(255,255,255,0.55)" }}>
+            {["Identity", "Session", "Outcome", "Payment", "Reporting"].map((s, i, arr) => (
+              <span key={s} className="flex items-center gap-2 font-mono text-xs uppercase" style={{ letterSpacing: "0.08em" }}>
+                {s}{i < arr.length - 1 && <ArrowRight className="h-3 w-3" style={{ color: "#F08A2E" }} />}
+              </span>
+            ))}
+          </div>
+          <p className="text-lg max-w-2xl mb-8 leading-relaxed" style={{ color: "rgba(255,255,255,0.7)" }}>
+            Цифрова шина між тими, хто потребує допомоги, і тими, хто здатен її надати.
+            Кожен крок — зафіксований і верифікований.
           </p>
         </motion.div>
       </section>

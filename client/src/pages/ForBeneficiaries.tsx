@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 
 const NAVY = "#0F2B46";
+const INK = "#123C3A";
+const SAND = "#C9B591";
 
 const steppedCare = [
   {
@@ -75,31 +77,33 @@ const journey = [
 export default function ForBeneficiaries() {
   return (
     <div>
-      {/* Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-purple-50 to-background">
+      {/* Hero — CREAM/SAND / Beneficiaries (LIGHT & CARE) */}
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "linear-gradient(160deg, #F2EADB 0%, #E9DEC9 100%)" }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="container"
+          className="container relative flex flex-col items-center text-center"
         >
-          <Badge className="mb-4 bg-purple-100 text-purple-800 border-purple-200">Бенефіціарам · Клієнтам · Пацієнтам</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl">
-            Рівний доступ<br />
-            <span className="text-primary">до якісної</span><br />
-            психологічної допомоги
+          <div className="mb-6 px-4 py-1.5 rounded-full text-xs font-medium tracking-widest uppercase" style={{ background: "rgba(18,60,58,0.08)", color: INK, border: `1px solid rgba(18,60,58,0.18)`, letterSpacing: "0.1em" }}>
+            Бенефіціарам · Клієнтам · Пацієнтам
+          </div>
+          <h1 className="text-4xl md:text-5xl mb-5 max-w-2xl leading-tight" style={{ color: INK, fontWeight: 400 }}>
+            Рівний доступ до якісної<br />
+            <span style={{ fontWeight: 700 }}>психологічної допомоги</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mb-8">
+          <div style={{ width: 70, height: 2, background: SAND }} className="mb-6" />
+          <p className="text-lg max-w-2xl mb-8 leading-relaxed" style={{ color: "rgba(18,60,58,0.75)" }}>
             Незалежно від місця, доходу або статусу — кожен має право на ментальне здоров'я.
-            FEEL Again з'єднує вас із сертифікованим фахівцем через прозору, цифрову систему.
+            FEEL Again з'єднує вас із сертифікованим фахівцем через прозору, людяну систему.
           </p>
-          <div className="flex flex-wrap gap-4">
+          <div className="flex flex-wrap gap-4 justify-center">
             <Link href="/referral">
-              <Button size="lg">
+              <Button size="lg" style={{ background: INK, color: "#F2EADB", border: "none" }}>
                 <Phone className="mr-2 h-4 w-4" />
                 Отримати підтримку зараз
               </Button>
             </Link>
-            <Button variant="outline" size="lg" className="border-purple-300 text-purple-700">
+            <Button variant="outline" size="lg" style={{ borderColor: "rgba(18,60,58,0.3)", color: INK, background: "transparent" }}>
               Дізнатися про типи допомоги
             </Button>
           </div>

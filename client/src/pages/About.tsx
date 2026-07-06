@@ -66,18 +66,21 @@ function TrendingUpIcon({ className }: { className?: string }) {
 export default function About() {
   return (
     <div>
-      {/* Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-slate-50 to-background">
+      {/* Hero — editorial plaque, NAVY/GOLD */}
+      <section className="relative py-20 md:py-28 overflow-hidden" style={{ background: "#F2EADB" }}>
+        <div style={{ position: "absolute", inset: 0, backgroundImage: "linear-gradient(rgba(15,43,70,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(15,43,70,0.05) 1px,transparent 1px)", backgroundSize: "22px 22px" }} />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="container"
+          className="container relative"
         >
-          <Badge className="mb-4 bg-slate-100 text-slate-700 border-slate-300">Про програму FEEL Again</Badge>
-          <h1 className="text-4xl md:text-5xl font-bold mb-5 max-w-3xl">
-            Що таке FEEL Again<br />
-            <span className="text-primary">(і чим він не є)</span>
-          </h1>
+          <div className="text-xs font-medium uppercase mb-5" style={{ color: "#0F2B46", letterSpacing: "0.16em" }}>Про програму FEEL Again</div>
+          <div className="inline-block mb-2" style={{ border: "2.5px solid #0F2B46", borderRadius: 12, padding: "14px 22px" }}>
+            <h1 className="text-3xl md:text-5xl leading-none" style={{ color: "#0F2B46", fontWeight: 900, textTransform: "uppercase", letterSpacing: "-0.02em" }}>
+              Що таке FEEL Again
+            </h1>
+          </div>
+          <p className="text-lg mt-6 max-w-2xl" style={{ color: "rgba(15,43,70,0.7)" }}>(і чим він не є)</p>
 
           <div className="grid md:grid-cols-2 gap-8 mb-10">
             <div>
