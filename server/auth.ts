@@ -31,13 +31,19 @@ declare global {
 }
 
 export function setupAuth(app: Express) {
+  if (!process.env.SESSION_SECRET) {
+    throw new Error(
+      "SESSION_SECRET must be set. Did you forget to configure this secret?",
+    );
+  }
+
   const PgSession = connectPgSimple(session);
 
   app.set("trust proxy", 1);
   app.use(
     session({
       store: new PgSession({ pool, tableName: "session", createTableIfMissing: true }),
-      secret: process.env.SESSION_SECRET || "feel-again-dev-secret",
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
       cookie: {

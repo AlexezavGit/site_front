@@ -7,3 +7,4 @@
 - [Provider compliance rates](provider-compliance-rates.md) — Level 0=€18/hr, 1=€35/hr, 2=€55/hr, 3=€85/hr per session. Requirements per level documented in ProviderCabinet.tsx ComplianceJourney().
 - [Live metrics API](live-metrics-api.md) — `GET /api/stream/live-metrics` returns deterministic data (no Math.random). Primary: DB aggregates; fallback: canonical dataset v1.0. Wired to DonorCabinet via useQuery refetchInterval 30000ms.
 - [Auth gotcha](auth-gotcha.md) — Login form sends `username` (not email). Test creds: username=`test`, password=`Test123!`. Reset via scrypt in neon serverless driver if needed.
+- [Feel Again auth pattern](feel-again-auth.md) — SESSION_SECRET must fail-fast (no hardcoded dev fallback), matching DATABASE_URL's pattern in server/db.ts.
