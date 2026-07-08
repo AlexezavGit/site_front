@@ -8,3 +8,7 @@
 - [Live metrics API](live-metrics-api.md) — `GET /api/stream/live-metrics` returns deterministic data (no Math.random). Primary: DB aggregates; fallback: canonical dataset v1.0. Wired to DonorCabinet via useQuery refetchInterval 30000ms.
 - [Auth gotcha](auth-gotcha.md) — Login form sends `username` (not email). Test creds: username=`test`, password=`Test123!`. Reset via scrypt in neon serverless driver if needed.
 - [Feel Again auth pattern](feel-again-auth.md) — SESSION_SECRET must fail-fast (no hardcoded dev fallback), matching DATABASE_URL's pattern in server/db.ts.
+- [Demo auth gate](demo-auth-gate.md) — DEMO_AUTH=true env var enables passwordless login in passport strategy. Without it, full scrypt comparison runs. Never remove the gate before production.
+- [Multi-role registration](multi-role-registration.md) — Every new user gets all 4 roles (donor/provider/beneficiary/supervisor) via Promise.all in /api/register. Username auto-generated from email prefix + Date.now().toString(36). Schema: username optional default "".
+- [Page route map](page-route-map.md) — /recipient=LandingRecipient, /provider=LandingProvider, /patron=LandingPatron, /consortium=Consortium. DonorCabinet export renamed to PatronCabinet; cabinet still at /portal/donor.
+- [Nav rename 2026-07](nav-rename.md) — "Фахівцям"→"Надання допомоги", "Донорам та КСВ"→"Фандрейзинг", "Бенефіціарам"→"Отримання допомоги"; "Консорціум" added to Програма dropdown.

@@ -132,8 +132,8 @@ function Dashboard({ donorType }: { donorType: string }) {
         <CardContent>
           <div className="space-y-2">
             {FUNNEL_STEPS.map((step, i) => {
-              const maxVal = FUNNEL_STEPS[0].val;
-              const pct = Math.round((step.val / maxVal) * 100);
+              const maxVal = Math.max(...FUNNEL_STEPS.map((s) => s.val));
+              const pct = Math.min(100, Math.round((step.val / maxVal) * 100));
               return (
                 <div key={step.id} className="flex items-center gap-3">
                   <span className="text-xs text-muted-foreground w-4 shrink-0 text-right">{step.id}</span>
@@ -770,7 +770,7 @@ function Partners() {
   );
 }
 
-export default function DonorCabinet() {
+export default function PatronCabinet() {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [donorType, setDonorType] = useState("patron");
 
@@ -793,8 +793,8 @@ export default function DonorCabinet() {
                 <DonorIcon className="w-4 h-4 text-amber-700" />
               </div>
               <div>
-                <p className="text-sm font-semibold" style={{ color: NAVY }}>Кабінет донора</p>
-                <p className="text-xs text-muted-foreground">Меценат · Роботодавець · SIB · Актор · Банк · Фонд</p>
+                <p className="text-sm font-semibold" style={{ color: NAVY }}>Кабінет патрона</p>
+                <p className="text-xs text-muted-foreground">Меценат · Роботодавець · SIB · Гум. актор · Банк / Фонд</p>
               </div>
             </div>
           </div>
@@ -803,7 +803,7 @@ export default function DonorCabinet() {
 
         <div className="container border-t border-slate-100 py-2">
           <div className="flex items-center gap-1 flex-wrap">
-            <span className="text-xs text-muted-foreground mr-1">Тип донора:</span>
+            <span className="text-xs text-muted-foreground mr-1">Тип патрона:</span>
             {DONOR_TYPES.map((dt) => {
               const Icon = dt.icon;
               return (

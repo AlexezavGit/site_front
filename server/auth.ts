@@ -57,11 +57,22 @@ export function setupAuth(app: Express) {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  const isDemoMode = process.env.DEMO_AUTH === "true";
+
   passport.use(
-    new LocalStrategy(async (username, password, done) => {
+    new LocalStrategy({ usernameField: "username" }, async (username, password, done) => {
       try {
-        const user = await storage.getUserByUsername(username);
-        if (!user || !(await comparePasswords(password, user.password))) {
+        // Accept login by username OR email
+        let user = await storage.getUserByUsername(username);
+        if (!user) user = await storage.getUserByEmail(username);
+        if (!user) return done(null, false, { message: "Користувача не знайдено" });
+
+        if (isDemoMode) {
+          // Demo mode: any password accepted (captures real audience emails without friction)
+          return done(null, user);
+        }
+
+        if (!(await comparePasswords(password, user.password))) {
           return done(null, false, { message: "Невірний логін або пароль" });
         }
         return done(null, user);

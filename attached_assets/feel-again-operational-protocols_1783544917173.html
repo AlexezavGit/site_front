@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Операційні Моделі та Протоколи FEEL Again</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f7fa;
+        }
+        h1 {
+            color: #1a1a1a;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.8em;
+        }
+        .protocol-nav {
+            background: #2c3e50;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .protocol-nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .protocol-nav a:hover, .protocol-nav a.active {
+            background: #34495e;
+        }
+        .protocol-section {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        .protocol-header {
+            display: flex;
+            align-items: center;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .protocol-icon {
+            font-size: 3em;
+            margin-right: 20px;
+        }
+        .protocol-title {
+            font-size: 2em;
+            color: #2c3e50;
+        }
+        .process-flow {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .step-number {
+            background: #3498db;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        .criteria-box {
+            background: #e8f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #bee5eb;
+        }
+        .checklist {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ffeaa7;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        .check-icon {
+            color: #27ae60;
+            margin-right: 10px;
+        }
+        .timeline-box {
+            background: #ecf0f1;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        .timeline-time {
+            background: #3498db;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin-right: 20px;
+            white-space: nowrap;
+        }
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .role-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+        }
+        .role-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .automation-badge {
+            display: inline-block;
+            background: #2ecc71;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        .manual-badge {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        .integration-diagram {
+            background: #ecf0f1;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .sla-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .sla-table th, .sla-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .sla-table th {
+            background: #34495e;
+            color: white;
+        }
+        .security-box {
+            background: #ffe5e5;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 1px solid #ffcccc;
+        }
+        .document-list {
+            background: #e8f6f3;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .doc-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .status-active {
+            color: #27ae60;
+            font-weight: bold;
+        }
+        .status-pending {
+            color: #f39c12;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>⚙️ Операційні Моделі та Протоколи FEEL Again</h1>
+    
+    <div class="protocol-nav">
+        <a href="#onboarding" class="active">Онбординг психологів</a>
+        <a href="#coordination">Координація акторів</a>
+        <a href="#digital">Цифрова взаємодія</a>
+        <a href="#beneficiary">Супровід бенефіціарів</a>
+        <a href="#quality">Контроль якості</a>
+        <a href="#emergency">Екстрені протоколи</a>
+    </div>
+
+    <!-- Протокол онбордингу психологів -->
+    <div id="onboarding-protocol" class="protocol-section">
+        <div class="protocol-header">
+            <div class="protocol-icon">👤</div>
+            <div>
+                <h2 class="protocol-title">Протокол онбордингу психологів</h2>
+                <p>Повний цикл від заявки до початку роботи за 48 годин</p>
+            </div>
+        </div>
+        
+        <div class="criteria-box">
+            <h3>📋 Критерії відбору психологів:</h3>
+            <ul>
+                <li>Диплом психолога (бакалавр/магістр)</li>
+                <li>Досвід роботи з травмою мінімум 2 роки</li>
+                <li>Проходження супервізії (підтвердження)</li>
+                <li>Мінімум 50 задокументованих кейсів</li>
+                <li>Готовність до прозорості та звітності</li>
+                <li>Технічна грамотність (базовий рівень)</li>
+            </ul>
+        </div>
+        
+        <div class="process-flow">
+            <h3>🔄 Процес онбордингу:</h3>
+            
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Подача заявки <span class="automation-badge">Автоматизовано</span></div>
+                    <p>Онлайн-форма з базовою інформацією, завантаження документів, згода на обробку даних</p>
+                    <p><strong>Час:</strong> 15 хвилин | <strong>Відповідальний:</strong> Психолог-заявник</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Первинна верифікація <span class="automation-badge">AI + людина</span></div>
+                    <p>Автоматична перевірка документів, AI-скринінг профілю, виявлення red flags</p>
+                    <p><strong>Час:</strong> 2 години | <strong>Відповідальний:</strong> AI система + Координатор</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">Інтерв'ю та оцінка компетенцій <span class="manual-badge">Ручний процес</span></div>
+                    <p>Відео-інтерв'ю 30 хв, оцінка soft skills, перевірка кейсів, тест на знання етики</p>
+                    <p><strong>Час:</strong> 1 година | <strong>Відповідальний:</strong> Clinical Director / Senior психолог</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-title">KYC та фінансова верифікація <span class="automation-badge">Автоматизовано</span></div>
+                    <p>Перевірка через BankID, підтвердження ФОП статусу, відкриття рахунку в системі</p>
+                    <p><strong>Час:</strong> 30 хвилин | <strong>Відповідальний:</strong> FinTech інтеграція</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <div class="step-title">Навчання та сертифікація <span class="automation-badge">Онлайн</span></div>
+                    <p>4-годинний онлайн-курс, ознайомлення з платформою, етичні стандарти, тест</p>
+                    <p><strong>Час:</strong> 4 години | <strong>Відповідальний:</strong> Навчальна платформа</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">6</div>
+                <div class="step-content">
+                    <div class="step-title">Створення профілю та активація <span class="automation-badge">Автоматизовано</span></div>
+                    <p>Заповнення детального профілю, вибір спеціалізацій, встановлення розкладу, активація</p>
+                    <p><strong>Час:</strong> 1 година | <strong>Відповідальний:</strong> Психолог + система</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="timeline-box">
+            <h3>⏱️ Часові рамки онбордингу:</h3>
+            <div class="timeline-item">
+                <div class="timeline-time">0-2 год</div>
+                <div>Подача заявки та первинна верифікація</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">3-8 год</div>
+                <div>Інтерв'ю та перевірка компетенцій</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">9-24 год</div>
+                <div>KYC, навчання, тестування</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-time">25-48 год</div>
+                <div>Фіналізація профілю, готовність до роботи</div>
+            </div>
+        </div>
+        
+        <div class="checklist">
+            <h3>✅ Чек-лист документів для онбордингу:</h3>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Диплом про вищу освіту (психологія)
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Сертифікати додаткової освіти
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Підтвердження супервізії
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Рекомендації (мінімум 2)
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Згода на обробку даних
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Договір про співпрацю
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Банківські реквізити
+            </div>
+        </div>
+    </div>
+
+    <!-- Протокол координації акторів -->
+    <div id="coordination-protocol" class="protocol-section">
+        <div class="protocol-header">
+            <div class="protocol-icon">🤝</div>
+            <div>
+                <h2 class="protocol-title">Протокол координації акторів</h2>
+                <p>Ефективна взаємодія між всіма учасниками екосистеми</p>
+            </div>
+        </div>
+        
+        <div class="role-grid">
+            <div class="role-card">
+                <div class="role-title">Психологи</div>
+                <ul>
+                    <li>Надання якісних послуг</li>
+                    <li>Своєчасна звітність</li>
+                    <li>Участь у супервізіях</li>
+                    <li>Оновлення профілю</li>
+                </ul>
+            </div>
+            <div class="role-card">
+                <div class="role-title">Координатори програми</div>
+                <ul>
+                    <li>Моніторинг якості</li>
+                    <li>Вирішення конфліктів</li>
+                    <li>Технічна підтримка</li>
+                    <li>Звітність донорам</li>
+                </ul>
+            </div>
+            <div class="role-card">
+                <div class="role-title">Партнерські організації</div>
+                <ul>
+                    <li>Направлення бенефіціарів</li>
+                    <li>Верифікація потреб</li>
+                    <li>Спільні заходи</li>
+                    <li>Обмін даними</li>
+                </ul>
+            </div>
+            <div class="role-card">
+                <div class="role-title">Донори</div>
+                <ul>
+                    <li>Фінансування програм</li>
+                    <li>Моніторинг використання</li>
+                    <li>Стратегічні рішення</li>
+                    <li>Адвокація</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="integration-diagram">
+            <h3>🔄 Модель взаємодії акторів</h3>
+            <p><strong>Централізована координація через цифрову платформу FEEL Again</strong></p>
+            <p>Психологи ↔️ Платформа ↔️ Бенефіціари</p>
+            <p>↕️ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↕️ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ↕️</p>
+            <p>Донори &nbsp;&nbsp;&nbsp; Партнери &nbsp;&nbsp;&nbsp; Регулятори</p>
+        </div>
+        
+        <div class="process-flow">
+            <h3>📋 Регулярні координаційні активності:</h3>
+            
+            <div class="flow-step">
+                <div class="step-number">Щоденно</div>
+                <div class="step-content">
+                    <div class="step-title">Оперативний моніторинг</div>
+                    <ul>
+                        <li>Dashboard метрик в реальному часі</li>
+                        <li>Автоматичні алерти про критичні події</li>
+                        <li>Чат підтримки 24/7</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">Щотижня</div>
+                <div class="step-content">
+                    <div class="step-title">Координаційні зустрічі</div>
+                    <ul>
+                        <li>Відео-конференція core team</li>
+                        <li>Аналіз KPI та відхилень</li>
+                        <li>Планування на наступний тиждень</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">Щомісяця</div>
+                <div class="step-content">
+                    <div class="step-title">Стратегічний огляд</div>
+                    <ul>
+                        <li>Зустріч з ключовими партнерами</li>
+                        <li>Звіт донорам</li>
+                        <li>Оновлення протоколів</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Протокол цифрової взаємодії -->
+    <div id="digital-protocol" class="protocol-section">
+        <div class="protocol-header">
+            <div class="protocol-icon">💻</div>
+            <div>
+                <h2 class="protocol-title">Протокол цифрової взаємодії</h2>
+                <p>Безпечна та ефективна робота в цифровому середовищі</p>
+            </div>
+        </div>
+        
+        <div class="security-box">
+            <h3>🔒 Безпека та конфіденційність:</h3>
+            <ul>
+                <li>End-to-end шифрування всіх комунікацій</li>
+                <li>Двофакторна автентифікація для всіх користувачів</li>
+                <li>Регулярні security audits</li>
+                <li>GDPR-compliant обробка даних</li>
+                <li>Анонімізація даних бенефіціарів</li>
+                <li>Zero-knowledge архітектура для чутливих даних</li>
+            </ul>
+        </div>
+        
+        <div class="process-flow">
+            <h3>💬 Канали цифрової комунікації:</h3>
+            
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Платформа FEEL Again</div>
+                    <p>Основний канал для всіх операційних процесів: призначення сесій, звітність, платежі</p>
+                    <p><strong>Доступність:</strong> 24/7 | <strong>SLA:</strong> 99.9% uptime</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Мобільний додаток</div>
+                    <p>Для бенефіціарів та психологів: booking, нагадування, екстрена допомога</p>
+                    <p><strong>Платформи:</strong> iOS, Android | <strong>Оновлення:</strong> Щомісяця</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">API для партнерів</div>
+                    <p>Інтеграція з системами партнерів: направлення, звітність, обмін даними</p>
+                    <p><strong>Формат:</strong> REST API | <strong>Документація:</strong> OpenAPI 3.0</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sla-table">
+            <h3>📊 Service Level Agreement (SLA):</h3>
+            <table class="sla-table">
+                <tr>
+                    <th>Сервіс</th>
+                    <th>Доступність</th>
+                    <th>Час відповіді</th>
+                    <th>Час вирішення</th>
+                </tr>
+                <tr>
+                    <td>Платформа FEEL</td>
+                    <td>99.9%</td>
+                    <td>&lt; 200ms</td>
+                    <td>&lt; 4 год</td>
+                </tr>
+                <tr>
+                    <td>Платіжна система</td>
+                    <td>99.95%</td>
+                    <td>&lt; 5 сек</td>
+                    <td>&lt; 2 год</td>
+                </tr>
+                <tr>
+                    <td>Технічна підтримка</td>
+                    <td>24/7</td>
+                    <td>&lt; 15 хв</td>
+                    <td>&lt; 24 год</td>
+                </tr>
+                <tr>
+                    <td>API для партнерів</td>
+                    <td>99.9%</td>
+                    <td>&lt; 500ms</td>
+                    <td>&lt; 8 год</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Протокол супроводу бенефіціара -->
+    <div id="beneficiary-protocol" class="protocol-section">
+        <div class="protocol-header">
+            <div class="protocol-icon">❤️</div>
+            <div>
+                <h2 class="protocol-title">Протокол супроводу бенефіціара</h2>
+                <p>Від першого контакту до успішного завершення терапії</p>
+            </div>
+        </div>
+        
+        <div class="process-flow">
+            <h3>🚀 Journey бенефіціара:</h3>
+            
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Первинний контакт</div>
+                    <p><strong>Канали входу:</strong> QR-код в лікарні, направлення від партнера, самозвернення через сайт</p>
+                    <p><strong>Дії:</strong> Реєстрація, первинний скринінг (AI), визначення ургентності</p>
+                    <p><strong>Час реакції:</strong> &lt; 15 хвилин для ургентних, &lt; 24 год для планових</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Подвійне підтвердження діагнозу</div>
+                    <p><strong>Крок 1:</strong> AI-скринінг на основі опитувальника (PHQ-9, GAD-7)</p>
+                    <p><strong>Крок 2:</strong> Верифікація психологом під час першої сесії</p>
+                    <p><strong>Результат:</strong> Підтверджений діагноз + план терапії</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">Підбір психолога</div>
+                    <p><strong>Алгоритм матчингу:</strong> 50+ параметрів (спеціалізація, досвід, мова, час, локація)</p>
+                    <p><strong>Вибір:</strong> ТОП-3 рекомендації + можливість самостійного вибору</p>
+                    <p><strong>Заміна:</strong> Можливість зміни психолога після 2 сесій</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <div class="step-title">Активна терапія</div>
+                    <p><strong>Формат:</strong> Онлайн/офлайн/гібрид за вибором</p>
+                    <p><strong>Моніторинг:</strong> Прогрес-трекінг після кожної сесії</p>
+                    <p><strong>Підтримка:</strong> Чат з психологом між сесіями, гаряча лінія 24/7</p>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">5</div>
+                <div class="step-content">
+                    <div class="step-title">Завершення та follow-up</div>
+                    <p><strong>Оцінка результатів:</strong> Фінальне тестування, feedback session</p>
+                    <p><strong>План підтримки:</strong> Рекомендації, booster sessions</p>
+                    <p><strong>Follow-up:</strong> Через 1, 3, 6 місяців</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="criteria-box">
+            <h3>🚨 Протокол ургентних випадків:</h3>
+            <ul>
+                <li><strong>Суїцидальні думки:</strong> Негайне підключення кризового психолога (&lt; 5 хв)</li>
+                <li><strong>Гостра травма:</strong> Призначення сесії протягом 2 годин</li>
+                <li><strong>Панічні атаки:</strong> Відео-консультація &lt; 30 хв + техніки самодопомоги</li>
+                <li><strong>Ескалація до психіатра:</strong> Партнерські клініки, направлення протягом 24 год</li>
+            </ul>
+        </div>
+        
+        <div class="checklist">
+            <h3>📱 Цифрові інструменти супроводу:</h3>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> SMS/Telegram нагадування про сесії
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Щоденник настрою в додатку
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Домашні завдання між сесіями
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Бібліотека self-help матеріалів
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Peer support групи (модеровані)
+            </div>
+            <div class="checklist-item">
+                <span class="check-icon">✓</span> Gamification прогресу
+            </div>
+        </div>
+    </div>
+
+    <!-- Протокол контролю якості -->
+    <div id="quality-protocol" class="protocol-section">
+        <div class="protocol-header">
+            <div class="protocol-icon">✅</div>
+            <div>
+                <h2 class="protocol-title">Протокол контролю якості</h2>
+                <p>Забезпечення високих стандартів надання послуг</p>
+            </div>
+        </div>
+        
+        <div class="process-flow">
+            <h3>📊 Система контролю якості:</h3>
+            
+            <div class="flow-step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <div class="step-title">Моніторинг сесій</div>
+                    <ul>
+                        <li>Автоматичний аналіз тривалості та регулярності</li>
+                        <li>Feedback від бенефіціарів після кожної сесії</li>
+                        <li>Random audio checks (за згодою)</li>
+                        <li>Аналіз completion rate</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <div class="step-title">Супервізія психологів</div>
+                    <ul>
+                        <li>Обов'язкова групова супервізія 2 рази/місяць</li>
+                        <li>Індивідуальна супервізія за потребою</li>
+                        <li>Peer review складних кейсів</li>
+                        <li>Continuous education (20 год/рік)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="flow-step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <div class="step-title">Метрики ефективності</div>
+                    <ul>
+                        <li>Зниження симптомів (PHQ-9, GAD-7)</li>
+                        <li>Якість життя (WHOQOL-BREF)</li>
+                        <li>Функціональність (WHODAS)</li>
+                        <li>Задоволеність послугами (CSQ-8)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sla-table">
+            <h3>🎯 Цільові показники якості:</h3>
+            <table class="sla-table">
+                <tr>
+                    <th>Показник</th>
+                    <th>Мінімум</th>
+                    <th>Цільовий</th>
+                    <th>Поточний</th>
+                </tr>
+                <tr>
+                    <td>Завершення курсів</td>
+                    <td>60%</td>
+                    <td>80%</td>
+                    <td class="status-active">78%</td>
+                </tr>
+                <tr>
+                    <td>Задоволеність (NPS)</td>
+                    <td>50</td>
+                    <td>70</td>
+                    <td class="status-active">72</td>
+                </tr>
+                <tr>
+                    <td>Зниження симптомів</td>
+                    <td>30%</td>
+                    <td>40%</td>
+                    <td class="status-active">42%</td>
+                </tr>
+                <tr>
+                    <td>Рецидиви (6 міс)</td>
+                    <td>&lt;30%</td>
+                    <td>&lt;20%</td>
+                    <td class="status-pending">25%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Екстрені протоколи -->
+    <div id="emergency-protocol" class="protocol-section">
+        <div class="protocol-header">
+            <div class="protocol-icon">🚨</div>
+            <div>
+                <h2 class="protocol-title">Екстрені протоколи</h2>
+                <p>Дії в критичних та надзвичайних ситуаціях</p>
+            </div>
+        </div>
+        
+        <div class="security-box">
+            <h3>🆘 Кризові ситуації:</h3>
+            
+            <h4>1. Загроза суїциду:</h4>
+            <ul>
+                <li>Негайне підключення кризового психолога</li>
+                <li>Активація протоколу безпеки</li>
+                <li>Контакт з довіреною особою (за згодою)</li>
+                <li>Follow-up кожні 4 години протягом 48 год</li>
+            </ul>
+            
+            <h4>2. Технічний збій платформи:</h4>
+            <ul>
+                <li>Автоматичне переключення на резервні сервери</li>
+                <li>SMS-повідомлення всім користувачам</li>
+                <li>Гаряча лінія для ургентних випадків</li>
+                <li>Компенсація за незручності</li>
+            </ul>
+            
+            <h4>3. Порушення конфіденційності:</h4>
+            <ul>
+                <li>Негайна ізоляція скомпрометованих даних</li>
+                <li>Повідомлення affected користувачів (&lt; 72 год)</li>
+                <li>Залучення кібер-поліції</li>
+                <li>Повний security audit</li>
+            </ul>
+        </div>
+        
+        <div class="document-list">
+            <h3>📄 Регуляторні документи:</h3>
+            <div class="doc-item">
+                <span>Протокол співпраці з МОЗ України</span>
+                <span class="status-active">Діє</span>
+            </div>
+            <div class="doc-item">
+                <span>Угода з Національною гарячою лінією</span>
+                <span class="status-active">Діє</span>
+            </div>
+            <div class="doc-item">
+                <span>Меморандум з Міністерством ветеранів</span>
+                <span class="status-pending">В процесі</span>
+            </div>
+            <div class="doc-item">
+                <span>GDPR Compliance сертифікат</span>
+                <span class="status-active">Діє</span>
+            </div>
+            <div class="doc-item">
+                <span>ISO 27001 (інформаційна безпека)</span>
+                <span class="status-pending">Планується</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

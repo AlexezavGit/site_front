@@ -66,9 +66,9 @@ export const insertUserSchema = createInsertSchema(users).omit({
   id: true,
   createdAt: true
 }).extend({
-  email: z.string().email(),
-  username: z.string().min(3, "Мінімум 3 символи"),
-  password: z.string().min(6, "Мінімум 6 символів"),
+  email: z.string().email("Введіть коректний email"),
+  username: z.string().optional().default(""),
+  password: z.string().optional().default("feel-again-demo"),
   name: z.string().min(2, "Введіть ім'я"),
 });
 
@@ -79,13 +79,14 @@ export const ROLE_VALUES = ["provider", "beneficiary", "donor", "supervisor"] as
 export type RoleValue = typeof ROLE_VALUES[number];
 
 export const registerUserSchema = insertUserSchema.extend({
-  role: z.enum(ROLE_VALUES),
+  role: z.enum(ROLE_VALUES).optional().default("donor"),
 });
 export type RegisterUser = z.infer<typeof registerUserSchema>;
 
+// Login accepts email or username; password optional for demo
 export const loginUserSchema = z.object({
-  username: z.string().min(1, "Введіть логін"),
-  password: z.string().min(1, "Введіть пароль"),
+  username: z.string().min(1, "Введіть email або логін"),
+  password: z.string().optional().default(""),
 });
 export type LoginUser = z.infer<typeof loginUserSchema>;
 

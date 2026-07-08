@@ -18,26 +18,28 @@ const NAVY  = "#0F2B46";
 const GOLD  = "#D4A017";
 
 const forProfessionals = [
-  { href: "/pro",      label: "Фахівцям",              desc: "Вихід із тіні, цифровий коридор, дохід" },
+  { href: "/pro",      label: "Надання допомоги",        desc: "Вихід із тіні, цифровий коридор, дохід" },
   { href: "/training", label: "Підвищення кваліфікації", desc: "Сертифікація, Train for Care, потоки" },
 ];
 const forPartners = [
-  { href: "/donors",       label: "Донорам та КСВ", desc: "Де-ризиковане спів-фінансування, звітність" },
-  { href: "/beneficiaries",label: "Бенефіціарам",   desc: "Рівний доступ, ступенева допомога" },
+  { href: "/donors",       label: "Фандрейзинг",        desc: "Де-ризиковане спів-фінансування, звітність" },
+  { href: "/beneficiaries",label: "Отримання допомоги", desc: "Рівний доступ, ступенева допомога" },
 ];
 const aboutProgram = [
-  { href: "/about",       label: "Про FEEL Again", desc: "6 розривів, архітектура, місія" },
-  { href: "/methodology", label: "Методологія",    desc: "Stepped care, VR, клінічні інструменти" },
+  { href: "/about",       label: "Рішення програми Feel Again", desc: "6 розривів, архітектура, місія" },
+  { href: "/methodology", label: "Методологія",                  desc: "Stepped care, VR, клінічні інструменти" },
+  { href: "/consortium",  label: "Консорціум",                    desc: "Партнери програми та їх ролі" },
 ];
 
 const mobileItems = [
   { href: "/",              label: "Головна" },
-  { href: "/pro",           label: "Фахівцям" },
+  { href: "/pro",           label: "Надання допомоги" },
   { href: "/training",      label: "Підвищення кваліфікації" },
-  { href: "/donors",        label: "Донорам та КСВ" },
-  { href: "/beneficiaries", label: "Бенефіціарам" },
-  { href: "/about",         label: "Про програму" },
+  { href: "/donors",        label: "Фандрейзинг" },
+  { href: "/beneficiaries", label: "Отримання допомоги" },
+  { href: "/about",         label: "Рішення програми Feel Again" },
   { href: "/methodology",   label: "Методологія" },
+  { href: "/consortium",    label: "Консорціум" },
   { href: "/referral",      label: "Реєстрація" },
   { href: "/portal",        label: "Кабінети" },
 ];
@@ -151,7 +153,7 @@ export default function Navbar() {
                     "text-sm h-9 rounded-md border-none bg-transparent shadow-none ring-0",
                     "data-[state=open]:bg-transparent"
                   )}
-                  style={{ color: isActive("/about", "/methodology") ? GOLD : "rgba(255,255,255,0.75)" }}
+                  style={{ color: isActive("/about", "/methodology", "/consortium") ? GOLD : "rgba(255,255,255,0.75)" }}
                 >
                   Програма
                 </NavigationMenuTrigger>

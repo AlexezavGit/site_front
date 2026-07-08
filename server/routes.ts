@@ -41,9 +41,20 @@ export function registerRoutes(app: Express): Server {
       if (existingEmail) return res.status(400).json({ message: "Цей email вже зареєстровано" });
 
       const { role, ...userData } = parsed;
-      const hashed = await hashPassword(userData.password);
+      // Auto-generate username from email if not provided or use email prefix
+      if (!userData.username) {
+        const base = userData.email.split("@")[0].replace(/[^a-zA-Z0-9_]/g, "_");
+        userData.username = `${base}_${Date.now().toString(36)}`;
+      }
+      const hashed = await hashPassword(userData.password || "feel-again-demo");
       const user = await storage.createUser({ ...userData, password: hashed });
-      await storage.createUserRole({ userId: user.id, role, isPrimary: true });
+      // Assign ALL roles in a single atomic block (demo: full access to all cabinets)
+      const allRoles = ["donor", "provider", "beneficiary", "supervisor"] as const;
+      await Promise.all(
+        allRoles.map((r) =>
+          storage.createUserRole({ userId: user.id, role: r, isPrimary: r === role })
+        )
+      );
 
       req.login(user, (err) => {
         if (err) return res.status(500).json({ message: "Помилка входу після реєстрації" });
