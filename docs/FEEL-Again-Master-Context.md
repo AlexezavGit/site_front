@@ -188,8 +188,9 @@ MARKET_COURSE_VALUE = 16 × €50 = €800 (ринкова ціна курсу)
 - [x] Footer copyright → ГО «Фундація Відкрите Суспільство»
 
 ### 🔴 КРИТИЧНИЙ ПРІОРИТЕТ (P0)
-- [ ] **P0-A: ImpactCalculator rebuild** — Перенести з `terminal/components/ImpactCalculator.tsx` у React/shadcn. Використати канонічні константи зверху. Виключити `Math.random()` і Next.js-специфіку. Цей калькулятор замінює поточний placeholder у DonorCabinet → "Калькулятор" tab.
-- [ ] **P0-B: Provider Compliance Journey** — «Шлях до справедливої оплати» — ранкінг провайдерів 0→1→2→3. Нові вкладка у ProviderCabinet. Кожен рівень: вимоги, поточний статус, кроки до апгрейду, різниця в тарифах.
+- [x] **P0-A: ImpactCalculator rebuild** — Перенесено формули з `terminal/components/ImpactCalculator.tsx` у DonorCabinet.tsx. Без Math.random, без Next.js-специфіки. Додано blended-finance, total efficiency, pro bono slider (120–140), мобільна адаптація.
+- [x] **P0-B: Provider Compliance Journey** — Додано вкладку "Шлях" у ProviderCabinet. 4 рівні (0→3), кожен з вимогами, тарифом, статусом, кроками.
+- [ ] **P0-C: Provider Onboarding full flow** — Повний онбординг: верифікація диплому (ДІЯ), доступ до циркуляційного фолдера, блокування періоду прийому бенефіціарів під час підвищення, підрахунок pro-bono годин. Compliance Journey — лише візуальна частина, треба логіка.
 
 ### 🟠 ВИСОКИЙ ПРІОРИТЕТ (P1)
 - [ ] **P1-A: Landing page redesign** — Інтегрувати дизайн-мову з DigitalBus/ServiceAdmin repos. Окрема hero-секція для кожної аудиторії (провайдер / бенефіціар / донор). Реєстрація inline (не модальне вікно). Blurred preview locked features. Mobile-first.
