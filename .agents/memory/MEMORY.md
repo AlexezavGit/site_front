@@ -3,3 +3,7 @@
 - [Feel Again auth pattern](feel-again-auth.md) — email+password auth with role-based cabinet access; scrypt+passport-local+PG sessions
 - [FEEL Again design system](feel-again-design-system.md) — bunker palette + per-role color groups; heroes must differ in structure per audience, not just recolor a shared template.
 - [Figma access from sandbox](figma-sandbox-access.md) — FIGMA_ACCESS_TOKEN works via bash/node, not inside code_execution sandbox.
+- [ImpactCalculator constants conflict](impact-calculator-constants.md) — TRAINING_GROUP_COST: user stated €90k, master doc §5 says €48,025. Currently using €90k in DonorCabinet.tsx. Need user confirmation.
+- [Provider compliance rates](provider-compliance-rates.md) — Level 0=€18/hr, 1=€35/hr, 2=€55/hr, 3=€85/hr per session. Requirements per level documented in ProviderCabinet.tsx ComplianceJourney().
+- [Live metrics API](live-metrics-api.md) — `GET /api/stream/live-metrics` returns deterministic data (no Math.random). Primary: DB aggregates; fallback: canonical dataset v1.0. Wired to DonorCabinet via useQuery refetchInterval 30000ms.
+- [Auth gotcha](auth-gotcha.md) — Login form sends `username` (not email). Test creds: username=`test`, password=`Test123!`. Reset via scrypt in neon serverless driver if needed.

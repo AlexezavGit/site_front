@@ -627,6 +627,107 @@ function IncomeCalculator() {
   );
 }
 
+function ComplianceJourney() {
+  const levels = [
+    {
+      id: 0,
+      label: "Рівень 0 · Універсал",
+      status: "locked",
+      rate: "€18/год сеанс",
+      requirements: ["Реєстрація на платформі", "Подати 2 документи (паспорт + диплом)"],
+      nextSteps: ["Подати документи на верифікацію"],
+    },
+    {
+      id: 1,
+      label: "Рівень 1 · Апробований",
+      status: "current",
+      rate: "€35/год сеанс",
+      requirements: ["Верифікований профіль", "1 референс від супервізора", "30+ проведених сеансів"],
+      nextSteps: ["Записатися на EMDR Basic Training", "Збірати 3 звітні пакети за 90 днів"],
+    },
+    {
+      id: 2,
+      label: "Рівень 2 · Вартий резидент",
+      status: "pending",
+      rate: "€55/год сеанс",
+      requirements: ["EMDR Basic Training завершено", "3 позитивні звіти", "NPS бенефіціарів ≥5.0"],
+      nextSteps: ["Подати заявку на рівень 2", "Пройти peer-review аудит"],
+    },
+    {
+      id: 3,
+      label: "Рівень 3 · Експерт",
+      status: "pending",
+      rate: "€85/год сеанс",
+      requirements: ["EMDR Certification + supervision портфоліо", "Робота з рефажі немиме років", "Внутрішня рецензія стратегії"],
+      nextSteps: ["Подати аплікацію на програму Train the Trainer", "Участь у Stream 1.0 програмі менторингу"],
+    },
+  ];
+
+  const statusConfig: Record<string, { bg: string; border: string; icon: any; label: string }> = {
+    locked: { bg: "bg-slate-100", border: "border-slate-200", icon: BadgeCheck, label: "Отримано" },
+    current: { bg: "bg-teal-50", border: "border-teal-200", icon: BadgeCheck, label: "Поточний" },
+    pending: { bg: "bg-white", border: "border-slate-200", icon: BadgeCheck, label: "Наступний" },
+  };
+
+  return (
+    <div className="space-y-4 sm:space-y-5">
+      <div className="flex items-center justify-between">
+        <h2 className="text-base sm:text-lg font-semibold" style={{ color: NAVY }}>Шлях до справедливої оплати · Провайдер Onboarding</h2>
+        <Badge className="bg-teal-100 text-teal-800 text-xs">Демо — Рівень 1</Badge>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {levels.map((level) => {
+          const cfg = statusConfig[level.status];
+          const Icon = cfg.icon;
+          return (
+            <Card key={level.id} className={`${cfg.bg} ${cfg.border} border overflow-hidden`} data-testid={`compliance-level-${level.id}`}>
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-sm sm:text-base flex items-center gap-2">
+                    <Icon className={`w-4 h-4 ${level.status === "current" ? "text-teal-600" : "text-slate-400"}`} />
+                    {level.label}
+                  </CardTitle>
+                  <Badge className={`text-xs ${level.status === "current" ? "bg-teal-100 text-teal-800" : level.status === "locked" ? "bg-slate-100 text-slate-600" : "bg-amber-50 text-amber-700"}`}>
+                    {cfg.label}
+                  </Badge>
+                </div>
+                <p className="text-xs sm:text-sm font-mono font-bold" style={{ color: TEAL }}>{level.rate}</p>
+              </CardHeader>
+              <CardContent className="space-y-3 text-xs sm:text-sm">
+                <div>
+                  <p className="text-xs uppercase font-semibold text-slate-500 mb-1.5 tracking-wide">Вимоги</p>
+                  <ul className="space-y-1">
+                    {level.requirements.map((req, i) => (
+                      <li key={i} className="flex items-start gap-2 text-slate-700">
+                        <BadgeCheck className={`w-3.5 h-3.5 mt-0.5 shrink-0 ${level.status === "locked" ? "text-slate-300" : level.id <= 1 ? "text-teal-600" : "text-slate-400"}`} />
+                        <span>{req}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                {level.nextSteps.length > 0 && (
+                  <div>
+                    <p className="text-xs uppercase font-semibold text-slate-500 mb-1.5 tracking-wide">Наступні кроки</p>
+                    <ul className="space-y-1">
+                      {level.nextSteps.map((step, i) => (
+                        <li key={i} className="flex items-start gap-2 text-slate-700">
+                          <ArrowRight className="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-600" />
+                          <span>{step}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 const TABS = [
   { id: "circulation", label: "Фолдер", icon: Users },
   { id: "programs", label: "Програми", icon: LayoutGrid },
@@ -634,6 +735,7 @@ const TABS = [
   { id: "projects", label: "Проєкти", icon: ClipboardList },
   { id: "reports", label: "Звітність", icon: FileText },
   { id: "session", label: "Сеанс", icon: Timer },
+  { id: "compliance", label: "Шлях", icon: TrendingUp },
   { id: "calculator", label: "Дохід", icon: Calculator },
 ];
 
@@ -685,6 +787,7 @@ export default function ProviderCabinet() {
             {activeTab === "register" && <RegisterClient />}
             {activeTab === "projects" && <Projects />}
             {activeTab === "reports" && <Reports />}
+            {activeTab === "compliance" && <ComplianceJourney />}
             {activeTab === "session" && (
               <SessionHandshake
                 sessionNumber={9}

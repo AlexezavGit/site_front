@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,7 +10,7 @@ import {
   Users, CheckCircle2, FileText, Activity, Star, Zap,
   Globe, Building2, Banknote, Brain, Shield, ChevronRight,
   AlertCircle, Clock, GraduationCap, Sparkles, Target, ArrowRight,
-  LayoutGrid, PieChart, Wallet, BadgeCheck, Timer, Trophy
+  LayoutGrid, PieChart, Wallet, BadgeCheck, Timer, Trophy, RefreshCw
 } from "lucide-react";
 
 const GOLD = "#B45309";
@@ -48,12 +49,29 @@ const FUNNEL_STEPS = [
   { id: 12, label: "Профілактика 1-3-6міс", val: 870, icon: Timer, color: "bg-lime-100", fill: "bg-lime-600" },
 ];
 
+interface LiveMetrics {
+  humanitarian_composite_index: number;
+  total_beneficiaries_served: number;
+  organizations_using_stream: number;
+  total_aid_volume: number;
+  feel_again: { active_beneficiaries: number };
+  blockchain_verifications: number;
+  real_time_transactions: number;
+  last_updated: string;
+}
+
 function Dashboard({ donorType }: { donorType: string }) {
+  const { data: live, isLoading } = useQuery<LiveMetrics>({
+    queryKey: ["/api/stream/live-metrics"],
+    refetchInterval: 30000,
+    staleTime: 25000,
+  });
+
   const kpisByType: Record<string, Array<{ label: string; val: string; sub: string; color: string }>> = {
     patron: [
       { label: "Ваш внесок", val: "€45,000", sub: "Активний", color: "text-rose-600" },
-      { label: "Бенефіціарів охоплено", val: "38", sub: "з 40 цільових", color: "text-violet-600" },
-      { label: "Сеансів проведено", val: "342", sub: "з верифікацією ДІЯ", color: "text-teal-600" },
+      { label: "Бенефіціарів охоплено", val: live?.total_beneficiaries_served?.toLocaleString() ?? "38", sub: "з 40 цільових", color: "text-violet-600" },
+      { label: "Сеансів проведено", val: live?.feel_again?.active_beneficiaries?.toLocaleString() ?? "342", sub: "з верифікацією ДІЯ", color: "text-teal-600" },
       { label: "ESG-рейтинг", val: "A+", sub: "Platinum donor", color: "text-amber-600" },
     ],
     employer: [
@@ -69,13 +87,13 @@ function Dashboard({ donorType }: { donorType: string }) {
       { label: "ЄБРР гарантія", val: "60%", sub: "ризик-покриття", color: "text-blue-600" },
     ],
     humanitarian: [
-      { label: "Програм активних", val: "3", sub: "Харків · Київ · Одеса", color: "text-violet-600" },
-      { label: "Бенефіціарів охоплено", val: "1,240", sub: "+18% vs Q1", color: "text-teal-600" },
+      { label: "Програм активних", val: live?.organizations_using_stream?.toString() ?? "3", sub: "Харків · Київ · Одеса", color: "text-violet-600" },
+      { label: "Бенефіціарів охоплено", val: live?.total_beneficiaries_served?.toLocaleString() ?? "1,240", sub: "+18% vs Q1", color: "text-teal-600" },
       { label: "Фахівців навчено", val: "47", sub: "Train for Care", color: "text-amber-600" },
       { label: "Donor reporting", val: "auto", sub: "Parametric model", color: "text-emerald-600" },
     ],
     bank: [
-      { label: "Портфель ESG", val: "€2.4M", sub: "ЄБРР EU4Business", color: "text-amber-700" },
+      { label: "Портфель ESG", val: live?.total_aid_volume ? `€${(live.total_aid_volume / 1e6).toFixed(1)}M` : "€2.4M", sub: "ЄБРР EU4Business", color: "text-amber-700" },
       { label: "Кредитний ризик", val: "-58%", sub: "ЄБРР гарантія", color: "text-green-600" },
       { label: "BFI-статус", val: "√", sub: "Закон №4465-IX", color: "text-blue-600" },
       { label: "HCR Charter", val: "підписано", sub: "Квітень 2024", color: "text-violet-600" },
@@ -86,6 +104,11 @@ function Dashboard({ donorType }: { donorType: string }) {
 
   return (
     <div className="space-y-6">
+      {isLoading && (
+        <div className="flex items-center gap-2 text-xs text-muted-foreground" data-testid="live-metrics-loading">
+          <RefreshCw className="w-3 h-3 animate-spin" /> Оновлення живих метрик...
+        </div>
+      )}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {kpis.map((k, i) => (
           <Card key={i} className="border-0 shadow-sm">
@@ -430,13 +453,26 @@ function ScoringBoard({ donorType }: { donorType: string }) {
 }
 
 function ImpactCalculator({ donorType }: { donorType: string }) {
+  // Canonical constants (terminal repo + user updates)
+  const TRAINING_GROUP_SIZE = 20;
+  const TRAINING_GROUP_COST = 90000; // user-provided value; ⚠️ verify vs €48,025
+  const PRO_BONO_HOURS_MIN = 120;
+  const PRO_BONO_HOURS_MAX = 140;
+  const SESSIONS_PER_BENEFICIARY_INTERNAL = 12; // EMDR & VR
+  const SESSIONS_PER_BENEFICIARY_MARKET = 16; // WHO standard
+  const MARKET_HOUR_RATE = 50;
+  const MARKET_COURSE_VALUE = SESSIONS_PER_BENEFICIARY_MARKET * MARKET_HOUR_RATE; // €800
+
+  // Sliders
   const [budget, setBudget] = useState(75000);
   const [specialists, setSpecialists] = useState(20);
   const [sessionsPerBeneficiary, setSessionsPerBeneficiary] = useState(12);
   const [beneficiariesPerSpec, setBeneficiariesPerSpec] = useState(5);
   const [matchPct, setMatchPct] = useState(60);
   const [ebrdrPct, setEbrdrPct] = useState(0);
+  const [proBonoHours, setProBonoHours] = useState(130); // blended slider 120-140
 
+  // Derived
   const totalBeneficiaries = specialists * beneficiariesPerSpec;
   const totalSessions = totalBeneficiaries * sessionsPerBeneficiary;
   const costPerSession = budget / Math.max(totalSessions, 1);
@@ -446,15 +482,31 @@ function ImpactCalculator({ donorType }: { donorType: string }) {
   const costPerBeneficiary = totalLeverage / Math.max(totalBeneficiaries, 1);
   const socialReturnMultiple = (totalBeneficiaries * 4200) / Math.max(budget, 1);
 
+  // Terminal-repo blended-finance formulas
+  const trainingCost = (specialists / TRAINING_GROUP_SIZE) * TRAINING_GROUP_COST;
+  const baseCost = totalBeneficiaries * MARKET_COURSE_VALUE;
+  const totalActualCost = baseCost + trainingCost;
+  const userContribution = totalActualCost * (matchPct / 100);
+  const otherFunding = totalActualCost - userContribution;
+  const crowdfunding = otherFunding * 0.10;
+  const corporate = otherFunding * 0.25;
+  const donorsShare = otherFunding * 0.65;
+  const totalMarketValue = totalBeneficiaries * MARKET_COURSE_VALUE;
+  const totalEfficiency = userContribution > 0 ? totalMarketValue / userContribution : 0;
+  const effectiveCostPerBeneficiary = totalBeneficiaries > 0 ? totalActualCost / totalBeneficiaries : MARKET_COURSE_VALUE;
+  const addedBeneficiaries = (specialists / TRAINING_GROUP_SIZE) * ((TRAINING_GROUP_SIZE * proBonoHours) / SESSIONS_PER_BENEFICIARY_INTERNAL);
+
   const isSIB = donorType === "sib";
   const isBank = donorType === "bank";
 
+  const fmtCurrency = (v: number) => `€${Math.round(v).toLocaleString()}`;
+
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       {isBank && (
         <Card className="border-amber-200 bg-amber-50/40">
           <CardContent className="pt-3 pb-3">
-            <p className="text-xs text-amber-800">
+            <p className="text-xs text-amber-800 leading-relaxed">
               <strong>ЄБРР EU4Business:</strong> Додайте % гарантії нижче — ЄБРР покриває 50–70% кредитного ризику по нових портфелях. Cashback для підприємств-ветеранів: 10–30%.
             </p>
           </CardContent>
@@ -462,20 +514,22 @@ function ImpactCalculator({ donorType }: { donorType: string }) {
       )}
 
       <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center gap-2 text-base">
+        <CardHeader className="pb-2 sm:pb-3">
+          <CardTitle className="flex items-center gap-2 text-sm sm:text-base">
             <Calculator className="w-4 h-4 text-amber-600" />
             {isSIB ? "SIB Outcomes-калькулятор" : "Імпакт-калькулятор"}
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-5">
-          <div className="grid grid-cols-2 gap-5">
+        <CardContent className="space-y-4 sm:space-y-5">
+          {/* Sliders */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
             {[
               { label: "Ваш внесок (€)", val: budget, set: setBudget, min: 10000, max: 500000, step: 5000, fmt: (v: number) => `€${v.toLocaleString()}` },
               { label: "Фахівців навчається", val: specialists, set: setSpecialists, min: 5, max: 100, step: 5, fmt: (v: number) => `${v} осіб` },
               { label: "Сеансів / бенефіціар", val: sessionsPerBeneficiary, set: setSessionsPerBeneficiary, min: 4, max: 40, step: 2, fmt: (v: number) => `${v} сеансів` },
               { label: "Бенефіціарів / фахівець", val: beneficiariesPerSpec, set: setBeneficiariesPerSpec, min: 1, max: 20, step: 1, fmt: (v: number) => `${v} осіб` },
               { label: "Co-financing match (%)", val: matchPct, set: setMatchPct, min: 0, max: 100, step: 5, fmt: (v: number) => `${v}%` },
+              { label: "Pro bono годин / абітурієнт", val: proBonoHours, set: setProBonoHours, min: 120, max: 140, step: 5, fmt: (v: number) => `${v} год` },
               ...(isBank ? [{ label: "ЄБРР гарантія (%)", val: ebrdrPct, set: setEbrdrPct, min: 0, max: 70, step: 5, fmt: (v: number) => `${v}%` }] : []),
             ].map((item) => (
               <div key={item.label}>
@@ -484,20 +538,22 @@ function ImpactCalculator({ donorType }: { donorType: string }) {
                   type="range" min={item.min} max={item.max} step={item.step} value={item.val}
                   onChange={(e) => item.set(Number(e.target.value))}
                   className="w-full accent-amber-600 mt-1"
+                  data-testid={`slider-${item.label.replace(/[€%\s/]/g, '').toLowerCase()}`}
                 />
                 <div className="text-sm font-mono text-amber-700 font-semibold">{item.fmt(item.val)}</div>
               </div>
             ))}
           </div>
 
-          <div className="rounded-xl border bg-slate-50 p-4 space-y-2">
+          {/* Primary results */}
+          <div className="rounded-xl border bg-slate-50 p-3 sm:p-4 space-y-2">
             {[
               { label: "Бенефіціарів охоплено", val: totalBeneficiaries.toLocaleString(), bold: false, color: "" },
               { label: "Всього сеансів", val: totalSessions.toLocaleString(), bold: false, color: "" },
               { label: "Вартість сеансу", val: `€${costPerSession.toFixed(0)}`, bold: false, color: "" },
-              { label: "Co-financing залучено", val: `€${matchFunding.toLocaleString()}`, bold: false, color: "" },
-              ...(isBank ? [{ label: "ЄБРР гарантія", val: `€${ebrdrGuarantee.toLocaleString()}`, bold: false, color: "" }] : []),
-              { label: "Загальний леверидж", val: `€${totalLeverage.toLocaleString()}`, bold: true, color: "text-emerald-700" },
+              { label: "Co-financing залучено", val: fmtCurrency(matchFunding), bold: false, color: "" },
+              ...(isBank ? [{ label: "ЄБРР гарантія", val: fmtCurrency(ebrdrGuarantee), bold: false, color: "" }] : []),
+              { label: "Загальний леверидж", val: fmtCurrency(totalLeverage), bold: true, color: "text-emerald-700" },
               { label: "Вартість / бенефіціар", val: `€${costPerBeneficiary.toFixed(0)}`, bold: false, color: "" },
               { label: "Social Return (SROI)", val: `${socialReturnMultiple.toFixed(1)}×`, bold: true, color: "text-amber-700" },
             ].map((row) => (
@@ -508,8 +564,38 @@ function ImpactCalculator({ donorType }: { donorType: string }) {
             ))}
           </div>
 
-          <p className="text-xs text-muted-foreground">
-            SROI базується на €4,200 / рік економічного відновлення на одного бенефіціара (WHO Human Capital Model, середнє ЄС). Відмова від відповідальності: розрахунки базуються на середньоринкових ставках ЄС.
+          {/* Blended finance panel (from terminal repo) */}
+          <div className="rounded-xl border p-3 sm:p-4 space-y-3" style={{ background: "#0B2422", borderColor: "rgba(62,145,162,0.25)" }}>
+            <div className="text-xs uppercase mb-2" style={{ color: "rgba(255,255,255,0.5)", letterSpacing: "0.12em" }}>Blended Finance · Розподіл ресурсів</div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {[
+                { label: "Краудфандінг", val: crowdfunding, color: "#F59E0B" },
+                { label: "Корпоративні", val: corporate, color: "#3E91A2" },
+                { label: "Донори", val: donorsShare, color: "#00FF66" },
+                { label: "Ефективність", val: totalEfficiency, fmt: (v: number) => `${v.toFixed(2)}x`, color: "#F59E0B" },
+              ].map((item) => (
+                <div key={item.label} className="rounded-lg p-3 text-center" style={{ background: "rgba(0,0,0,0.18)", border: `1px solid ${item.color}33` }}>
+                  <div className="text-[10px] uppercase font-bold tracking-wider mb-1" style={{ color: "rgba(255,255,255,0.5)" }}>{item.label}</div>
+                  <div className="text-base sm:text-lg font-mono font-bold" style={{ color: item.color }}>
+                    {item.fmt ? item.fmt(item.val as number) : fmtCurrency(item.val as number)}
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-between text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <span>Ринкова вартість курсу: {fmtCurrency(MARKET_COURSE_VALUE)}</span>
+              <span>Фактична вартість / бенефіціар: €{Math.round(effectiveCostPerBeneficiary).toLocaleString()}</span>
+            </div>
+            <div className="flex justify-between text-xs" style={{ color: "rgba(255,255,255,0.6)" }}>
+              <span>Додано бенефіціарів через тренінг: {Math.round(addedBeneficiaries).toLocaleString()}</span>
+              <span>Вартість навчання групи: {fmtCurrency(TRAINING_GROUP_COST)}</span>
+            </div>
+          </div>
+
+          <p className="text-xs text-muted-foreground leading-relaxed">
+            SROI базується на €4,200 / рік економічного відновлення на одного бенефіціара (WHO Human Capital Model, середнє ЄС).
+            Blended-finance розподіл: краудфандінг 10% · корпоративні 25% · донори 65% від "other funding".
+            Відмова від відповідальності: розрахунки базуються на середньоринкових ставках ЄС.
           </p>
         </CardContent>
       </Card>
