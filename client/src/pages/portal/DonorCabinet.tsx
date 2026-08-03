@@ -13,6 +13,11 @@ import {
   LayoutGrid, PieChart, Wallet, BadgeCheck, Timer, Trophy, RefreshCw
 } from "lucide-react";
 
+// v5 (DATA_DICTIONARY v5 §4): tariff canonical = €70/гoд (70% нім. бенчмарку) для приватного треку,
+// $60 — Train for Care, $31.25 — субсидований. SIB-маржа 3/5/7% від пулу.
+// Застарілі: $954M HEAL/THRIVE gap (DEPRECATED §2.3); MHEI legacy 4.12→8.16 (DEPRECATED).
+// DonorCabinet підключений до живого /api/sync feed (live?.total_aid_volume).
+
 const GOLD = "#B45309";
 const NAVY = "#0F2B46";
 const TEAL = "#0D9488";
