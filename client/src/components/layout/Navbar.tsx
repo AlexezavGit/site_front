@@ -174,19 +174,17 @@ export default function Navbar() {
                 </Link>
               </NavigationMenuItem>
 
-              {/* External dashboard */}
+              {/* Institutional Dashboard */}
               <NavigationMenuItem>
-                <a
-                  href="https://dashboard-1q7.pages.dev/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ ...navLinkStyle(false), textDecoration: "none" }}
-                  onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "white")}
-                  onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.75)")}
-                >
-                  Дашборд
-                  <ExternalLink style={{ width: 12, height: 12, opacity: 0.6 }} />
-                </a>
+                <Link href="/institutional">
+                  <button
+                    style={navLinkStyle(location === "/institutional")}
+                    onMouseEnter={e => { if (location !== "/institutional") (e.currentTarget as HTMLElement).style.color = "white"; }}
+                    onMouseLeave={e => { if (location !== "/institutional") (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.75)"; }}
+                  >
+                    Дашборд
+                  </button>
+                </Link>
               </NavigationMenuItem>
 
             </NavigationMenuList>

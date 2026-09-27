@@ -19,6 +19,7 @@ import Referral from "@/pages/Referral";
 import Portal from "@/pages/Portal";
 import AuthPage from "@/pages/AuthPage";
 import Consortium from "@/pages/Consortium";
+import InstitutionalDashboard from "@/pages/InstitutionalDashboard";
 import LandingRecipient from "@/pages/LandingRecipient";
 import LandingProvider from "@/pages/LandingProvider";
 import LandingPatron from "@/pages/LandingPatron";
@@ -49,6 +50,9 @@ function Router() {
           <Route path="/recipient" component={LandingRecipient} />
           <Route path="/provider" component={LandingProvider} />
           <Route path="/patron" component={LandingPatron} />
+
+          {/* Institutional Dashboard */}
+          <Route path="/institutional" component={InstitutionalDashboard} />
 
           {/* Portal hub */}
           <Route path="/portal" component={Portal} />

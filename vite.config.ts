@@ -8,7 +8,21 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 export default defineConfig({
-  plugins: [react(), runtimeErrorOverlay(), themePlugin()],
+  plugins: [
+    react(),
+    runtimeErrorOverlay({
+      filter(error) {
+        // Firefox can dispatch preview-frame events with a cross-origin target.
+        // React cannot inspect that target, but the app remains mounted.
+        // Don't turn this browser-only event into a Vite "app crashed" overlay.
+        return !(
+          /Permission denied to access property ["']__reactFiber\$/.test(error.message) &&
+          error.stack?.includes("getClosestInstanceFromNode")
+        );
+      },
+    }),
+    themePlugin(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client", "src"),
